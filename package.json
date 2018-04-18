@@ -1,0 +1,22 @@
+{
+  "name": "laparwah",
+  "version": "1.0.0",
+  "description": "Independent, Open and Unbiased News Portal",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Debug-Studios/Laparwah.git"
+  },
+  "keywords": [
+    "News"
+  ],
+  "author": "Prajjwal",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Debug-Studios/Laparwah/issues"
+  },
+  "homepage": "https://github.com/Debug-Studios/Laparwah#readme"
+}
