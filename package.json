@@ -5,15 +5,13 @@
   "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config client/build/webpack.config.dev.js"
+    "build": "webpack -p --config client/build/webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Debug-Studios/Laparwah.git"
   },
-  "keywords": [
-    "News"
-  ],
+  "keywords": ["News"],
   "author": "Prajjwal",
   "license": "Apache-2.0",
   "bugs": {
@@ -40,7 +38,9 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.8.3",
     "pug-loader": "^2.4.0",
+    "sass-loader": "^7.0.1",
     "style-loader": "^0.20.3",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",
