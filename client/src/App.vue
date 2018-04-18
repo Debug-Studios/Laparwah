@@ -1,12 +1,22 @@
-<template lang="pug">
-  div
-    h1.heading Hello World 1
+<template>
+  <v-app dark>
+    <v-toolbar class="deep-purple">
+      <v-toolbar-title>Vuetify Setup</v-toolbar-title>
+    </v-toolbar>
+  </v-app>
 </template>
 
+<script>
+export default {
+  data() {
+    return {};
+  }
+};
+</script>
+
+
 <style lang="scss">
-h1 {
-  color: red;
-}
+@import "./scss/main.scss";
 </style>
 
 
