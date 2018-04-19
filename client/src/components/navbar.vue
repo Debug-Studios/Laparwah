@@ -106,7 +106,7 @@
       color="pink"
       dark
       fixed
-      @click.stop="dialog = !dialog"
+      @click.stop=""
     >
       <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
