@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-toolbar class="deep-purple">
       <v-toolbar-title>Vuetify Setup</v-toolbar-title>
     </v-toolbar>
