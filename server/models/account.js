@@ -1,7 +1,7 @@
 const dynamo = require('dynamodb');
 const Joi = require('joi');
 
-exports = dynamo.define('Laparwah_Account', {
+exports.Account = dynamo.define('Account', {
   hashKey: 'username',
   timestamps: true,
   schema: {
@@ -20,5 +20,6 @@ exports = dynamo.define('Laparwah_Account', {
       nickname: Joi.string(),
       acceptedTerms: Joi.boolean().default(false)
     }
-  }
+  },
+  tableName: 'laparwah_accounts'
 });

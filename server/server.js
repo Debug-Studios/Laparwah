@@ -10,8 +10,7 @@ AWS.config.update({ region: 'us-west-2' });
 require('./models/account');
 
 dynamo.createTables(err => {
-  if (err) console.log(err);
-  else console.log('Tables created!');
+  if (err) console.log('Error when trying to create tables', err);
 });
 
 app.use(express.static('dist'));
