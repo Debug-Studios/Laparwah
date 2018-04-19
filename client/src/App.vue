@@ -1,13 +1,16 @@
 <template lang="pug">
   #app
-    nav
-      router-link(to="/login") Login
-
+    <navbar/>
     router-view
 </template>
 
 <script>
+import navbar from './components/navbar.vue'
 export default {
+  name: 'app',
+  components:{
+    navbar
+  },
   data() {
     return {};
   }
