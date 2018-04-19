@@ -1,17 +1,14 @@
 import Vue from 'vue';
 import App from './App.vue';
 import Vuetify from 'vuetify';
-import VueRouter from 'vue-router';
+import router from './router/router';
 
 // Vuetify
 Vue.use(Vuetify);
 Vue.config.productionTip = false;
 
-// Vue-router
-Vue.use(VueRouter);
-
 /* eslint-disable-next-line no-new */
 new Vue({
-  el: '#app',
+  router,
   render: h => h(App)
-});
+}).$mount('#app');

@@ -1,9 +1,9 @@
-<template>
-  <v-app>
-    <v-toolbar class="deep-purple">
-      <v-toolbar-title>Vuetify Setup</v-toolbar-title>
-    </v-toolbar>
-  </v-app>
+<template lang="pug">
+  #app
+    nav
+      router-link(to="/login") Login
+
+    router-view
 </template>
 
 <script>
