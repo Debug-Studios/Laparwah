@@ -11,7 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/Debug-Studios/Laparwah.git"
   },
-  "keywords": ["News"],
+  "keywords": [
+    "News"
+  ],
   "author": "Prajjwal",
   "license": "Apache-2.0",
   "bugs": {
@@ -22,6 +24,7 @@
     "express": "^4.16.3",
     "html": "^1.0.0",
     "material-design-icons-iconfont": "^3.0.3",
+    "pg": "^7.4.1",
     "pug": "^2.0.3",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
