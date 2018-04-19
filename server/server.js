@@ -2,7 +2,16 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-const account = require('./models/account');
+// DynamoDB
+const dynamo = require('dynamodb');
+const AWS = dynamo.AWS;
+AWS.config.loadFromPath(process.env.HOME + '/.aws/credentials.json');
+AWS.config.update({ region: 'us-west-2' });
+require('./models/account');
+
+dynamo.createTables(err => {
+  if (err) console.log('Error when trying to create tables', err);
+});
 
 app.use(express.static('dist'));
 

@@ -1,28 +1,25 @@
 const dynamo = require('dynamodb');
-const AWS = dynamo.AWS;
 const Joi = require('joi');
-AWS.config.loadFromPath(process.env.HOME + '/.aws/credentials.json');
-AWS.config.update({ region: 'us-west-2' });
 
-dynamo.define('example-Account', {
-  hashKey: 'name',
-  rangeKey: 'email',
+exports.Account = dynamo.define('Account', {
+  hashKey: 'username',
+  timestamps: true,
   schema: {
+    username: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(30)
+      .required(),
     name: Joi.string(),
-    email: Joi.string(),
-    age: Joi.number()
+    email: Joi.string()
+      .email()
+      .required(),
+    age: Joi.number(),
+    roles: dynamo.types.stringSet(),
+    settings: {
+      nickname: Joi.string(),
+      acceptedTerms: Joi.boolean().default(false)
+    }
   },
-  indexes: [
-    { hashKey: 'name', rangeKey: 'age', type: 'local', name: 'NameAgeIndex' }
-  ]
+  tableName: 'laparwah_accounts'
 });
-
-dynamo.createTables(
-  {
-    Account: { readCapacity: 1, writeCapacity: 1 }
-  },
-  err => {
-    if (err) console.log(err);
-    else console.log('Tables created');
-  }
-);
