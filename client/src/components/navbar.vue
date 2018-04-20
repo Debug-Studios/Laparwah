@@ -159,17 +159,17 @@
             </v-flex>
             <v-flex xs12 class="text-xs-center">
               <v-avatar>
-                <img src="/client/src/icons/google.svg" align="middle"/>
+                <img src="/dist/icons/google.svg"/>
               </v-avatar>
               
               <v-avatar>
-                <img src="/client/src/icons/facebook.svg" align="middle"/>
+                <img src="/dist/icons/facebook.svg"/>
               </v-avatar>
               <v-avatar>
-                <img src="/client/src/icons/twitter.svg" align="middle"/>
+                <img src="/dist/icons/twitter.svg"/>
               </v-avatar>
               <v-avatar>
-                <img src="/client/src/icons/windows.svg" align="middle"/>
+                <img src="/dist/icons/windows.svg"/>
               </v-avatar>
             </v-flex>
             
