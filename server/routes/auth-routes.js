@@ -35,7 +35,16 @@ router.get(
 );
 
 // auth with twitter
-router.get('/twitter', (req, res) => {});
+router.get('/twitter', passport.authenticate('twitter'));
+
+// callback route for twitter
+router.get(
+  '/twitter/redirect',
+  passport.authenticate('twitter', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/dashboard');
+  }
+);
 
 // auth with microsoft
 router.get('/microsoft', (req, res) => {});
