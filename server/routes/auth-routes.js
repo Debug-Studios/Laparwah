@@ -18,7 +18,7 @@ router.get(
   '/google/redirect',
   passport.authenticate('google', { failureRedirect: '/auth/login' }),
   (req, res) => {
-    res.send('Authenticated');
+    res.redirect('/dashboard');
   }
 );
 

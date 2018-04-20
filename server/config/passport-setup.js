@@ -5,15 +5,13 @@ const chalk = require('chalk');
 const Account = require('./../models/account');
 
 passport.serializeUser((acc, done) => {
-  done(null, acc.id);
+  done(null, acc.attrs.id);
 });
 
-passport.deserializeUser((email, done) => {
-  Account.get(`${email}`, (err, acc) => {
-    if (err) done(null, null);
-    else {
-      done(null, acc);
-    }
+passport.deserializeUser((id, done) => {
+  Account.get({ id: `${id}` }, (err, acc) => {
+    if (err) return;
+    done(null, acc);
   });
 });
 
@@ -44,13 +42,13 @@ passport.use(
                 if (err) {
                   console.log(chalk.red(err));
                 }
-                return done(err, newAcc);
+                done(err, newAcc);
               }
             );
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            return done(err, acc);
+            done(err, acc);
           }
         }
       });
