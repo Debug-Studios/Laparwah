@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const cors = require('cors');
 const authRoutes = require('./routes/auth-routes');
 const path = require('path');
 const cookieSession = require('cookie-session');
@@ -11,6 +12,9 @@ const dynamo = require('dynamodb');
 const AWS = dynamo.AWS;
 
 app.use(morgan('tiny'));
+
+// Enable CORS
+app.use(cors());
 
 // DynamoDB
 AWS.config.loadFromPath(process.env.HOME + '/.aws/credentials.json');
