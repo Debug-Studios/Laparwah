@@ -1,6 +1,7 @@
 const express = require('express');
-const authRoutes = require('./routes/auth-routes');
 const app = express();
+const morgan = require('morgan');
+const authRoutes = require('./routes/auth-routes');
 const path = require('path');
 const cookieSession = require('cookie-session');
 const cookieSecret = require('./config/credentials/cookieSecret');
@@ -8,6 +9,8 @@ const passport = require('passport');
 
 const dynamo = require('dynamodb');
 const AWS = dynamo.AWS;
+
+app.use(morgan('tiny'));
 
 // DynamoDB
 AWS.config.loadFromPath(process.env.HOME + '/.aws/credentials.json');
