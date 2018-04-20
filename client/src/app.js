@@ -3,11 +3,11 @@ import App from './App.vue';
 import Vuetify from 'vuetify';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
-import VueResource from 'vue-resource';
+import axios from 'axios';
 
 // Vee-Validate
 Vue.use(VeeValidate);
-Vue.use(VueResource);
+Vue.use(axios);
 // Vuetify
 Vue.use(Vuetify);
 Vue.config.productionTip = false;

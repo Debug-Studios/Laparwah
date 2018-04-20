@@ -139,30 +139,23 @@
                 required
               ></v-text-field>
             </v-flex>
-            <v-flex xs12>
+            <v-flex xs12 align-center>
               <span >Or Sign in using</span>
+             
               
-              <v-btn
-              
-              >
+              <v-avatar>
                 <img src="/client/src/icons/google.svg"/>
-              </v-btn>
+              </v-avatar>
               
-              <v-btn
-              
-              >
+              <v-avatar>
                 <img src="/client/src/icons/facebook.svg"/>
-              </v-btn>
-              <v-btn
-              
-              >
+              </v-avatar>
+              <v-avatar>
                 <img src="/client/src/icons/twitter.svg"/>
-              </v-btn>
-              <v-btn 
-              fab
-              >
-                <img src="/client/src/icons/outlook.svg"/>
-              </v-btn>
+              </v-avatar>
+              <v-avatar>
+                <img src="/client/src/icons/windows.svg"/>
+              </v-avatar>
             </v-flex>
             
             

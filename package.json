@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Debug-Studios/Laparwah#readme",
   "dependencies": {
     "aws-sdk": "^2.224.1",
+    "axios": "^0.18.0",
     "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.4",
     "dynamodb": "^1.1.1",
@@ -37,7 +38,6 @@
     "passport-twitter": "^1.0.4",
     "vee-validate": "^2.0.6",
     "vue": "^2.5.16",
-    "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.15"
   },
