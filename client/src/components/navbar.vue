@@ -1,34 +1,7 @@
 <template lang="pug">
   v-app#navbar
-    v-navigation-drawer(fixed='' dark='' :clipped='$vuetify.breakpoint.lgAndUp' app='' v-model='drawer')
-      v-list(dense='')
-        template(v-for='item in items')
-          v-layout(row='' v-if='item.heading' align-center='' :key='item.heading')
-            v-flex(xs6='')
-              v-subheader(v-if='item.heading')
-                | {{ item.heading }}
-            v-flex.text-xs-center(xs6='')
-              a.body-2.black--text(href='#!') EDIT
-          v-list-group(v-else-if='item.children' v-model='item.model' :key='item.text' :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon='')
-            v-list-tile(slot='activator')
-              v-list-tile-content
-                v-list-tile-title
-                  | {{ item.text }}
-            v-list-tile(v-for='(child, i) in item.children' :key='i' @click='')
-              v-list-tile-action(v-if='child.icon')
-                v-icon {{ child.icon }}
-              v-list-tile-content
-                v-list-tile-title
-                  | {{ child.text }}
-          v-list-tile(v-else='' @click='' :key='item.text')
-            v-list-tile-action
-              v-icon {{ item.icon }}
-            v-list-tile-content
-              v-list-tile-title
-                | {{ item.text }}
     v-toolbar(app='' dark='' :clipped-left='$vuetify.breakpoint.lgAndUp' fixed='')
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
-        v-toolbar-side-icon(@click.stop='drawer = !drawer')
         span.hidden-sm-and-down Laparwah
       v-text-field.hidden-sm-and-down(flat='' solo-inverted='' prepend-icon='search' label='Search')
       v-spacer
@@ -72,28 +45,9 @@
 <script>
   export default {
     data: () => ({
-      dialog: false,
-      drawer: null,
-      items: [
-        
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'District Blocks',
-          model: false,
-          children: [
-            { text: 'Dasoli' },
-            { text: 'Deval' },
-            { text: 'Gairsain' },
-            { text: 'Ghaat' },
-            { text: 'Joshimath' },
-            { text: 'Karanprayag' },
-            { text: 'Narayanbagar' },
-            { text: 'Pokhari' },
-            { text: 'Tharali' }
-          ]
-        }
-      ]
+      dialog: false
+      
+      
     }),
     props: {
       source: String
@@ -108,6 +62,6 @@
 
 <style scoped>
 .avatar{
-  margin: 10px;
+  margin: 15px;
 }
 </style>
