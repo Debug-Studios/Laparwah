@@ -1,10 +1,11 @@
 const dynamo = require('dynamodb');
 const Joi = require('joi');
 
-exports.Account = dynamo.define('Account', {
-  hashKey: 'username',
+module.exports = dynamo.define('Account', {
+  hashKey: 'email',
   timestamps: true,
   schema: {
+    id: dynamo.types.uuid(),
     username: Joi.string()
       .alphanum()
       .min(3)
@@ -15,10 +16,25 @@ exports.Account = dynamo.define('Account', {
       .email()
       .required(),
     age: Joi.number(),
+    gender: Joi.string(),
     roles: dynamo.types.stringSet(),
     settings: {
       nickname: Joi.string(),
       acceptedTerms: Joi.boolean().default(false)
+    },
+    oauth: {
+      google: {
+        id: Joi.string()
+      },
+      facebook: {
+        id: Joi.string()
+      },
+      twitter: {
+        id: Joi.string()
+      },
+      microsoft: {
+        id: Joi.string()
+      }
     }
   },
   tableName: 'laparwah_accounts'
