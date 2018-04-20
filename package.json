@@ -23,13 +23,13 @@
   "homepage": "https://github.com/Debug-Studios/Laparwah#readme",
   "dependencies": {
     "aws-sdk": "^2.224.1",
+    "axios": "^0.18.0",
     "dynamodb": "^1.1.1",
     "express": "^4.16.3",
     "html": "^1.0.0",
     "material-design-icons-iconfont": "^3.0.3",
     "vee-validate": "^2.0.6",
     "vue": "^2.5.16",
-    "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.15"
   },
