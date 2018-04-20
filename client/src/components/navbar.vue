@@ -1,7 +1,8 @@
 <template>
-  <v-app id="navbar" dark>
+  <v-app id="navbar">
     <v-navigation-drawer
       fixed
+      dark
       :clipped="$vuetify.breakpoint.lgAndUp"
       app
       v-model="drawer"
@@ -67,6 +68,7 @@
     </v-navigation-drawer>
     <v-toolbar
       app
+      dark
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       fixed
     >
@@ -111,7 +113,7 @@
      <v-dialog v-model="dialog" width="800px">
       <v-card>
         <v-card-title
-          class="black lighten-4 py-4 title"
+          class="gray lighten-4 py-4 title"
         >
           Sign in
         </v-card-title>
@@ -141,22 +143,25 @@
               <span >Or Sign in using</span>
               
               <v-btn
-              fab
-              color="pink"
-              dark
+              
               >
-                <v-icon>blur_circular</v-icon>
+                <img src="/client/src/icons/google.svg"/>
               </v-btn>
               
               <v-btn
-              fab
-              color="pink">
-                <v-icon>google</v-icon>
+              
+              >
+                <img src="/client/src/icons/facebook.svg"/>
               </v-btn>
               <v-btn
+              
+              >
+                <img src="/client/src/icons/twitter.svg"/>
+              </v-btn>
+              <v-btn 
               fab
-              color="pink">
-                <v-icon>google</v-icon>
+              >
+                <img src="/client/src/icons/outlook.svg"/>
               </v-btn>
             </v-flex>
             
