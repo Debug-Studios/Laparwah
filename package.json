@@ -34,6 +34,7 @@
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
+    "passport-outlook": "^2.1.0",
     "passport-twitter": "^1.0.4",
     "vee-validate": "^2.0.6",
     "vue": "^2.5.16",

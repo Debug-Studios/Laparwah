@@ -47,6 +47,27 @@ router.get(
 );
 
 // auth with microsoft
-router.get('/microsoft', (req, res) => {});
+router.get(
+  '/microsoft',
+  passport.authenticate('windowslive', {
+    scope: [
+      'openid',
+      'email',
+      'profile',
+      'offline_access',
+      'https://outlook.office.com/Mail.Read'
+    ]
+  })
+);
+
+// callback for microsoft
+router.get(
+  '/microsoft/redirect',
+  passport.authenticate('windowslive', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Successful authentication, redirect home.
+    res.redirect('/dashboard');
+  }
+);
 
 module.exports = router;
