@@ -23,7 +23,16 @@ router.get(
 );
 
 // auth with facebook
-router.get('/facebook', (req, res) => {});
+router.get('/facebook', passport.authenticate('facebook'));
+
+// callback route for facebook
+router.get(
+  '/facebook/redirect',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/dashboard');
+  }
+);
 
 // auth with twitter
 router.get('/twitter', (req, res) => {});
