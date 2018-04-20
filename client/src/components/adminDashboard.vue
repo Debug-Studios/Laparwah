@@ -72,15 +72,9 @@
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">Laparwah</span>
+        <span class="hidden-sm-and-down">Admin Dashboard</span>
       </v-toolbar-title>
-      <v-text-field
-        flat
-        solo-inverted
-        prepend-icon="search"
-        label="Search"
-        class="hidden-sm-and-down"
-      ></v-text-field>
+      
       <v-spacer></v-spacer>
       <v-btn 
       icon
@@ -111,7 +105,7 @@
      <v-dialog v-model="dialog" width="800px">
       <v-card>
         <v-card-title
-          class="black lighten-4 py-4 title"
+          class="grey lighten-4 py-4 title"
         >
           Sign in
         </v-card-title>
@@ -167,8 +161,7 @@
           
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="submit">Sign In</v-btn>
-          <router-view/>
+          <v-btn flat @click="submit">Sign in</v-btn>
         </v-card-actions>
       </v-card>
 </v-dialog>
@@ -182,24 +175,20 @@
       dialog: false,
       drawer: null,
       items: [
+          {icon: 'chat_bubble', text: 'Blogs'},
+          {icon: 'mail_outline', text: 'Breaking News' },
         
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          text: 'District Blocks',
+          text: 'All Users',
           model: false,
           children: [
-            { text: 'Dasoli' },
-            { text: 'Deval' },
-            { text: 'Gairsain' },
-            { text: 'Ghaat' },
-            { text: 'Joshimath' },
-            { text: 'Karanprayag' },
-            { text: 'Narayanbagar' },
-            { text: 'Pokhari' },
-            { text: 'Tharali' }
+            { text: 'Add User' },
+            { text: 'Remove User' }
           ]
-        }
+        },
+        {icon: 'settings', text: 'Settings'}
       ]
     }),
     props: {
@@ -212,3 +201,4 @@
     }
   }
 </script>
+
