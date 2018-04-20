@@ -110,12 +110,12 @@
     >
       <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
-     <v-dialog v-model="dialog" width="800px">
+     <v-dialog v-model="dialog" width="400px">
       <v-card>
         <v-card-title
           class="gray lighten-4 py-4 title"
         >
-          Sign in
+          SIGN IN
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
@@ -139,35 +139,43 @@
                 required
               ></v-text-field>
             </v-flex>
-            <v-flex xs12 align-center>
-              <span >Or Sign in using</span>
-             
-              
+             <v-flex xs12 class="text-xs-center">
+                <v-btn
+                  color="info"
+                  :loading="loading4"
+                  @click.native="loader = 'loading4'"
+                  :disabled="loading4"
+                  @click="submit"
+                >
+                  Sign in
+                  <span slot="loader" class="custom-loader">
+                    <v-icon light>cached</v-icon>
+                  </span>
+                </v-btn>
+                <router-view/>
+             </v-flex>
+            <v-flex  xs12 class="text-xs-center" >
+              <span> OR </span>
+            </v-flex>
+            <v-flex xs12 class="text-xs-center">
               <v-avatar>
-                <img src="/client/src/icons/google.svg"/>
+                <img src="/client/src/icons/google.svg" align="middle"/>
               </v-avatar>
               
               <v-avatar>
-                <img src="/client/src/icons/facebook.svg"/>
+                <img src="/client/src/icons/facebook.svg" align="middle"/>
               </v-avatar>
               <v-avatar>
-                <img src="/client/src/icons/twitter.svg"/>
+                <img src="/client/src/icons/twitter.svg" align="middle"/>
               </v-avatar>
               <v-avatar>
-                <img src="/client/src/icons/windows.svg"/>
+                <img src="/client/src/icons/windows.svg" align="middle"/>
               </v-avatar>
             </v-flex>
             
             
           </v-layout>
         </v-container>
-        <v-card-actions>
-          
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="submit">Sign In</v-btn>
-          <router-view/>
-        </v-card-actions>
       </v-card>
 </v-dialog>
     
@@ -210,3 +218,9 @@
     }
   }
 </script>
+
+<style scoped>
+.avatar{
+  margin: 10px;
+}
+</style>
