@@ -17,8 +17,10 @@ passport.serializeUser((acc, done) => {
 
 passport.deserializeUser((id, done) => {
   Account.get({ id: `${id}` }, (err, acc) => {
-    if (err) done(null, acc);
-    done(null, acc);
+    if (err) done(null, err);
+    else {
+      done(null, acc);
+    }
   });
 });
 
@@ -151,23 +153,22 @@ passport.use(
     {
       clientID: microsoftCreds.clientID,
       clientSecret: microsoftCreds.clientSecret,
-      callbackURL: 'auth/microsoft/callback'
+      callbackURL: '/auth/microsoft/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-      Account.get(`${profile.EmailAddress}`, (err, acc) => {
+      Account.get(`${profile.emails[0].value}`, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
             // User doesn't exist in our DB. Create new.
             Account.create(
               {
-                email: profile.EmailAddress,
-                username: profile.username
+                email: profile.emails[0].value,
+                username: profile.displayName
                   .toString()
                   .replace(/\s+/g, '')
                   .toLowerCase(),
-                oauth: { twitter: { id: profile.id } }
+                oauth: { microsoft: { id: profile.id } }
               },
               (err, newAcc) => {
                 if (err) {

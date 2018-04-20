@@ -52,6 +52,7 @@ router.get(
   passport.authenticate('windowslive', {
     scope: [
       'openid',
+      'email',
       'profile',
       'offline_access',
       'https://outlook.office.com/Mail.Read'
