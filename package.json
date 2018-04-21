@@ -38,6 +38,7 @@
     "passport-twitter": "^1.0.4",
     "vee-validate": "^2.0.6",
     "vue": "^2.5.16",
+    "vue-axios": "^2.1.1",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.15"
   },

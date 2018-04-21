@@ -5,6 +5,7 @@
         span.hidden-sm-and-down Laparwah
       v-text-field.hidden-sm-and-down(flat='' solo-inverted='' prepend-icon='search' label='Search')
       v-spacer
+      p {{user.name}}
       v-menu(offset-y='')
         v-btn(icon='' slot='activator')
           v-icon account_circle
@@ -33,9 +34,10 @@
 </template>
 
 <script>
+  
   export default {
     data: () => ({
-      post: [],
+      user: [],
       errors: [],
       dialog: false,
       socials: [
@@ -54,7 +56,9 @@
       
     },
     created(){
-      axios.get('/auth/')
+      this.axios.get('/auth/getCurrentUser')
+      .then(response => {
+        console.log(response)})
 
     }
   }

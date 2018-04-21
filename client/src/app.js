@@ -4,10 +4,11 @@ import Vuetify from 'vuetify';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
 import axios from 'axios';
+import VueAxios from 'vue-axios';
 
 // Vee-Validate
 Vue.use(VeeValidate);
-Vue.use(axios);
+Vue.use(VueAxios, axios);
 // Vuetify
 Vue.use(Vuetify);
 Vue.config.productionTip = false;
