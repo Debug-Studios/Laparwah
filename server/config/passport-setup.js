@@ -12,11 +12,11 @@ const chalk = require('chalk');
 const Account = require('./../models/account');
 
 passport.serializeUser((acc, done) => {
-  done(null, acc.attrs.id);
+  done(null, acc.attrs.email);
 });
 
-passport.deserializeUser((id, done) => {
-  Account.get({ id: `${id}` }, (err, acc) => {
+passport.deserializeUser((email, done) => {
+  Account.get(`${email}`, (err, acc) => {
     if (err) done(null, err);
     else {
       done(null, acc);
