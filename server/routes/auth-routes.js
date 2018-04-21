@@ -38,7 +38,7 @@ router.get(
   '/facebook/redirect',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/dashboard');
+    res.redirect('/');
   }
 );
 
@@ -50,7 +50,7 @@ router.get(
   '/twitter/redirect',
   passport.authenticate('twitter', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/dashboard');
+    res.redirect('/');
   }
 );
 
@@ -74,7 +74,7 @@ router.get(
   passport.authenticate('windowslive', { failureRedirect: '/' }),
   (req, res) => {
     // Successful authentication, redirect home.
-    res.redirect('/dashboard');
+    res.redirect('/');
   }
 );
 
