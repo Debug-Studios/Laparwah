@@ -19,7 +19,7 @@ router.get(
 // callback route for google
 router.get(
   '/google/redirect',
-  passport.authenticate('google', { failureRedirect: '/auth/login' }),
+  passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
     res.redirect('/dashboard');
   }
@@ -31,7 +31,7 @@ router.get('/facebook', passport.authenticate('facebook'));
 // callback route for facebook
 router.get(
   '/facebook/redirect',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { failureRedirect: '/' }),
   (req, res) => {
     res.redirect('/dashboard');
   }
@@ -43,7 +43,7 @@ router.get('/twitter', passport.authenticate('twitter'));
 // callback route for twitter
 router.get(
   '/twitter/redirect',
-  passport.authenticate('twitter', { failureRedirect: '/login' }),
+  passport.authenticate('twitter', { failureRedirect: '/' }),
   (req, res) => {
     res.redirect('/dashboard');
   }
@@ -66,7 +66,7 @@ router.get(
 // callback for microsoft
 router.get(
   '/microsoft/redirect',
-  passport.authenticate('windowslive', { failureRedirect: '/login' }),
+  passport.authenticate('windowslive', { failureRedirect: '/' }),
   (req, res) => {
     // Successful authentication, redirect home.
     res.redirect('/dashboard');
