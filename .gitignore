@@ -60,3 +60,4 @@ typings/
 # Ignore credentials
 
 server/config/credentials/
+.vscode/

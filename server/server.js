@@ -17,7 +17,7 @@ app.use(morgan('tiny'));
 app.use(cors());
 
 // DynamoDB
-AWS.config.loadFromPath(process.env.HOME + '/.aws/credentials.json');
+AWS.config.loadFromPath(path.join(__dirname, '/config/credentials/aws.json'));
 AWS.config.update({ region: 'us-west-2' });
 require('./models/account');
 require('./config/passport-setup');
