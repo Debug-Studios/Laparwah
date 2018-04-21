@@ -24,11 +24,6 @@
             a(href='/auth/microsoft')
               v-avatar(size='32')
                 img(src='/icons/windows.svg')
-            
-
-          
-      
-
     v-content
       v-container(fluid='' fill-height='')
         v-layout(justify-center='' align-center='')
@@ -40,6 +35,8 @@
 <script>
   export default {
     data: () => ({
+      post: [],
+      errors: [],
       dialog: false,
       socials: [
         {icon: '/icons/google.svg'},
@@ -54,9 +51,11 @@
       source: String
     },
     methods:{
-      submit() {
-        this.$validator.validateAll()
-      }
+      
+    },
+    created(){
+      axios.get('/auth/')
+
     }
   }
 </script>

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from './../components/Login.vue';
 import Navbar from './../components/navbar.vue';
-import Admin from './../components/adminDashboard.vue';
+import Dashboard from './../components/adminDashboard.vue';
 
 Vue.use(Router);
 
@@ -19,9 +19,9 @@ export default new Router({
       component: Navbar
     },
     {
-      path: '/admin',
+      path: '/dashboard',
       name: 'admin',
-      component: Admin
+      component: Dashboard
     }
   ]
 });
