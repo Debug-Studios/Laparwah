@@ -6,18 +6,13 @@ module.exports = dynamo.define('Account', {
   timestamps: true,
   schema: {
     id: dynamo.types.uuid(),
-    username: Joi.string()
-      .alphanum()
-      .min(3)
-      .max(30)
-      .required(),
     name: Joi.string(),
     email: Joi.string()
       .email()
       .required(),
     age: Joi.number(),
     gender: Joi.string(),
-    roles: dynamo.types.stringSet(),
+    roles: dynamo.types.stringSet().required(),
     settings: {
       nickname: Joi.string(),
       acceptedTerms: Joi.boolean().default(false)

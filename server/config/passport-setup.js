@@ -29,7 +29,7 @@ passport.use(
     {
       clientID: facebookCreds.clientID,
       clientSecret: facebookCreds.clientSecret,
-      callbackURL: '/auth/facebook/callback'
+      callbackURL: '/auth/facebook/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
       Account.get(`${profile.email}`, (err, acc) => {
@@ -39,7 +39,6 @@ passport.use(
             // User doesn't exist in our DB. Create new.
             CreateNewUser(
               profile.email,
-              profile.displayName,
               'facebook',
               profile.id,
               ['user'],
@@ -76,7 +75,6 @@ passport.use(
             // User doesn't exist in our DB. Create new.
             CreateNewUser(
               profile.emails[0].value,
-              profile.displayName,
               'google',
               profile.id,
               ['user'],
@@ -113,17 +111,14 @@ passport.use(
         else {
           if (acc == null) {
             // User doesn't exist in our DB. Create new.
-            CreateNewUser(
-              profile.email,
-              profile.username,
-              'twitter',
-              profile.id
-            ).then((err, newAcc) => {
-              if (err) {
-                console.log(chalk.red(err));
+            CreateNewUser(profile.email, 'twitter', profile.id).then(
+              (err, newAcc) => {
+                if (err) {
+                  console.log(chalk.red(err));
+                }
+                done(err, newAcc);
               }
-              done(err, newAcc);
-            });
+            );
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
@@ -150,7 +145,6 @@ passport.use(
             // User doesn't exist in our DB. Create new.
             CreateNewUser(
               profile.emails[0].value,
-              profile.displayName,
               'microsoft',
               profile.id
             ).then((err, newAcc) => {
@@ -172,7 +166,6 @@ passport.use(
 
 function CreateNewUser (
   email,
-  username,
   idKey,
   idValue,
   roles = ['user'],
@@ -182,10 +175,6 @@ function CreateNewUser (
     Account.create(
       {
         email: email,
-        username: username
-          .toString()
-          .replace(/\s+/g, '')
-          .toLowerCase(),
         oauth: { [idKey]: { id: idValue } },
         roles: roles,
         gender: gender
