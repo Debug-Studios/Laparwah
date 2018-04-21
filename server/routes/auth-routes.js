@@ -26,7 +26,7 @@ router.get(
   '/google/redirect',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/auth/getCurrentUser');
+    res.redirect('/');
   }
 );
 
