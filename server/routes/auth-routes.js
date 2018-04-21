@@ -1,6 +1,14 @@
 const router = require('express').Router();
 const passport = require('passport');
 
+router.get('/getCurrentUser', (req, res) => {
+  if (req.user) {
+    res.json({ isLoggedin: 'true', user: req.user });
+  } else {
+    res.json({ isLoggedin: 'false', user: null });
+  }
+});
+
 // auth logout
 router.get('/logout', (req, res) => {
   req.logout();
@@ -18,7 +26,7 @@ router.get(
   '/google/redirect',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/dashboard');
+    res.redirect('/auth/getCurrentUser');
   }
 );
 
