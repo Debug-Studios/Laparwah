@@ -37,23 +37,19 @@ passport.use(
         else {
           if (acc == null) {
             // User doesn't exist in our DB. Create new.
-            Account.create(
-              {
-                email: profile.email,
-                username: profile.displayName
-                  .toString()
-                  .replace(/\s+/g, '')
-                  .toLowerCase(),
-                gender: profile.gender,
-                oauth: { facebook: { id: profile.id } }
-              },
-              (err, newAcc) => {
-                if (err) {
-                  console.log(chalk.red(err));
-                }
-                done(err, newAcc);
+            CreateNewUser(
+              profile.email,
+              profile.displayName,
+              'facebook',
+              profile.id,
+              ['user'],
+              profile.gender
+            ).then((err, newAcc) => {
+              if (err) {
+                console.log(chalk.red(err));
               }
-            );
+              done(err, newAcc);
+            });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
@@ -78,23 +74,19 @@ passport.use(
         else {
           if (acc == null) {
             // User doesn't exist in our DB. Create new.
-            Account.create(
-              {
-                email: profile.emails[0].value,
-                username: profile.displayName
-                  .toString()
-                  .replace(/\s+/g, '')
-                  .toLowerCase(),
-                gender: profile.gender,
-                oauth: { google: { id: profile.id } }
-              },
-              (err, newAcc) => {
-                if (err) {
-                  console.log(chalk.red(err));
-                }
-                done(err, newAcc);
+            CreateNewUser(
+              profile.emails[0].value,
+              profile.displayName,
+              'google',
+              profile.id,
+              ['user'],
+              profile.gender
+            ).then((err, newAcc) => {
+              if (err) {
+                console.log(chalk.red(err));
               }
-            );
+              done(err, newAcc);
+            });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
@@ -121,22 +113,17 @@ passport.use(
         else {
           if (acc == null) {
             // User doesn't exist in our DB. Create new.
-            Account.create(
-              {
-                email: profile.email,
-                username: profile.username
-                  .toString()
-                  .replace(/\s+/g, '')
-                  .toLowerCase(),
-                oauth: { twitter: { id: profile.id } }
-              },
-              (err, newAcc) => {
-                if (err) {
-                  console.log(chalk.red(err));
-                }
-                done(err, newAcc);
+            CreateNewUser(
+              profile.email,
+              profile.username,
+              'twitter',
+              profile.id
+            ).then((err, newAcc) => {
+              if (err) {
+                console.log(chalk.red(err));
               }
-            );
+              done(err, newAcc);
+            });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
@@ -161,22 +148,17 @@ passport.use(
         else {
           if (acc == null) {
             // User doesn't exist in our DB. Create new.
-            Account.create(
-              {
-                email: profile.emails[0].value,
-                username: profile.displayName
-                  .toString()
-                  .replace(/\s+/g, '')
-                  .toLowerCase(),
-                oauth: { microsoft: { id: profile.id } }
-              },
-              (err, newAcc) => {
-                if (err) {
-                  console.log(chalk.red(err));
-                }
-                done(err, newAcc);
+            CreateNewUser(
+              profile.emails[0].value,
+              profile.displayName,
+              'microsoft',
+              profile.id
+            ).then((err, newAcc) => {
+              if (err) {
+                console.log(chalk.red(err));
               }
-            );
+              done(err, newAcc);
+            });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
@@ -187,3 +169,34 @@ passport.use(
     }
   )
 );
+
+function CreateNewUser (
+  email,
+  username,
+  idKey,
+  idValue,
+  roles = ['user'],
+  gender = 'male'
+) {
+  return new Promise((resolve, reject) => {
+    Account.create(
+      {
+        email: email,
+        username: username
+          .toString()
+          .replace(/\s+/g, '')
+          .toLowerCase(),
+        oauth: { [idKey]: { id: idValue } },
+        roles: roles,
+        gender: gender
+      },
+      (err, newAcc) => {
+        if (err) {
+          console.log(chalk.red(err));
+          reject(err, null);
+        }
+        resolve(null, newAcc);
+      }
+    );
+  });
+}
