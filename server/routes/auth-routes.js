@@ -3,7 +3,7 @@ const passport = require('passport');
 
 router.get('/getCurrentUser', (req, res) => {
   if (req.user) {
-    res.json({ isLoggedin: 'true', user: req.user });
+    res.json({ isLoggedin: 'true', user: { name: req.user.name } });
   } else {
     res.json({ isLoggedin: 'false', user: null });
   }

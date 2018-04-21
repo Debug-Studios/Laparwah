@@ -41,6 +41,7 @@ passport.use(
               profile.email,
               'facebook',
               profile.id,
+              profile.displayName,
               ['user'],
               profile.gender
             ).then((err, newAcc) => {
@@ -77,6 +78,7 @@ passport.use(
               profile.emails[0].value,
               'google',
               profile.id,
+              profile.displayName,
               ['user'],
               profile.gender
             ).then((err, newAcc) => {
@@ -111,14 +113,17 @@ passport.use(
         else {
           if (acc == null) {
             // User doesn't exist in our DB. Create new.
-            CreateNewUser(profile.email, 'twitter', profile.id).then(
-              (err, newAcc) => {
-                if (err) {
-                  console.log(chalk.red(err));
-                }
-                done(err, newAcc);
+            CreateNewUser(
+              profile.email,
+              'twitter',
+              profile.id,
+              profile.displayName
+            ).then((err, newAcc) => {
+              if (err) {
+                console.log(chalk.red(err));
               }
-            );
+              done(err, newAcc);
+            });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
@@ -146,7 +151,8 @@ passport.use(
             CreateNewUser(
               profile.emails[0].value,
               'microsoft',
-              profile.id
+              profile.id,
+              profile.displayName
             ).then((err, newAcc) => {
               if (err) {
                 console.log(chalk.red(err));
@@ -168,6 +174,7 @@ function CreateNewUser (
   email,
   idKey,
   idValue,
+  name = 'A man has No Name',
   roles = ['user'],
   gender = 'male'
 ) {
@@ -176,6 +183,7 @@ function CreateNewUser (
       {
         email: email,
         oauth: { [idKey]: { id: idValue } },
+        name: name,
         roles: roles,
         gender: gender
       },
