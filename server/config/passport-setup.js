@@ -12,14 +12,14 @@ const chalk = require('chalk');
 const Account = require('./../models/account');
 
 passport.serializeUser((acc, done) => {
-  done(null, acc.attrs.email);
+  done(null, acc.email);
 });
 
 passport.deserializeUser((email, done) => {
   Account.get(`${email}`, (err, acc) => {
     if (err) done(null, err);
     else {
-      done(null, acc);
+      done(null, acc.attrs);
     }
   });
 });
@@ -48,12 +48,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc);
+              done(err, newAcc.attrs);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc);
+            done(err, acc.attrs);
           }
         }
       });
@@ -85,12 +85,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc);
+              done(err, newAcc.attrs);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc);
+            done(err, acc.attrs);
           }
         }
       });
@@ -122,12 +122,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc);
+              done(err, newAcc.attrs);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc);
+            done(err, acc.attrs);
           }
         }
       });
@@ -157,12 +157,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc);
+              done(err, newAcc.attrs);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc);
+            done(err, acc.attrs);
           }
         }
       });
