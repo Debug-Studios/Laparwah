@@ -1,14 +1,6 @@
 const router = require('express').Router();
 const passport = require('passport');
 
-router.get('/getCurrentUser', (req, res) => {
-  if (req.user) {
-    res.json({ isLoggedin: 'true', user: { name: req.user.attrs.name } });
-  } else {
-    res.json({ isLoggedin: 'false', user: null });
-  }
-});
-
 // auth logout
 router.get('/logout', (req, res) => {
   req.logout();
