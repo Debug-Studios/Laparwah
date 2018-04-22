@@ -11,7 +11,10 @@ function IsLoggedIn (req, res, next) {
 
 router.get('/getCurrentUser', (req, res) => {
   if (req.user) {
-    res.json({ isLoggedin: 'true', user: { name: req.user.attrs.name } });
+    res.json({
+      isLoggedin: 'true',
+      user: { name: req.user.attrs.name, email: req.user.attrs.email }
+    });
   } else {
     res.json({ isLoggedin: 'false', user: null });
   }
