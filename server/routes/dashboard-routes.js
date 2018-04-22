@@ -3,13 +3,13 @@ const Account = require('../models/account');
 const News = require('../models/newspost');
 
 // Dashboard routes will always check (on every request) if a user is logged in or not.
-// router.use((req, res, next) => {
-//   if (req.user) {
-//     next();
-//   } else {
-//     res.status(403).send('Sorry, you are not allowed to see that');
-//   }
-// });
+router.use((req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.status(403).send('Sorry, you are not allowed to see that');
+  }
+});
 
 function IsEditor (req, res, next) {
   if (req.user.roles.includes('editor')) {
