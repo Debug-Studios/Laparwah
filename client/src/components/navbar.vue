@@ -11,10 +11,10 @@
         v-btn(icon='' slot='activator')
           v-avatar(size='32')
             v-gravatar(v-bind:email='email'  )
-        v-card(style="padding-top:10px;")
-         v-flex.text-xs-center(xs12)
+        v-card(style="margin-top:10px")
+         v-flex.text-xs-center(xs12 style='padding:15px')
           span Welcome! {{name}}
-         v-flex.text-xs-center(xs12)
+         v-flex.text-xs-center(xs12 style='padding:10px')
             a(href='/#/dashboard')
               v-btn(fab small dark)
                 v-icon settings
