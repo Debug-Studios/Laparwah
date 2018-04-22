@@ -13,7 +13,11 @@ router.get('/getCurrentUser', (req, res) => {
   if (req.user) {
     res.json({
       isLoggedin: 'true',
-      user: { name: req.user.name, email: req.user.email }
+      user: {
+        name: req.user.name,
+        email: req.user.email,
+        roles: req.user.roles
+      }
     });
   } else {
     res.json({ isLoggedin: 'false', user: null });
