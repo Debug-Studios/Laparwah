@@ -46,7 +46,7 @@ app.use(passport.session());
 const authRoutes = require('./routes/auth-routes');
 app.use('/auth', authRoutes);
 const accountRoutes = require('./routes/account-routes');
-app.use('/account', accountRoutes);
+app.use('/accounts', accountRoutes);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/index.html'));

@@ -5,7 +5,7 @@ function IsLoggedIn (req, res, next) {
   if (req.user) {
     next();
   } else {
-    res.redirect('/');
+    res.status(403).send('Sorry, you are not allowed to see that');
   }
 }
 
