@@ -3,15 +3,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
-const authRoutes = require('./routes/auth-routes');
-const accountRoutes = require('./routes/account-routes');
 const path = require('path');
 const cookieSession = require('cookie-session');
 const cookieSecret = require('./config/credentials/cookieSecret');
 const passport = require('passport');
-
 const dynamo = require('dynamodb');
-const AWS = dynamo.AWS;
 
 app.use(morgan('tiny'));
 
@@ -22,8 +18,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // DynamoDB
-AWS.config.loadFromPath(path.join(__dirname, '/config/credentials/aws.json'));
-AWS.config.update({ region: 'us-west-2' });
+dynamo.AWS.config.loadFromPath(
+  path.join(__dirname, '/config/credentials/aws.json')
+);
+dynamo.AWS.config.update({ region: 'us-west-2' });
 require('./models/account');
 require('./config/passport-setup');
 dynamo.createTables(err => {
@@ -45,7 +43,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Set-up Routes
+const authRoutes = require('./routes/auth-routes');
 app.use('/auth', authRoutes);
+const accountRoutes = require('./routes/account-routes');
 app.use('/account', accountRoutes);
 
 app.get('/', (req, res) => {
