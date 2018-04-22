@@ -108,13 +108,13 @@ passport.use(
       callbackURL: '/auth/twitter/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.email}`, (err, acc) => {
+      Account.get(`${profile.emails[0].value}`, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
             // User doesn't exist in our DB. Create new.
             CreateNewUser(
-              profile.email,
+              profile.emails[0].value,
               'twitter',
               profile.id,
               profile.displayName
