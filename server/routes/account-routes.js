@@ -20,7 +20,7 @@ router.get('/getCurrentUser', (req, res) => {
 // Send Complete User
 router.get('/getCurrentUserDetails', (req, res) => {
   if (req.user) {
-    res.json({ isLoggedin: 'true', user: req.user });
+    res.json({ isLoggedin: 'true', user: req.user.attrs });
   } else {
     res.json({ isLoggedin: 'false', user: null });
   }

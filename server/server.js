@@ -23,6 +23,7 @@ dynamo.AWS.config.loadFromPath(
 );
 dynamo.AWS.config.update({ region: 'us-west-2' });
 require('./models/account');
+require('./models/newspost');
 require('./config/passport-setup');
 dynamo.createTables(err => {
   if (err) console.log('Error when trying to create tables', err);
@@ -47,6 +48,8 @@ const authRoutes = require('./routes/auth-routes');
 app.use('/auth', authRoutes);
 const accountRoutes = require('./routes/account-routes');
 app.use('/accounts', accountRoutes);
+const dashboardRoutes = require('./routes/dashboard-routes');
+app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/index.html'));
