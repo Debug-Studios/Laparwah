@@ -27,10 +27,10 @@ router.get('/getCurrentUserDetails', (req, res) => {
 });
 
 // Update User Profile
-router.post('/updateAccount/:accountEmail', IsLoggedIn, (req, res) => {
+router.post('/updateAccount', IsLoggedIn, (req, res) => {
   Account.update(
     {
-      email: `${req.params.accountEmail}`,
+      email: `${req.user.attrs.email}`,
       name: `${req.body.name}`,
       age: `${req.body.age}`,
       gender: `${req.body.gender}`
@@ -45,8 +45,8 @@ router.post('/updateAccount/:accountEmail', IsLoggedIn, (req, res) => {
 });
 
 // Delete Account Route
-router.get('/deleteAccount/:accountEmail', IsLoggedIn, (req, res) => {
-  Account.destroy(`${req.params.accountEmail}`, err => {
+router.get('/deleteAccount', IsLoggedIn, (req, res) => {
+  Account.destroy(`${req.user.attrs.email}`, err => {
     if (err) res.json({ error: err });
     else {
       res.redirect('/');
