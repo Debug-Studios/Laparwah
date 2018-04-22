@@ -5,7 +5,7 @@
         span.hidden-sm-and-down Laparwah
       v-text-field.hidden-sm-and-down(flat='' solo-inverted='' prepend-icon='search' label='Search')
       v-spacer
-      p {{user.name}}
+      v-gravatar(email='ayush.bahuguna12@gmail.com' )
       v-menu(offset-y='')
         v-btn(icon='' slot='activator')
           v-icon account_circle
@@ -51,6 +51,7 @@ export default {
     errors: [],
     dialog: false,
     isLogged: false,
+    email: "",
     socials: [
       { icon: "/icons/google.svg" },
       { icon: "/icons/facebook.svg" },
@@ -64,7 +65,11 @@ export default {
   methods: {},
   created() {
     this.axios.get("/accounts/getCurrentUser").then(response => {
+      console.log(response);
       this.isLogged = response.data.isLoggedin === "true";
+      this.email = response.data.user.email;
+      
+      
     });
   }
 };
