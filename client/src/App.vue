@@ -1,18 +1,16 @@
 <template lang="pug">
   #app
-    <navbar/>
+    
     router-view
 </template>
 
 <script>
 import navbar from './components/navbar.vue'
+import dashboard from './components/dashboard.vue'
 
 
 export default {
   name: 'app',
-  components:{
-    navbar,
-  },
   data() {
     return {};
   }

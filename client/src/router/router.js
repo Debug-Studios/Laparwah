@@ -2,12 +2,18 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from './../components/Login.vue';
 import Navbar from './../components/navbar.vue';
-import Dashboard from './../components/adminDashboard.vue';
+import Dashboard from './../components/dashboard.vue';
+import Home from './../components/home.vue';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
     {
       path: '/login',
       name: 'login',
@@ -20,7 +26,7 @@ export default new Router({
     },
     {
       path: '/dashboard',
-      name: 'admin',
+      name: 'dashboard',
       component: Dashboard
     }
   ]

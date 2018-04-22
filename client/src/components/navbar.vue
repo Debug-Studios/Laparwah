@@ -14,7 +14,7 @@
          v-flex.text-xs-center(xs12)
           span Welcome! {{name}}
          v-flex.text-xs-center(xs12)
-            a(href='#')
+            a(href='/#/dashboard')
               v-btn(fab small dark)
                 v-icon settings
             a(href='/auth/logout')
@@ -25,16 +25,7 @@
         v-btn(icon='' slot='activator')
           v-icon account_circle
 
-        v-card(v-if='isLogged')
-         v-flex.text-xs-center(xs12)
-            a(href='#')
-              v-btn(fab small dark)
-                v-icon settings
-            a(href='/auth/logout')
-              v-btn(fab small dark)
-                v-icon directions_walk
-
-        v-card(v-else)
+        v-card
           v-flex.text-xs-center(xs12)
             span(style='margin-top:30px;') SIGN IN USING
           v-flex.text-xs-center(xs12 )
@@ -51,12 +42,7 @@
               v-avatar(size='32')
                 img(src='/icons/windows.svg')
 
-    v-content
-      v-container(fluid='' fill-height='')
-        v-layout(justify-center='' align-center='')
-    v-btn(fab='' bottom='' right='' color='pink' dark='' fixed='' @click.stop='')
-      v-icon keyboard_arrow_up
-
+    
 </template>
 
 <script>
