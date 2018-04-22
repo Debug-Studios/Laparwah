@@ -3,13 +3,13 @@ const Account = require('../models/account');
 const News = require('../models/newspost');
 
 // Dashboard routes will always check (on every request) if a user is logged in or not.
-router.use((req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.status(403).send('Sorry, you are not allowed to see that');
-  }
-});
+// router.use((req, res, next) => {
+//   if (req.user) {
+//     next();
+//   } else {
+//     res.status(403).send('Sorry, you are not allowed to see that');
+//   }
+// });
 
 function IsEditor (req, res, next) {
   if (req.user.roles.includes('editor')) {
@@ -28,7 +28,14 @@ function IsAdmin (req, res, next) {
 }
 
 // For Admin
-router.get('/allAccounts', IsAdmin, (req, res) => {});
+router.get('/allAccounts', (req, res) => {
+  Account.scan().exec((err, resp) => {
+    if (err) res.json(err);
+    else {
+      res.json(resp);
+    }
+  });
+});
 
 router.get('/createAccount', IsAdmin, (req, res) => {});
 
