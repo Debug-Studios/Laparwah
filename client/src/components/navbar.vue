@@ -5,10 +5,23 @@
         span.hidden-sm-and-down Laparwah
       v-text-field.hidden-sm-and-down(flat='' solo-inverted='' prepend-icon='search' label='Search')
       v-spacer
-      span hi {{name}}
-      v-avatar(fab)
-        v-gravatar(v-bind:email='email' size='32' )
-      v-menu(offset-y='')
+      
+      v-menu(offset-y='' v-if='isLogged' )
+        v-btn(icon='' slot='activator')
+          v-avatar(size='32')
+            v-gravatar(v-bind:email='email'  )
+        v-card(style="padding-top:10px;")
+         v-flex.text-xs-center(xs12)
+          span Welcome! {{name}}
+         v-flex.text-xs-center(xs12)
+            a(href='#')
+              v-btn(fab small dark)
+                v-icon settings
+            a(href='/auth/logout')
+              v-btn(fab small dark)
+                v-icon directions_walk
+
+      v-menu(offset-y='' v-else)
         v-btn(icon='' slot='activator')
           v-icon account_circle
 
