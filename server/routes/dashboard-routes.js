@@ -28,19 +28,105 @@ function IsAdmin (req, res, next) {
 }
 
 // For Admin
-router.get('/allAccounts', IsAdmin, (req, res) => {});
+router.get('/allAccounts', IsAdmin, (req, res) => {
+  Account.scan().exec((err, resp) => {
+    if (err) res.json(err);
+    else {
+      res.json(resp);
+    }
+  });
+});
 
-router.get('/createAccount', IsAdmin, (req, res) => {});
+router.get('/createAccount', IsAdmin, (req, res) => {
+  Account.create(
+    {
+      email: req.body.email,
+      name: req.body.name,
+      gender: req.body.gender,
+      roles: req.body.roles.split(' '),
+      settings: {
+        nickname: req.body.nickname
+      }
+    },
+    (err, newAcc) => {
+      if (err) {
+        res.json(err);
+      }
+      res.json(newAcc);
+    }
+  );
+});
 
-router.post('/editAccount/:email', IsAdmin, (req, res) => {});
+router.post('/editAccount/:email', IsAdmin, (req, res) => {
+  Account.update(
+    {
+      email: req.params.email,
+      name: req.body.name,
+      gender: req.body.gender,
+      roles: req.body.roles.split(' '),
+      settings: {
+        nickname: req.body.nickname
+      }
+    },
+    (err, acc) => {
+      if (err) {
+        res.json(err);
+      }
+      res.json(acc);
+    }
+  );
+});
 
-router.get('/deleteAccount/:email', IsAdmin, (req, res) => {});
+router.get('/deleteAccount/:email', IsAdmin, (req, res) => {
+  Account.destroy(`${req.body.email}`, (err, delAcc) => {
+    if (err) {
+      res.json(err);
+    }
+    res.json(delAcc);
+  });
+});
 
-router.get('/allNewsPosts', IsAdmin, (req, res) => {});
+router.get('/allNewsPosts', IsAdmin, (req, res) => {
+  News.scan().exec((err, resp) => {
+    if (err) res.json(err);
+    else {
+      res.json(resp);
+    }
+  });
+});
 
-router.post('/editNewsPost/:id', IsAdmin, (req, res) => {});
+router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
+  News.update(
+    {
+      email: `${req.params.email}`,
+      id: `${req.params.id}`,
+      title: `${req.body.title}`,
+      content: `${req.body.content}`,
+      type: `${req.body.type}`
+    },
+    (err, news) => {
+      if (err) res.json(err);
+      else {
+        res.json(news);
+      }
+    }
+  );
+});
 
-router.get('/deleteNewsPost/:id', IsAdmin, (req, res) => {});
+router.get('/deleteNewsPost/:email/:id', IsAdmin, (req, res) => {
+  News.destroy(
+    {
+      email: `${req.params.email}`,
+      id: `${req.params.id}`
+    },
+    (err, news) => {
+      if (err) res.json(err);
+      else {
+        res.json(news);
+      }
+    }
+  );
+});
 
 // For Editor
 router.get('/createNewsPost', IsEditor, (req, res) => {

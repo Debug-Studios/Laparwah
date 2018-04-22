@@ -14,8 +14,7 @@ module.exports = dynamo.define('Account', {
     gender: Joi.string(),
     roles: dynamo.types.stringSet().required(),
     settings: {
-      nickname: Joi.string(),
-      acceptedTerms: Joi.boolean().default(false)
+      nickname: Joi.string()
     },
     oauth: {
       google: {
