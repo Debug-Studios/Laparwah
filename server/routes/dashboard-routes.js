@@ -7,7 +7,7 @@ router.use((req, res, next) => {
   if (req.user) {
     next();
   } else {
-    res.status(403).send('Sorry, you are not allowed to see that');
+    res.sendStatus(403);
   }
 });
 
@@ -15,7 +15,7 @@ function IsEditor (req, res, next) {
   if (req.user.roles.includes('editor')) {
     next();
   } else {
-    res.status(403).send('Sorry, you are not allowed to see that');
+    res.sendStatus(403);
   }
 }
 
@@ -23,7 +23,7 @@ function IsAdmin (req, res, next) {
   if (req.user.roles.includes('admin')) {
     next();
   } else {
-    res.status(403).send('Sorry, you are not allowed to see that');
+    res.sendStatus(403);
   }
 }
 
@@ -113,7 +113,7 @@ router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
   );
 });
 
-router.get('/deleteNewsPost/:email/:id', IsAdmin, (req, res) => {
+router.delete('/deleteNewsPost/:email/:id', IsAdmin, (req, res) => {
   News.destroy(
     {
       email: `${req.params.email}`,
@@ -173,7 +173,7 @@ router.get('/editNewsPost/:id', IsEditor, (req, res) => {
   );
 });
 
-router.get('/deleteOwnNewsPost/:id', IsEditor, (req, res) => {
+router.delete('/deleteOwnNewsPost/:id', IsEditor, (req, res) => {
   News.destroy(
     {
       email: `${req.user.email}`,

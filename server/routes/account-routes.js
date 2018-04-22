@@ -5,7 +5,7 @@ function IsLoggedIn (req, res, next) {
   if (req.user) {
     next();
   } else {
-    res.status(403).send('Sorry, you are not allowed to see that');
+    res.sendStatus(403);
   }
 }
 
@@ -52,7 +52,7 @@ router.post('/updateAccount', IsLoggedIn, (req, res) => {
 });
 
 // Delete Account Route
-router.get('/deleteAccount', IsLoggedIn, (req, res) => {
+router.delete('/deleteAccount', IsLoggedIn, (req, res) => {
   Account.destroy(`${req.user.email}`, err => {
     if (err) res.json({ error: err });
     else {
