@@ -12,6 +12,7 @@ module.exports = dynamo.define('Account', {
       .required(),
     title: Joi.string().required(),
     content: Joi.string().required(),
+    heroImage: Joi.string(),
     type: Joi.string()
   },
   tableName: 'laparwah_news'
