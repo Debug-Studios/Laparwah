@@ -95,7 +95,7 @@ router.get('/allNewsPosts', IsAdmin, (req, res) => {
   });
 });
 
-router.post('/editNewsPost/:id/:email', IsAdmin, (req, res) => {
+router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
   News.update(
     {
       email: `${req.params.email}`,
@@ -113,7 +113,7 @@ router.post('/editNewsPost/:id/:email', IsAdmin, (req, res) => {
   );
 });
 
-router.get('/deleteNewsPost/:id/:email', IsAdmin, (req, res) => {
+router.get('/deleteNewsPost/:email/:id', IsAdmin, (req, res) => {
   News.destroy(
     {
       email: `${req.params.email}`,
