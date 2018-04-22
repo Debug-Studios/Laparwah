@@ -60,7 +60,7 @@ router.get('/createNewsPost', IsEditor, (req, res) => {
   );
 });
 
-router.get('/ownNewsPosts', IsEditor, (req, res) => {
+router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
   News.get(`${req.user.email}`, (err, news) => {
     if (err) res.json(err);
     else {
