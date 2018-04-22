@@ -13,7 +13,7 @@ router.get('/getCurrentUser', (req, res) => {
   if (req.user) {
     res.json({
       isLoggedin: 'true',
-      user: { name: req.user.attrs.name, email: req.user.attrs.email }
+      user: { name: req.user.name, email: req.user.email }
     });
   } else {
     res.json({ isLoggedin: 'false', user: null });
@@ -23,7 +23,7 @@ router.get('/getCurrentUser', (req, res) => {
 // Send Complete User
 router.get('/getCurrentUserDetails', (req, res) => {
   if (req.user) {
-    res.json({ isLoggedin: 'true', user: req.user.attrs });
+    res.json({ isLoggedin: 'true', user: req.user });
   } else {
     res.json({ isLoggedin: 'false', user: null });
   }
@@ -33,7 +33,7 @@ router.get('/getCurrentUserDetails', (req, res) => {
 router.post('/updateAccount', IsLoggedIn, (req, res) => {
   Account.update(
     {
-      email: `${req.user.attrs.email}`,
+      email: `${req.user.email}`,
       name: `${req.body.name}`,
       age: `${req.body.age}`,
       gender: `${req.body.gender}`
@@ -49,7 +49,7 @@ router.post('/updateAccount', IsLoggedIn, (req, res) => {
 
 // Delete Account Route
 router.get('/deleteAccount', IsLoggedIn, (req, res) => {
-  Account.destroy(`${req.user.attrs.email}`, err => {
+  Account.destroy(`${req.user.email}`, err => {
     if (err) res.json({ error: err });
     else {
       res.redirect('/');

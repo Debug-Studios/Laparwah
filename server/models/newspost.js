@@ -2,8 +2,8 @@ const dynamo = require('dynamodb');
 const Joi = require('joi');
 
 module.exports = dynamo.define('Account', {
-  hashKey: 'id',
-  rangeKey: 'creator_email',
+  hashKey: 'creator_email',
+  rangeKey: 'id',
   timestamps: true,
   schema: {
     id: dynamo.types.uuid(),
