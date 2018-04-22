@@ -5,10 +5,14 @@ import router from './router/router';
 import VeeValidate from 'vee-validate';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import Gravatar from 'vue-gravatar';
 
 // Vee-Validate
 Vue.use(VeeValidate);
+// VueAxios
 Vue.use(VueAxios, axios);
+// Vue-Gravatar
+Vue.component('vue-gravatar', Gravatar);
 // Vuetify
 Vue.use(Vuetify);
 Vue.config.productionTip = false;
