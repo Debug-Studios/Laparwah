@@ -8,6 +8,10 @@ const cookieSession = require('cookie-session');
 const cookieSecret = require('./config/credentials/cookieSecret');
 const passport = require('passport');
 const dynamo = require('dynamodb');
+const chalk = require('chalk');
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '../client'));
 
 app.use(morgan('tiny'));
 
@@ -53,6 +57,18 @@ app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/index.html'));
+});
+
+// Error handling
+app.use((err, req, res, next) => {
+  // Logs error
+  console.log(chalk.red(err));
+  res.status(500).render('error', { error: err });
+});
+
+// 404 Handler
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, '../client/404.html'));
 });
 
 app.listen(process.env.PORT || 3000, () => {
