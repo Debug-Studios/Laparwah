@@ -20,7 +20,7 @@
               v-list-tile-content
                 v-list-tile-title
                   | {{ child.text }}
-          v-list-tile(v-else='' @click='' :key='item.text')
+          v-list-tile(v-else @click='' :key='item.text')
             v-list-tile-action
               v-icon {{ item.icon }}
             v-list-tile-content
