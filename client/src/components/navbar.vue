@@ -9,7 +9,7 @@
       v-menu(offset-y='')
         v-btn(icon='' slot='activator')
           v-icon account_circle
-        v-card(v-if='isLogged == false')
+        v-card(v-if='!isLogged')
           v-flex.text-xs-center(xs12)
             span(style='margin-top:30px;') SIGN IN USING
           v-flex.text-xs-center(xs12 )
@@ -25,7 +25,7 @@
             a(href='/auth/microsoft')
               v-avatar(size='32')
                 img(src='/icons/windows.svg')
-        v-card(v-if='isLogged == true')
+        v-card(v-else)
           v-flex.text-xs-center(xs12)
             a(href='#')
               v-btn(fab small dark)
@@ -69,8 +69,6 @@
       .then(response => {
         console.log(response)
         this.isLogged = response.data.isLoggedin
-        
-        
         })
 
     }
