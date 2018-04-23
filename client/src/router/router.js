@@ -38,7 +38,7 @@ export default new Router({
     },
     {
       path: '/addnews',
-      name: 'addnews',
+      name: 'tag',
       component: AddNews
     }
   ]
