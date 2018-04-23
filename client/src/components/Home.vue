@@ -1,6 +1,6 @@
 <template lang="pug">
-  navbar
-
+  v-app
+    navbar
 </template>
 
 <script>

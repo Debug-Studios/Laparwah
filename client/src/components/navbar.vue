@@ -1,69 +1,68 @@
 <template lang="pug">
-  v-app#navbar
-    v-toolbar(app dark :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
-      v-toolbar-title.ml-0.pl-3 Breaking News:
-      //- Transition: First writes letters and then goes up
-      a.breaking-news-link.subheading.ml-0.pl-3(href="#") Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      v-spacer
+  v-toolbar(app dark :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
+    v-toolbar-title.ml-0.pl-3 Breaking News:
+    //- Transition: First writes letters and then goes up
+    a.breaking-news-link.subheading.ml-0.pl-3(href="#") Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    v-spacer
 
-      v-toolbar-items
-        .d-flex.pr-4.flex-weather
-          v-icon.pr-2 cloud
-          .headline.pr-2 20&deg;C
-          .subheading (Gopeshwar, Chamoli)
+    v-toolbar-items
+      .d-flex.pr-4.flex-weather
+        v-icon.pr-2 cloud
+        .headline.pr-2 20&deg;C
+        .subheading (Gopeshwar, Chamoli)
 
-        .d-flex
-          .px-4.flex-stock
-            span.d-flex
-              .body-2 DOW
-              v-icon.green--text keyboard_arrow_up
-            span.headline.green--text 24.45
-          .px-4.flex-stock
-            span.d-flex
-              .body-2 NASDAQ
-              v-icon.red--text keyboard_arrow_down
-            span.headline.red--text 7.45
-          .px-4.flex-stock
-            span.d-flex
-              .body-2 NIFTY
-              v-icon.green--text keyboard_arrow_up
-            span.headline.green--text 4.45
+      .d-flex
+        .px-4.flex-stock
+          span.d-flex
+            .body-2 DOW
+            v-icon.green--text keyboard_arrow_up
+          span.headline.green--text 24.45
+        .px-4.flex-stock
+          span.d-flex
+            .body-2 NASDAQ
+            v-icon.red--text keyboard_arrow_down
+          span.headline.red--text 7.45
+        .px-4.flex-stock
+          span.d-flex
+            .body-2 NIFTY
+            v-icon.green--text keyboard_arrow_up
+          span.headline.green--text 4.45
 
-      v-menu(offset-y='' v-if='isLogged' )
-        v-btn(icon='' slot='activator')
-          v-avatar(size='32')
-            v-gravatar(v-bind:email='email'  )
-        v-card(style="margin-top:10px")
-         v-flex.text-xs-center(xs12 style='padding:15px')
-          span Welcome! {{name}}
-         v-flex.text-xs-center(xs12 style='padding:10px')
-            a(href='/#/dashboard')
-              v-btn(fab small dark)
-                v-icon settings
-            a(href='/auth/logout')
-              v-btn(fab small dark)
-                v-icon directions_walk
+    v-menu(offset-y='' v-if='isLogged' )
+      v-btn(icon='' slot='activator')
+        v-avatar(size='32')
+          v-gravatar(v-bind:email='email'  )
+      v-card(style="margin-top:10px")
+        v-flex.text-xs-center(xs12 style='padding:15px')
+        span Welcome! {{name}}
+        v-flex.text-xs-center(xs12 style='padding:10px')
+          a(href='/#/dashboard')
+            v-btn(fab small dark)
+              v-icon settings
+          a(href='/auth/logout')
+            v-btn(fab small dark)
+              v-icon directions_walk
 
-      v-menu(offset-y='' v-else)
-        v-btn(icon='' slot='activator')
-          v-icon account_circle
+    v-menu(offset-y='' v-else)
+      v-btn(icon='' slot='activator')
+        v-icon account_circle
 
-        v-card
-          v-flex.text-xs-center(xs12)
-            span(style='margin-top:30px;') SIGN IN USING
-          v-flex.text-xs-center(xs12 )
-            a(href='/auth/google')
-              v-avatar(size='32')
-                img(src='/icons/google.svg')
-            a(href='/auth/facebook')
-              v-avatar(size='32')
-                img(src='/icons/facebook.svg')
-            a(href='/auth/twitter')
-              v-avatar(size='32')
-                img(src='/icons/twitter.svg')
-            a(href='/auth/microsoft')
-              v-avatar(size='32')
-                img(src='/icons/windows.svg')
+      v-card
+        v-flex.text-xs-center(xs12)
+          span(style='margin-top:30px;') SIGN IN USING
+        v-flex.text-xs-center(xs12 )
+          a(href='/auth/google')
+            v-avatar(size='32')
+              img(src='/icons/google.svg')
+          a(href='/auth/facebook')
+            v-avatar(size='32')
+              img(src='/icons/facebook.svg')
+          a(href='/auth/twitter')
+            v-avatar(size='32')
+              img(src='/icons/twitter.svg')
+          a(href='/auth/microsoft')
+            v-avatar(size='32')
+              img(src='/icons/windows.svg')
 
 
 </template>

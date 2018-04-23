@@ -1,16 +1,13 @@
 <template lang="pug">
-  #app
-    
-    router-view
+  router-view
 </template>
 
 <script>
-import navbar from './components/navbar.vue'
-import dashboard from './components/dashboard.vue'
-
+import navbar from "./components/navbar.vue";
+import dashboard from "./components/dashboard.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {};
   }
@@ -20,7 +17,7 @@ export default {
 
 <style lang="scss">
 @import "./scss/main.scss";
-@import url('https://fonts.googleapis.com/css?family=Kalam');
+@import url("https://fonts.googleapis.com/css?family=Kalam");
 </style>
 
 
