@@ -15,7 +15,7 @@
             v-list-tile-title All News
             v-list-tile-action
               v-icon all_inclusive
-          v-list-tile
+          v-list-tile(@click.stop='addnews = !addnews')
             v-list-tile-title New News
             v-list-tile-action
               v-icon note_add
@@ -76,6 +76,7 @@
     v-content
       v-container(fluid='' fill-height='')
         v-layout(justify-center='' align-center='')
+          AddNews(v-model='addnews')
     v-btn(fab='' bottom='' right='' color='pink' dark='' fixed='' @click.stop='')
       v-icon keyboard_arrow_up
     
@@ -85,8 +86,10 @@
   export default {
     data: () => ({
       drawer: null,
+      addnews: false,
       isAdmin: false,
       isEditor:false,
+      isLogged: false,
       name:''
       
     }),
@@ -98,7 +101,6 @@
     },
     created(){
       this.axios.get('/accounts/getCurrentUser').then(response =>{
-          console.log(response);
           this.isLogged = response.data.isLoggedin === "true";
           this.email = response.data.user.email;
           this.name = response.data.user.name;
