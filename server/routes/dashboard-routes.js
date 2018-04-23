@@ -102,8 +102,9 @@ router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
       id: `${req.params.id}`,
       title: `${req.body.title}`,
       content: `${req.body.content}`,
-      type: `${req.body.type}`,
-      heroImage: `${req.body.heroImage}`
+      category: `${req.body.category}`,
+      heroImage: `${req.body.heroImage}`,
+      tag: `${req.body.tag}`
     },
     (err, news) => {
       if (err) res.json(err);
@@ -134,10 +135,12 @@ router.get('/createNewsPost', IsEditor, (req, res) => {
   News.create(
     {
       email: `${req.user.email}`,
+      id: `${req.params.id}`,
       title: `${req.body.title}`,
       content: `${req.body.content}`,
-      type: `${req.body.type}`,
-      heroImage: `${req.body.heroImage}`
+      category: `${req.body.category}`,
+      heroImage: `${req.body.heroImage}`,
+      tag: `${req.body.tag}`
     },
     (err, news) => {
       if (err) res.json(err);
@@ -164,8 +167,9 @@ router.get('/editNewsPost/:id', IsEditor, (req, res) => {
       id: `${req.params.id}`,
       title: `${req.body.title}`,
       content: `${req.body.content}`,
-      type: `${req.body.type}`,
-      heroImage: `${req.body.heroImage}`
+      category: `${req.body.category}`,
+      heroImage: `${req.body.heroImage}`,
+      tag: `${req.body.tag}`
     },
     (err, news) => {
       if (err) res.json(err);

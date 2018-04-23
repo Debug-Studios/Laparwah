@@ -13,7 +13,9 @@ module.exports = dynamo.define('Account', {
     title: Joi.string().required(),
     content: Joi.string().required(),
     heroImage: Joi.string(),
-    type: Joi.string()
+    category: Joi.string(),
+    locale: Joi.string(),
+    tag: Joi.string()
   },
   tableName: 'laparwah_news'
 });
