@@ -1,12 +1,11 @@
 <template lang="pug">
   v-app#navbar
-    v-toolbar(app='' dark='' :clipped-left='$vuetify.breakpoint.lgAndUp' fixed='')
-      v-toolbar-title.ml-0.pl-3(style='width: 300px')
-        span.hidden-sm-and-down(style='font-size:30px;')
-          strong लापरवाह
-      v-text-field.hidden-sm-and-down(flat='' solo-inverted='' prepend-icon='search' label='Search')
+    v-toolbar(app dark :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
+      v-toolbar-title.ml-0.pl-3 Breaking News:
+      //- Transition: First writes letters and then goes up
+      .subheading.ml-0.pl-3 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
       v-spacer
-      
+
       v-menu(offset-y='' v-if='isLogged' )
         v-btn(icon='' slot='activator')
           v-avatar(size='32')
@@ -43,7 +42,7 @@
               v-avatar(size='32')
                 img(src='/icons/windows.svg')
 
-    
+
 </template>
 
 <script>
@@ -71,18 +70,12 @@ export default {
       this.isLogged = response.data.isLoggedin === "true";
       this.email = response.data.user.email;
       this.name = response.data.user.name;
-      
-      
-      
     });
   }
 };
 </script>
 
 <style scoped>
-#navbar{
-  font-family: 'Kalam', cursive;
-}
 .avatar {
   margin: 15px;
 }
