@@ -1,10 +1,10 @@
 <template lang="pug">
   v-app#navbar(dark='')
     v-navigation-drawer(fixed='' :clipped='$vuetify.breakpoint.lgAndUp' app='' v-model='drawer')
-      v-list(dense='')
-        template(v-for='item in items')
+      v-list(dense='' )
+        template(v-for='item in items' )
           v-layout(row='' v-if='item.heading' align-center='' :key='item.heading')
-            v-flex(xs6='')
+            v-flex(xs6='' v-if='usertype === user')
               v-subheader(v-if='item.heading')
                 | {{ item.heading }}
             v-flex.text-xs-center(xs6='')
@@ -29,19 +29,22 @@
     v-toolbar(app='' :clipped-left='$vuetify.breakpoint.lgAndUp' fixed='')
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
-        span.hidden-sm-and-down Admin Dashboard
+        span.hidden-sm-and-down(style="text-transform: capitalize") {{name}} Dashboard
       v-spacer
-      v-menu(offset-y='')
+      v-menu(offset-y='' v-if='isLogged' )
         v-btn(icon='' slot='activator')
-          v-icon account_circle
+          v-avatar(size='32')
+            v-gravatar(v-bind:email='email'  )
         v-card
-          v-flex.text-xs-center(xs12)
-            span(style='margin-top:30px;') USER PROFILE
-          v-flex.text-xs-center(xs12 )
-            a(href='#')
-              v-icon settings
-            a(href='#')
-              v-icon account_circle
+         v-flex.text-xs-center(xs12)
+          span(style="text-transform: capitalize") Welcome! {{name}}
+         v-flex.text-xs-center(xs12)
+            a(href='/#/dashboard')
+              v-btn(fab small dark)
+                v-icon settings
+            a(href='/auth/logout')
+              v-btn(fab small dark)
+                v-icon directions_walk
     v-content
       v-container(fluid='' fill-height='')
         v-layout(justify-center='' align-center='')
@@ -54,6 +57,8 @@
   export default {
     data: () => ({
       drawer: null,
+      usertype:'',
+      name:'',
       items: [
           {icon: 'chat_bubble', text: 'Blogs'},
           {icon: 'mail_outline', text: 'Breaking News' },
@@ -75,9 +80,16 @@
       source: String
     },
     methods:{
-      submit() {
-        this.$validator.validateAll()
-      }
+      
+    },
+    created(){
+      this.axios.get('/accounts/getCurrentUser').then(response =>{
+          this.isLogged = response.data.isLoggedin === "true";
+          this.email = response.data.user.email;
+          this.name = response.data.user.name;
+          this.usertype = response.data.user.roles;
+          
+      });
     }
   }
 </script>
