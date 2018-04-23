@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Login from './../components/Login.vue';
 import Navbar from './../components/navbar.vue';
 import Dashboard from './../components/dashboard.vue';
-import Home from './../components/home.vue';
+import Home from './../components/Home.vue';
 
 Vue.use(Router);
 

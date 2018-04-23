@@ -12,7 +12,10 @@ module.exports = dynamo.define('Account', {
       .required(),
     title: Joi.string().required(),
     content: Joi.string().required(),
-    type: Joi.string()
+    heroImage: Joi.string(),
+    category: Joi.string(),
+    locale: Joi.string(),
+    tag: Joi.string()
   },
   tableName: 'laparwah_news'
 });

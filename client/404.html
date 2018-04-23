@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <h3>You have ventured into a dark corner of the universe!</h3>
+        <a href="/">
+            <p>Click here to return!</p>
+        </a>
+    </div>
+
+    <style>
+        body {
+            background-image: url(https://images.pexels.com/photos/176851/pexels-photo-176851.jpeg?cs=srgb&dl=astronomy-dark-evening-176851.jpg&fm=jpg);
+            background-size: cover;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: white;
+            font-family: 'Audiowide', cursive;
+            letter-spacing: 0.5rem;
+            font-size: 6rem;
+            margin: 0;
+            text-align: center;
+        }
+
+        h3 {
+            color: white;
+            font-family: 'Megrim', cursive;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        a {
+            margin-top: 1rem;
+            font-weight: 800;
+            font-size: 2rem;
+            background-color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            transition: all 300ms;
+            opacity: 0.5;
+        }
+
+        a:hover {
+            transform: translateY(-0.3rem);
+            opacity: 1;
+        }
+
+        a p {
+            text-transform: uppercase;
+            font-family: 'Audiowide', cursive;
+            -webkit-text-fill-color: transparent;
+            background: url(https://images.pexels.com/photos/176851/pexels-photo-176851.jpeg?cs=srgb&dl=astronomy-dark-evening-176851.jpg&fm=jpg);
+            color: white;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</body>
+
+</html>
