@@ -2,7 +2,7 @@
   v-app#navbar
     v-toolbar(app='' dark='' :clipped-left='$vuetify.breakpoint.lgAndUp' fixed='')
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
-        span.hidden-sm-and-down(style='font-size:30px;')
+        span(style='font-size:30px;')
           strong लापरवाह
       v-text-field.hidden-sm-and-down(flat='' solo-inverted='' prepend-icon='search' label='Search')
       v-spacer
