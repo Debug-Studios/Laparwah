@@ -1,16 +1,60 @@
 <template lang="pug">
-  v-app#navbar(dark='')
-    v-navigation-drawer(fixed :clipped='$vuetify.breakpoint.lgAndUp' app='' v-model='drawer')
+  v-app(dark)
+    v-navigation-drawer(fixed :clipped='$vuetify.breakpoint.lgAndUp' app v-model='drawer' value='true')
       v-list(dense v-show='isEditor')
-        v-list-tile(slot='activator')
-          v-list-tile-title News Management
-        v-list-tile(v-for='(post,i) in posts' :key='i' @click='')
-          v-list-tile-title(v-text='news[0]')
-          v-list-tile-action(v-text='news[1]')
+        v-list-tile(@click='')
+          v-list-tile-action
+            v-icon face 
+          v-list-tile-title Profile
+        v-list-group(subgroup no-action value='true')
+          v-list-tile(slot='activator')
+            v-list-tile-action 
+              v-icon people_outline
+            v-list-tile-title News Management
+          v-list-tile
+            v-list-tile-title All News
+            v-list-tile-action
+              v-icon all_inclusive
+          v-list-tile
+            v-list-tile-title New News
+            v-list-tile-action
+              v-icon note_add
 
-          
+      v-list(dense v-show='isAdmin')
+        v-list-tile(@click='')
+          v-list-tile-action
+            v-icon face 
+          v-list-tile-title Profile
+        v-list-group(subgroup no-action value='true')
+          v-list-tile(slot='activator')
+            v-list-tile-action 
+              v-icon people_outline
+            v-list-tile-title User Management
+          v-list-tile
+            v-list-tile-title Add User
+            v-list-tile-action
+              v-icon add_circle
+          v-list-tile
+            v-list-tile-title Delete User
+            v-list-tile-action
+              v-icon delete_forever
         
-    v-toolbar(app='' :clipped-left='$vuetify.breakpoint.lgAndUp' fixed='')
+        v-list-group(subgroup no-action value='true')
+          v-list-tile(slot='activator')
+            v-list-tile-action
+              v-icon people_outline
+            v-list-tile-title News Management
+          v-list-tile 
+            v-list-tile-title All News
+            v-list-tile-action  
+              v-icon all_inclusive
+          v-list-tile
+            v-list-tile-title New News
+            v-list-tile-action  
+              v-icon note_add
+
+        
+    v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
         span(style="text-transform: capitalize") {{name}} Dashboard
@@ -43,11 +87,7 @@
       drawer: null,
       isAdmin: false,
       isEditor:false,
-      name:'',
-      posts:[
-        ['All News', 'all_inclusive'],
-        ['New News', 'note_add']
-      ]
+      name:''
       
     }),
     props: {
@@ -69,4 +109,8 @@
     }
   }
 </script>
+<style scoped>
+
+</style>
+
 
