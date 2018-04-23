@@ -7,7 +7,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Gravatar from 'vue-gravatar';
 
-Vue.component('v-gravatar', Gravatar)
+Vue.component('v-gravatar', Gravatar);
 // Vee-Validate
 Vue.use(VeeValidate);
 // VueAxios
