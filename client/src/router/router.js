@@ -32,7 +32,7 @@ export default new Router({
     },
     {
       path: '/addnews',
-      name: 'tag',
+      name: 'addnews',
       component: AddNews
     }
   ]

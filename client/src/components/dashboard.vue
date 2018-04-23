@@ -15,10 +15,11 @@
             v-list-tile-title All News
             v-list-tile-action
               v-icon all_inclusive
-          v-list-tile(@click.stop='addnews = !addnews')
+          v-list-tile(@click.stop='news = !news')
             v-list-tile-title New News
             v-list-tile-action
               v-icon note_add
+          
 
       v-list(dense v-show='isAdmin')
         v-list-tile(@click='')
@@ -76,23 +77,27 @@
     v-content
       v-container(fluid='' fill-height='')
         v-layout(justify-center='' align-center='')
-          AddNews(v-model='addnews')
+          
     v-btn(fab='' bottom='' right='' color='pink' dark='' fixed='' @click.stop='')
       v-icon keyboard_arrow_up
     
 </template>
 
 <script>
+import addnews from './DashboardComponents/AddNews.vue';
   export default {
     data: () => ({
       drawer: null,
-      addnews: false,
+      news: false,
       isAdmin: false,
       isEditor:false,
       isLogged: false,
       name:''
       
     }),
+    components:{
+        addnews
+    },
     props: {
       source: String
     },
