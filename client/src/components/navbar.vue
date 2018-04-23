@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-toolbar(app dark :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
+  v-toolbar(dark)
     v-toolbar-title.ml-0.pl-3 Breaking News:
     //- Transition: First writes letters and then goes up
     a.breaking-news-link.subheading.ml-0.pl-3(href="#") Lorem ipsum dolor sit amet, consectetur adipisicing elit.
