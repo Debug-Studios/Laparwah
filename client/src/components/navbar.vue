@@ -3,10 +3,15 @@
     v-toolbar(app dark :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
       v-toolbar-title.ml-0.pl-3 Breaking News:
       //- Transition: First writes letters and then goes up
-      .subheading.ml-0.pl-3 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      a.breaking-news-link.subheading.ml-0.pl-3(href="#") Lorem ipsum dolor sit amet, consectetur adipisicing elit.
       v-spacer
 
       v-toolbar-items
+        .d-flex.pr-4.flex-weather
+          v-icon.pr-2 cloud
+          .headline.pr-2 20&deg;C
+          .subheading (Gopeshwar, Chamoli)
+
         .d-flex
           .px-4.flex-stock
             span.d-flex
@@ -103,5 +108,16 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.flex-weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.breaking-news-link {
+  text-decoration: none;
+  color: inherit;
 }
 </style>
