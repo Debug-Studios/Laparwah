@@ -6,6 +6,24 @@
       .subheading.ml-0.pl-3 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
       v-spacer
 
+      v-toolbar-items
+        .d-flex
+          .px-4.flex-stock
+            span.d-flex
+              .body-2 DOW
+              v-icon.green--text keyboard_arrow_up
+            span.headline.green--text 24.45
+          .px-4.flex-stock
+            span.d-flex
+              .body-2 NASDAQ
+              v-icon.red--text keyboard_arrow_down
+            span.headline.red--text 7.45
+          .px-4.flex-stock
+            span.d-flex
+              .body-2 NIFTY
+              v-icon.green--text keyboard_arrow_up
+            span.headline.green--text 4.45
+
       v-menu(offset-y='' v-if='isLogged' )
         v-btn(icon='' slot='activator')
           v-avatar(size='32')
@@ -78,5 +96,12 @@ export default {
 <style scoped>
 .avatar {
   margin: 15px;
+}
+
+.flex-stock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
