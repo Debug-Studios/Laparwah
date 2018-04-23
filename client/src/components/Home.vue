@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import navbar from "./navbar.vue";
+import navbar from "./Navbar.vue";
 export default {
   name: "home",
   components: {
