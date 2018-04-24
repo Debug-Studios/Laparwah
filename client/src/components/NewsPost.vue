@@ -2,7 +2,9 @@
   v-app
     navbar
 
-    h1 {{route}}
+    v-container
+      h1.display-3 Russia ramps up pressure on Trump to honor Iran nuclear deal
+      span
 
 </template>
 
