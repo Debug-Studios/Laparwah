@@ -16,6 +16,11 @@ module.exports = dynamo.define('Account', {
     settings: {
       nickname: Joi.string()
     },
+    social: {
+      email: Joi.string().email(),
+      twitter: Joi.string(),
+      facebook: Joi.string()
+    },
     oauth: {
       google: {
         id: Joi.string()
