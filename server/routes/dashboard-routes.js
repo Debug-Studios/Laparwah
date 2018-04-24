@@ -3,13 +3,13 @@ const Account = require('../models/account');
 const News = require('../models/news');
 
 // Dashboard routes will always check (on every request) if a user is logged in or not.
-// router.use((req, res, next) => {
-//   if (req.user) {
-//     next();
-//   } else {
-//     res.sendStatus(403);
-//   }
-// });
+router.use((req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+});
 
 function IsEditor (req, res, next) {
   if (req.user.roles.includes('editor')) {
@@ -20,13 +20,11 @@ function IsEditor (req, res, next) {
 }
 
 function IsAdmin (req, res, next) {
-  // TODO: Remove
-  next();
-  // if (req.user.roles.includes('admin')) {
-  //   next();
-  // } else {
-  //   res.sendStatus(403);
-  // }
+  if (req.user.roles.includes('admin')) {
+    next();
+  } else {
+    res.sendStatus(403);
+  }
 }
 
 // For Admin
@@ -61,18 +59,14 @@ router.post('/createAccount', IsAdmin, (req, res) => {
   );
 });
 
-router.post('/editAccount/:email', IsAdmin, (req, res) => {
-  Account.findOneAndUpdate(
-    {
-      email: req.params.email
-    },
+router.post('/editAccount/:id', IsAdmin, (req, res) => {
+  Account.findByIdAndUpdate(
+    req.params.id,
     {
       name: req.body.name,
       gender: req.body.gender,
       roles: req.body.roles.split(' '),
-      settings: {
-        nickname: req.body.nickname
-      }
+      username: req.body.username
     },
     (err, acc) => {
       if (err) {
@@ -83,8 +77,8 @@ router.post('/editAccount/:email', IsAdmin, (req, res) => {
   );
 });
 
-router.get('/deleteAccount/:email', IsAdmin, (req, res) => {
-  Account.findOneAndRemove({ email: req.body.email }, (err, delAcc) => {
+router.delete('/deleteAccount/:id', IsAdmin, (req, res) => {
+  Account.findByIdAndRemove(req.params.id, (err, delAcc) => {
     if (err) {
       res.json(err);
     }
@@ -104,16 +98,16 @@ router.get('/allNewsPosts/:page', IsAdmin, (req, res) => {
     });
 });
 
-router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
+router.post('/editNewsPost/:id', IsAdmin, (req, res) => {
   News.findByIdAndUpdate(
     req.params.id,
     {
-      id: `${req.params.id}`,
-      title: `${req.body.title}`,
-      content: `${req.body.content}`,
-      category: `${req.body.category}`,
-      heroImage: `${req.body.heroImage}`,
-      tag: `${req.body.tag}`
+      title: req.body.title,
+      content: req.body.content,
+      category: req.body.category,
+      heroImage: req.body.heroImage,
+      main_tag: req.body.tag,
+      tags: req.body.tags.split(' ')
     },
     (err, news) => {
       if (err) res.json(err);
@@ -124,10 +118,10 @@ router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
   );
 });
 
-router.delete('/deleteNewsPost/:email/:id', IsAdmin, (req, res) => {
+router.delete('/deleteNewsPost/:id', IsAdmin, (req, res) => {
   News.findOneAndRemove(
     {
-      email: `${req.params.email}`
+      _id: req.params.id
     },
     (err, news) => {
       if (err) res.json(err);
@@ -139,15 +133,16 @@ router.delete('/deleteNewsPost/:email/:id', IsAdmin, (req, res) => {
 });
 
 // For Editor
-router.get('/createNewsPost', IsEditor, (req, res) => {
+router.post('/createNewsPost', IsEditor, (req, res) => {
   News.create(
     {
-      creator_id: `${req.user._id}`,
+      creator_id: req.user._id,
       title: `${req.body.title}`,
       content: `${req.body.content}`,
       category: `${req.body.category}`,
       heroImage: `${req.body.heroImage}`,
-      tag: `${req.body.tag}`
+      main_tag: `${req.body.tag}`,
+      tags: req.body.tags.split(' ')
     },
     (err, news) => {
       if (err) res.json(err);
@@ -159,7 +154,7 @@ router.get('/createNewsPost', IsEditor, (req, res) => {
 });
 
 router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
-  News.find({ creator_email: req.user.email })
+  News.find({ creator_id: req.user._id })
     .skip((req.params.page - 1) * 10)
     .limit(10)
     .exec((err, news) => {
@@ -170,17 +165,18 @@ router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
     });
 });
 
-router.get('/editNewsPost/:id', IsEditor, (req, res) => {
+router.post('/editOwnNewsPost/:id', IsEditor, (req, res) => {
   News.findOneAndUpdate(
     {
-      id: req.params.id
+      _id: req.params.id,
+      creator_id: req.user._id
     },
     {
-      title: `${req.body.title}`,
-      content: `${req.body.content}`,
-      category: `${req.body.category}`,
-      heroImage: `${req.body.heroImage}`,
-      tag: `${req.body.tag}`
+      title: req.body.title,
+      content: req.body.content,
+      category: req.body.category,
+      heroImage: req.body.heroImage,
+      tag: req.body.tag
     },
     (err, news) => {
       if (err) res.json(err);
@@ -193,7 +189,10 @@ router.get('/editNewsPost/:id', IsEditor, (req, res) => {
 
 router.delete('/deleteOwnNewsPost/:id', IsEditor, (req, res) => {
   News.findOneAndRemove(
-    { _id: req.params.id, email: req.user.email },
+    {
+      _id: req.params.id,
+      creator_id: req.user._id
+    },
     (err, news) => {
       if (err) res.json(err);
       else {
