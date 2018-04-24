@@ -8,11 +8,11 @@ const chalk = require('chalk');
 const Account = require('./../models/account');
 
 passport.serializeUser((acc, done) => {
-  done(null, acc.email);
+  done(null, acc._id);
 });
 
-passport.deserializeUser((email, done) => {
-  Account.findOne({ email: email }, (err, acc) => {
+passport.deserializeUser((id, done) => {
+  Account.findById(id, (err, acc) => {
     if (err || acc == null) done(null, err);
     else {
       done(null, acc);

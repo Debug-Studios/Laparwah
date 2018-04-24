@@ -35,9 +35,11 @@ router.get('/getCurrentUserDetails', (req, res) => {
 
 // Update User Profile
 router.post('/updateAccount', IsLoggedIn, (req, res) => {
-  Account.update(
+  Account.findOneAndUpdate(
     {
-      email: `${req.user.email}`,
+      email: `${req.user.email}`
+    },
+    {
       name: `${req.body.name}`,
       age: `${req.body.age}`,
       gender: `${req.body.gender}`
