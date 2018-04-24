@@ -41,6 +41,7 @@
     "vue": "^2.5.16",
     "vue-axios": "^2.1.1",
     "vue-gravatar": "^1.2.1",
+    "vue-material-design-icons": "^1.4.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.16"
   },
