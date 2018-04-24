@@ -1,8 +1,13 @@
 const path = require('path');
+const fs = require('fs');
 // Set environment variables
-require('dotenv').config({
-  path: path.join(__dirname, '/config/credentials/envVariables.env')
-});
+if (
+  fs.existsSync(path.join(__dirname, '/config/credentials/envVariables.env'))
+) {
+  require('dotenv').config({
+    path: path.join(__dirname, '/config/credentials/envVariables.env')
+  });
+}
 
 const express = require('express');
 const app = express();
