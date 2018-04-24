@@ -4,22 +4,18 @@ const FacebookStrategy = require('passport-facebook');
 const TwitterStrategy = require('passport-twitter');
 const MicrosoftStrategy = require('passport-outlook');
 
-const googleCreds = require('./credentials/google');
-const facebookCreds = require('./credentials/facebook');
-const twitterCreds = require('./credentials/twitter');
-const microsoftCreds = require('./credentials/microsoft');
 const chalk = require('chalk');
 const Account = require('./../models/account');
 
 passport.serializeUser((acc, done) => {
-  done(null, acc.email);
+  done(null, acc._id);
 });
 
-passport.deserializeUser((email, done) => {
-  Account.get(`${email}`, (err, acc) => {
-    if (err) done(null, err);
+passport.deserializeUser((id, done) => {
+  Account.findById(id, (err, acc) => {
+    if (err || acc == null) done(null, err);
     else {
-      done(null, acc.attrs);
+      done(null, acc);
     }
   });
 });
@@ -27,12 +23,12 @@ passport.deserializeUser((email, done) => {
 passport.use(
   new FacebookStrategy(
     {
-      clientID: facebookCreds.clientID,
-      clientSecret: facebookCreds.clientSecret,
+      clientID: process.env.FacebookId,
+      clientSecret: process.env.FacebookSecret,
       callbackURL: '/auth/facebook/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.email}`, (err, acc) => {
+      Account.findOne({ email: profile.email }, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
@@ -48,12 +44,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc.attrs);
+              done(err, newAcc);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc.attrs);
+            done(err, acc);
           }
         }
       });
@@ -64,12 +60,12 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: googleCreds.web.client_id,
-      clientSecret: googleCreds.web.client_secret,
+      clientID: process.env.GoogleId,
+      clientSecret: process.env.GoogleSecret,
       callbackURL: '/auth/google/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.emails[0].value}`, (err, acc) => {
+      Account.findOne({ email: profile.emails[0].value }, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
@@ -85,12 +81,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc.attrs);
+              done(err, newAcc);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc.attrs);
+            done(err, acc);
           }
         }
       });
@@ -101,14 +97,14 @@ passport.use(
 passport.use(
   new TwitterStrategy(
     {
-      consumerKey: twitterCreds.consumerKey,
-      consumerSecret: twitterCreds.consumerSecret,
+      consumerKey: process.env.TwitterId,
+      consumerSecret: process.env.TwitterSecret,
       userProfileURL:
         'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
       callbackURL: '/auth/twitter/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.emails[0].value}`, (err, acc) => {
+      Account.findOne({ email: profile.emails[0].value }, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
@@ -122,12 +118,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc.attrs);
+              done(err, newAcc);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc.attrs);
+            done(err, acc);
           }
         }
       });
@@ -138,12 +134,12 @@ passport.use(
 passport.use(
   new MicrosoftStrategy(
     {
-      clientID: microsoftCreds.clientID,
-      clientSecret: microsoftCreds.clientSecret,
+      clientID: process.env.MicrosoftId,
+      clientSecret: process.env.MicrosoftSecret,
       callbackURL: '/auth/microsoft/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.emails[0].value}`, (err, acc) => {
+      Account.findOne({ email: profile.emails[0].value }, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
@@ -157,12 +153,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc.attrs);
+              done(err, newAcc);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc.attrs);
+            done(err, acc);
           }
         }
       });
@@ -182,7 +178,7 @@ function CreateNewUser (
     Account.create(
       {
         email: email,
-        oauth: { [idKey]: { id: idValue } },
+        oauth: { [idKey]: idValue },
         name: name,
         roles: roles,
         gender: gender

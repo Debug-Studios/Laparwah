@@ -1,40 +1,51 @@
-const dynamo = require('dynamodb');
-const Joi = require('joi');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-module.exports = dynamo.define('Account', {
-  hashKey: 'email',
-  timestamps: true,
-  schema: {
-    id: dynamo.types.uuid(),
-    name: Joi.string(),
-    email: Joi.string()
-      .email()
-      .required(),
-    age: Joi.number(),
-    gender: Joi.string(),
-    roles: dynamo.types.stringSet().required(),
-    settings: {
-      nickname: Joi.string()
-    },
+const accountSchema = new Schema(
+  {
+    username: { type: String, unique: true, lowercase: true },
+    name: String,
+    email: { type: String, required: true, unique: true, lowercase: true },
+    age: Number,
+    gender: String,
+    roles: [String],
     social: {
-      email: Joi.string().email(),
-      twitter: Joi.string(),
-      facebook: Joi.string()
+      email: String,
+      facebook: String,
+      twitter: String
     },
     oauth: {
       google: {
-        id: Joi.string()
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        index: true
       },
       facebook: {
-        id: Joi.string()
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        index: true
       },
       twitter: {
-        id: Joi.string()
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        index: true
       },
       microsoft: {
-        id: Joi.string()
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        index: true
       }
     }
   },
-  tableName: 'laparwah_accounts'
-});
+  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+);
+
+module.exports = mongoose.model('Account', accountSchema);

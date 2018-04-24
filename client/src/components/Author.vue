@@ -29,7 +29,7 @@
 
         v-flex(xs12)
           div
-            v-stepper
+            v-stepper(value="-" non-linear)
               v-stepper-header
                 v-stepper-step(step="<-") Left Leaning
                 v-divider
