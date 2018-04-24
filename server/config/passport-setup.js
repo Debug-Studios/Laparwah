@@ -4,10 +4,6 @@ const FacebookStrategy = require('passport-facebook');
 const TwitterStrategy = require('passport-twitter');
 const MicrosoftStrategy = require('passport-outlook');
 
-const googleCreds = require('./credentials/google');
-const facebookCreds = require('./credentials/facebook');
-const twitterCreds = require('./credentials/twitter');
-const microsoftCreds = require('./credentials/microsoft');
 const chalk = require('chalk');
 const Account = require('./../models/account');
 
@@ -27,8 +23,8 @@ passport.deserializeUser((email, done) => {
 passport.use(
   new FacebookStrategy(
     {
-      clientID: facebookCreds.clientID,
-      clientSecret: facebookCreds.clientSecret,
+      clientID: process.env.FacebookId,
+      clientSecret: process.env.FacebookSecret,
       callbackURL: '/auth/facebook/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
@@ -64,8 +60,8 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: googleCreds.web.client_id,
-      clientSecret: googleCreds.web.client_secret,
+      clientID: process.env.GoogleId,
+      clientSecret: process.env.GoogleSecret,
       callbackURL: '/auth/google/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
@@ -101,8 +97,8 @@ passport.use(
 passport.use(
   new TwitterStrategy(
     {
-      consumerKey: twitterCreds.consumerKey,
-      consumerSecret: twitterCreds.consumerSecret,
+      consumerKey: process.env.TwitterId,
+      consumerSecret: process.env.TwitterSecret,
       userProfileURL:
         'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
       callbackURL: '/auth/twitter/redirect'
@@ -138,8 +134,8 @@ passport.use(
 passport.use(
   new MicrosoftStrategy(
     {
-      clientID: microsoftCreds.clientID,
-      clientSecret: microsoftCreds.clientSecret,
+      clientID: process.env.MicrosoftId,
+      clientSecret: process.env.MicrosoftSecret,
       callbackURL: '/auth/microsoft/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
