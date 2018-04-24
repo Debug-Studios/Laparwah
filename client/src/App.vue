@@ -3,6 +3,9 @@
 </template>
 
 <script>
+import navbar from "./components/navbar.vue";
+import dashboard from "./components/dashboard.vue";
+
 export default {
   name: "app",
   data() {
