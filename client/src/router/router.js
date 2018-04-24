@@ -5,6 +5,7 @@ import Navbar from './../components/navbar.vue';
 import Dashboard from './../components/dashboard.vue';
 import Home from './../components/Home.vue';
 import NewsPost from './../components/NewsPost.vue';
+import Author from './../components/Author.vue';
 import AddNews from './../components/DashboardComponents/AddNews.vue';
 
 Vue.use(Router);
@@ -35,6 +36,11 @@ export default new Router({
       path: '/news/:id',
       name: 'news',
       component: NewsPost
+    },
+    {
+      path: '/author/:id',
+      name: 'author',
+      component: Author
     },
     {
       path: '/addnews',
