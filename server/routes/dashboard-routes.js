@@ -154,12 +154,15 @@ router.get('/createNewsPost', IsEditor, (req, res) => {
 });
 
 router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
-  News.find({ email: req.user.email }, (err, news) => {
-    if (err) res.json(err);
-    else {
-      res.json(news);
-    }
-  });
+  News.find({ creator_email: req.user.email })
+    .skip((req.params.page - 1) * 10)
+    .limit(10)
+    .exec((err, news) => {
+      if (err) res.json(err);
+      else {
+        res.json(news);
+      }
+    });
 });
 
 router.get('/editNewsPost/:id', IsEditor, (req, res) => {
