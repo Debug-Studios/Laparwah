@@ -30,7 +30,12 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
+      children: [{
+        path: '',
+        name: 'addnews',
+        component: AddNews
+      }]
     },
     {
       path: '/news/:id',
@@ -41,11 +46,6 @@ export default new Router({
       path: '/author/:id',
       name: 'author',
       component: Author
-    },
-    {
-      path: '/dashboard/AddNews',
-      name: 'addnews',
-      component: AddNews
     }
   ]
 });

@@ -74,11 +74,8 @@
               v-btn(fab small dark)
                 v-icon directions_walk
     v-content
-      v-container(fluid='' fill-height='')
-        v-layout(justify-center='' align-center='')
-          router-view(v-model='add_news')
-    v-btn(fab bottom right color='pink' dark fixed @click.stop='')
-      v-icon keyboard_arrow_up
+      router-view(v-model='add_news')
+    
     
 </template>
 

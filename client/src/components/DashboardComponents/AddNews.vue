@@ -1,28 +1,34 @@
 <template lang="pug">
-import { functionDeclaration } from 'babel-types';
   #addnews
-    v-card(color='grey lighten-4 flat' width='400px;')
-        v-card-text
-            v-header 
-                v-text-field(name='title')
+    v-card
+        v-card-title.blue-grey.darken-2.py-4.title
+            | Add News
+        v-container.pa-4(grid-list-sm )
+            v-layout(row wrap)
+                v-flex(xs6 align-center justify-space-between)
+                     v-text-field(label="Add Title" name='add_title' v-model='title')
+                v-flex(xs6)
+                   v-select(:items='items' label='Add Category' v-model='category' name='add_category' input-type='text')
+                v-flex(xs12='')
+                    v-text-field(name='add_content' label='Add Content' textarea dark)
+                v-flex(xs12='')
+                    v-text-field(label='Add Tag' v-model='tag' name='add_tag')
+            v-card-actions
+                input(type='file' name='heroImage' accept='image/*'  color='primary') 
                 v-spacer
-                v-flex(xs12 sm6)  
-                    v-select(:items='items' v-model='ctg' label='Select Category' class='input-group--focused' name='category' single-line)
-            v-container(fluid)
-                v-layout(row)
-                    v-flex(xs12)
-                        v-text-field(name='content' label='Add News' textarea)
-        v-card-action
-            input(type='file' name='heroImage' accept='image/*')
-            v-spacer
-                v-btn(@click='sendPost') Add
-                v-btn Cancel
-    
+                v-btn( color='success' @click='sendPost') Add
+                v-btn( @click='') Cancel
+                            
 </template>
 <script>
 export default {
     data: ()=> ({
         ctg: null,
+        title:'',
+        category:'',
+        content:'',
+        tag:'',
+        heroImage:'',
         items: [
             {text : 'Politics'},
             {text : 'Money'},
@@ -41,11 +47,11 @@ export default {
 
     
   methods: {
-      sendPost: function(){
+      sendPost(){
           this.axios.post('/dashboard/createNewsPost', {
               title: this.title,
               content: this.content,
-              category:this.category,
+              category: this.category,
               tag: this.tag,
               heroImage: this.heroImage
 
