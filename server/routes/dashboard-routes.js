@@ -58,9 +58,11 @@ router.get('/createAccount', IsAdmin, (req, res) => {
 });
 
 router.post('/editAccount/:email', IsAdmin, (req, res) => {
-  Account.update(
+  Account.findOneAndUpdate(
     {
-      email: req.params.email,
+      email: req.params.email
+    },
+    {
       name: req.body.name,
       gender: req.body.gender,
       roles: req.body.roles.split(' '),
@@ -78,7 +80,7 @@ router.post('/editAccount/:email', IsAdmin, (req, res) => {
 });
 
 router.get('/deleteAccount/:email', IsAdmin, (req, res) => {
-  Account.destroy(`${req.body.email}`, (err, delAcc) => {
+  Account.findOneAndRemove({ email: req.body.email }, (err, delAcc) => {
     if (err) {
       res.json(err);
     }
@@ -96,9 +98,11 @@ router.get('/allNewsPosts', IsAdmin, (req, res) => {
 });
 
 router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
-  News.update(
+  News.findOneAndUpdate(
     {
-      email: `${req.params.email}`,
+      email: `${req.params.email}`
+    },
+    {
       id: `${req.params.id}`,
       title: `${req.body.title}`,
       content: `${req.body.content}`,
@@ -116,10 +120,9 @@ router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
 });
 
 router.delete('/deleteNewsPost/:email/:id', IsAdmin, (req, res) => {
-  News.destroy(
+  News.findOneAndRemove(
     {
-      email: `${req.params.email}`,
-      id: `${req.params.id}`
+      email: `${req.params.email}`
     },
     (err, news) => {
       if (err) res.json(err);
@@ -134,8 +137,7 @@ router.delete('/deleteNewsPost/:email/:id', IsAdmin, (req, res) => {
 router.get('/createNewsPost', IsEditor, (req, res) => {
   News.create(
     {
-      email: `${req.user.email}`,
-      id: `${req.params.id}`,
+      creator_id: `${req.user._id}`,
       title: `${req.body.title}`,
       content: `${req.body.content}`,
       category: `${req.body.category}`,
@@ -152,7 +154,7 @@ router.get('/createNewsPost', IsEditor, (req, res) => {
 });
 
 router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
-  News.get(`${req.user.email}`, (err, news) => {
+  News.find({ email: req.user.email }, (err, news) => {
     if (err) res.json(err);
     else {
       res.json(news);
@@ -161,10 +163,11 @@ router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
 });
 
 router.get('/editNewsPost/:id', IsEditor, (req, res) => {
-  News.update(
+  News.findOneAndUpdate(
     {
-      email: `${req.user.email}`,
-      id: `${req.params.id}`,
+      id: req.params.id
+    },
+    {
       title: `${req.body.title}`,
       content: `${req.body.content}`,
       category: `${req.body.category}`,
@@ -181,11 +184,8 @@ router.get('/editNewsPost/:id', IsEditor, (req, res) => {
 });
 
 router.delete('/deleteOwnNewsPost/:id', IsEditor, (req, res) => {
-  News.destroy(
-    {
-      email: `${req.user.email}`,
-      id: `${req.params.id}`
-    },
+  News.findOneAndRemove(
+    { _id: req.params.id, email: req.user.email },
     (err, news) => {
       if (err) res.json(err);
       else {
