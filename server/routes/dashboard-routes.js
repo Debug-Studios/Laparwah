@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Account = require('../models/account');
-const News = require('../models/newspost');
+const News = require('../models/news');
 
 // Dashboard routes will always check (on every request) if a user is logged in or not.
 router.use((req, res, next) => {

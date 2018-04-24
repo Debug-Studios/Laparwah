@@ -12,10 +12,10 @@ passport.serializeUser((acc, done) => {
 });
 
 passport.deserializeUser((email, done) => {
-  Account.get(`${email}`, (err, acc) => {
-    if (err) done(null, err);
+  Account.findOne({ email: email }, (err, acc) => {
+    if (err || acc == null) done(null, err);
     else {
-      done(null, acc.attrs);
+      done(null, acc);
     }
   });
 });
@@ -28,7 +28,7 @@ passport.use(
       callbackURL: '/auth/facebook/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.email}`, (err, acc) => {
+      Account.findOne({ email: profile.email }, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
@@ -44,12 +44,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc.attrs);
+              done(err, newAcc);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc.attrs);
+            done(err, acc);
           }
         }
       });
@@ -65,7 +65,7 @@ passport.use(
       callbackURL: '/auth/google/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.emails[0].value}`, (err, acc) => {
+      Account.findOne({ email: profile.emails[0].value }, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
@@ -81,12 +81,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc.attrs);
+              done(err, newAcc);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc.attrs);
+            done(err, acc);
           }
         }
       });
@@ -104,7 +104,7 @@ passport.use(
       callbackURL: '/auth/twitter/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.emails[0].value}`, (err, acc) => {
+      Account.findOne({ email: profile.emails[0].value }, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
@@ -118,12 +118,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc.attrs);
+              done(err, newAcc);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc.attrs);
+            done(err, acc);
           }
         }
       });
@@ -139,7 +139,7 @@ passport.use(
       callbackURL: '/auth/microsoft/redirect'
     },
     (accessToken, refreshToken, profile, done) => {
-      Account.get(`${profile.emails[0].value}`, (err, acc) => {
+      Account.findOne({ email: profile.emails[0].value }, (err, acc) => {
         if (err) console.log(chalk.red(err));
         else {
           if (acc == null) {
@@ -153,12 +153,12 @@ passport.use(
               if (err) {
                 console.log(chalk.red(err));
               }
-              done(err, newAcc.attrs);
+              done(err, newAcc);
             });
           } else {
             // User already exists in our DB.
             console.log(chalk.green('Already have the user'));
-            done(err, acc.attrs);
+            done(err, acc);
           }
         }
       });

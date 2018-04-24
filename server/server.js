@@ -34,9 +34,8 @@ mongoose.connect(`${process.env.mongoUri}`).then(
     console.log(chalk.red(err));
   }
 );
-
 require('./models/account');
-require('./models/newspost');
+require('./models/news');
 require('./config/passport-setup');
 
 // Serve static files from dist
