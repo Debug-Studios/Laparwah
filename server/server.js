@@ -35,9 +35,9 @@ mongoose.connect(`${process.env.mongoUri}`).then(
   }
 );
 
-// require('./models/account');
-// require('./models/newspost');
-// require('./config/passport-setup');
+require('./models/account');
+require('./models/newspost');
+require('./config/passport-setup');
 
 // Serve static files from dist
 app.use(express.static('dist'));
@@ -54,12 +54,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // // Set-up Routes
-// const authRoutes = require('./routes/auth-routes');
-// app.use('/auth', authRoutes);
-// const accountRoutes = require('./routes/account-routes');
-// app.use('/accounts', accountRoutes);
-// const dashboardRoutes = require('./routes/dashboard-routes');
-// app.use('/dashboard', dashboardRoutes);
+const authRoutes = require('./routes/auth-routes');
+app.use('/auth', authRoutes);
+const accountRoutes = require('./routes/account-routes');
+app.use('/accounts', accountRoutes);
+const dashboardRoutes = require('./routes/dashboard-routes');
+app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/index.html'));

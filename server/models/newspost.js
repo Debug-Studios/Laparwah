@@ -1,5 +1,5 @@
-const dynamo = require('dynamodb');
-const Joi = require('joi');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 module.exports = dynamo.define('Account', {
   hashKey: 'creator_email',

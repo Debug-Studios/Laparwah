@@ -1,40 +1,31 @@
-const dynamo = require('dynamodb');
-const Joi = require('joi');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-module.exports = dynamo.define('Account', {
-  hashKey: 'email',
-  timestamps: true,
-  schema: {
-    id: dynamo.types.uuid(),
-    name: Joi.string(),
-    email: Joi.string()
-      .email()
-      .required(),
-    age: Joi.number(),
-    gender: Joi.string(),
-    roles: dynamo.types.stringSet().required(),
-    settings: {
-      nickname: Joi.string()
-    },
-    social: {
-      email: Joi.string().email(),
-      twitter: Joi.string(),
-      facebook: Joi.string()
-    },
-    oauth: {
-      google: {
-        id: Joi.string()
-      },
-      facebook: {
-        id: Joi.string()
-      },
-      twitter: {
-        id: Joi.string()
-      },
-      microsoft: {
-        id: Joi.string()
-      }
-    }
+const accountSchema = new Schema({
+  name: String,
+  email: String,
+  age: Number,
+  gender: String,
+  roles: [String],
+  social: {
+    email: String,
+    facebook: String,
+    twitter: String
   },
-  tableName: 'laparwah_accounts'
+  oauth: {
+    google: {
+      id: String
+    },
+    facebook: {
+      id: String
+    },
+    twitter: {
+      id: String
+    },
+    microsoft: {
+      id: String
+    }
+  }
 });
+
+module.exports = mongoose.model('Account', accountSchema);
