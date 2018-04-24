@@ -16,16 +16,32 @@ const accountSchema = new Schema(
     },
     oauth: {
       google: {
-        id: { type: String, unique: true }
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        index: true
       },
       facebook: {
-        id: { type: String, unique: true }
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        index: true
       },
       twitter: {
-        id: { type: String, unique: true }
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        index: true
       },
       microsoft: {
-        id: { type: String, unique: true }
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        index: true
       }
     }
   },

@@ -3,13 +3,13 @@ const Account = require('../models/account');
 const News = require('../models/news');
 
 // Dashboard routes will always check (on every request) if a user is logged in or not.
-router.use((req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.sendStatus(403);
-  }
-});
+// router.use((req, res, next) => {
+//   if (req.user) {
+//     next();
+//   } else {
+//     res.sendStatus(403);
+//   }
+// });
 
 function IsEditor (req, res, next) {
   if (req.user.roles.includes('editor')) {
@@ -20,39 +20,43 @@ function IsEditor (req, res, next) {
 }
 
 function IsAdmin (req, res, next) {
-  if (req.user.roles.includes('admin')) {
-    next();
-  } else {
-    res.sendStatus(403);
-  }
+  // TODO: Remove
+  next();
+  // if (req.user.roles.includes('admin')) {
+  //   next();
+  // } else {
+  //   res.sendStatus(403);
+  // }
 }
 
 // For Admin
-router.get('/allAccounts', IsAdmin, (req, res) => {
-  Account.scan().exec((err, resp) => {
-    if (err) res.json(err);
-    else {
-      res.json(resp);
-    }
-  });
+router.get('/allAccounts/:page', IsAdmin, (req, res) => {
+  Account.find()
+    .skip((req.params.page - 1) * 10)
+    .limit(10)
+    .exec((err, news) => {
+      if (err) res.json(err);
+      else {
+        res.json(news);
+      }
+    });
 });
 
-router.get('/createAccount', IsAdmin, (req, res) => {
+router.post('/createAccount', IsAdmin, (req, res) => {
   Account.create(
     {
       email: req.body.email,
+      username: req.body.username,
       name: req.body.name,
       gender: req.body.gender,
-      roles: req.body.roles.split(' '),
-      settings: {
-        nickname: req.body.nickname
-      }
+      roles: req.body.roles.split(' ')
     },
     (err, newAcc) => {
       if (err) {
         res.json(err);
+      } else {
+        res.json(newAcc);
       }
-      res.json(newAcc);
     }
   );
 });
@@ -88,20 +92,21 @@ router.get('/deleteAccount/:email', IsAdmin, (req, res) => {
   });
 });
 
-router.get('/allNewsPosts', IsAdmin, (req, res) => {
-  News.scan().exec((err, resp) => {
-    if (err) res.json(err);
-    else {
-      res.json(resp);
-    }
-  });
+router.get('/allNewsPosts/:page', IsAdmin, (req, res) => {
+  News.find()
+    .skip((req.params.page - 1) * 10)
+    .limit(10)
+    .exec((err, news) => {
+      if (err) res.json(err);
+      else {
+        res.json(news);
+      }
+    });
 });
 
 router.post('/editNewsPost/:email/:id', IsAdmin, (req, res) => {
-  News.findOneAndUpdate(
-    {
-      email: `${req.params.email}`
-    },
+  News.findByIdAndUpdate(
+    req.params.id,
     {
       id: `${req.params.id}`,
       title: `${req.body.title}`,

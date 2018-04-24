@@ -3,9 +3,8 @@ const Schema = mongoose.Schema;
 
 const newsSchema = new Schema(
   {
-    creator_id: Schema.Types.ObjectId,
-    creator_email: String,
-    co_creator_id: Schema.Types.ObjectId,
+    creator_id: { type: Schema.Types.ObjectId, ref: 'Account' },
+    co_creator_id: { type: Schema.Types.ObjectId, ref: 'Account' },
     title: String,
     content: String,
     heroImage: String,

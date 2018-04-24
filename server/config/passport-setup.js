@@ -178,7 +178,7 @@ function CreateNewUser (
     Account.create(
       {
         email: email,
-        oauth: { [idKey]: { id: idValue } },
+        oauth: { [idKey]: idValue },
         name: name,
         roles: roles,
         gender: gender
