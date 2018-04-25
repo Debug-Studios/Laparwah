@@ -12,16 +12,18 @@
         .subheading (Gopeshwar, Chamoli)
 
       .d-flex(v-for="stock in stocks")
-        .px-4.flex-stock(v-if="stock.change > 0")
-          span.d-flex
-            .body-2 {{stock.name}}
-            v-icon.green--text keyboard_arrow_up
-          span.headline.green--text {{stock.change}}
-        .px-4.flex-stock(v-if="stock.change < 0")
-          span.d-flex
-            .body-2 {{stock.name}}
-            v-icon.red--text keyboard_arrow_down
-          span.headline.red--text {{stock.change}}
+        transition(name="slide-fade" mode="out-in")
+          .flex-center(:key="stock.change")
+            .px-4.flex-stock(v-if="stock.change > 0")
+              span.d-flex
+                .body-2 {{stock.name}}
+                v-icon.green--text keyboard_arrow_up
+              span.headline.green--text {{stock.change}}
+            .px-4.flex-stock(v-if="stock.change < 0")
+              span.d-flex
+                .body-2 {{stock.name}}
+                v-icon.red--text keyboard_arrow_down
+              span.headline.red--text {{stock.change}}
 
     v-menu(offset-y='' v-if='isLogged' )
       v-btn(icon='' slot='activator')
@@ -117,6 +119,12 @@ export default {
   margin: 15px;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .flex-stock {
   display: flex;
   flex-direction: column;
@@ -133,5 +141,18 @@ export default {
 .breaking-news-link {
   text-decoration: none;
   color: inherit;
+}
+
+/* Transitions */
+.slide-fade-enter-active {
+  transition: all 1s ease;
+}
+.slide-fade-leave-active {
+  transition: all 1s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
 }
 </style>
