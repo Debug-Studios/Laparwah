@@ -7,7 +7,8 @@
             v-layout(row wrap)
                 v-flex(xs6 align-center justify-space-between)
                      v-text-field(label="Add Title" name='add_title' v-model='title')
-                v-flex(xs6)
+                v-spacer
+                v-flex(xs3)
                    v-select(:items='items' label='Add Category' v-model='category' name='add_category' input-type='text')
                 v-flex(xs12='')
                     v-text-field(name='add_content' v-model='content' label='Add Content' textarea dark)

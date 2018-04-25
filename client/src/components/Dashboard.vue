@@ -15,16 +15,12 @@
             v-list-tile-title All News
             v-list-tile-action
               v-icon all_inclusive
-          v-list-tile
+          v-list-tile(v-on:click='add_news = !add_news')
             v-list-tile-title New News
             v-list-tile-action
               v-icon note_add
 
       v-list(dense v-show='isAdmin')
-        v-list-tile(@click='')
-          v-list-tile-action
-            v-icon face 
-          v-list-tile-title Profile
         v-list-group(subgroup no-action value='true')
           v-list-tile(slot='activator')
             v-list-tile-action 
@@ -38,21 +34,6 @@
             v-list-tile-title Delete User
             v-list-tile-action
               v-icon delete_forever
-        
-        v-list-group(subgroup no-action value='true')
-          v-list-tile(slot='activator')
-            v-list-tile-action
-              v-icon people_outline
-            v-list-tile-title News Management
-          v-list-tile 
-            v-list-tile-title All News
-            v-list-tile-action  
-              v-icon all_inclusive
-          v-list-tile(v-on:click='add_news = !add_news')
-            v-list-tile-title New News
-            v-list-tile-action  
-              v-icon note_add
-
         
     v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
