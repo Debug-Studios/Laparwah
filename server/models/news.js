@@ -9,6 +9,7 @@ const newsSchema = new Schema(
     content: String,
     heroImage: String,
     locale: String,
+    category: String,
     main_tag: String,
     tags: [String],
     stats: {

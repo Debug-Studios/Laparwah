@@ -19,13 +19,13 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const chalk = require('chalk');
 
+// Enable CORS
+app.use(cors());
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../client'));
 
 app.use(morgan('tiny'));
-
-// Enable CORS
-app.use(cors());
 
 // Use Body-Parser
 app.use(bodyParser.json());
@@ -65,6 +65,8 @@ const accountRoutes = require('./routes/account-routes');
 app.use('/accounts', accountRoutes);
 const newsRoutes = require('./routes/news-routes');
 app.use('/news', newsRoutes);
+const stockRoutes = require('./routes/stocks-routes');
+app.use('/stocks', stockRoutes);
 const dashboardRoutes = require('./routes/dashboard-routes');
 app.use('/dashboard', dashboardRoutes);
 

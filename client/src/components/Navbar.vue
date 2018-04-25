@@ -11,22 +11,17 @@
         .headline.pr-2 20&deg;C
         .subheading (Gopeshwar, Chamoli)
 
-      .d-flex
-        .px-4.flex-stock
+      .d-flex(v-for="stock in stocks")
+        .px-4.flex-stock(v-if="stock.change > 0")
           span.d-flex
-            .body-2 DOW
+            .body-2 {{stock.name}}
             v-icon.green--text keyboard_arrow_up
-          span.headline.green--text 24.45
-        .px-4.flex-stock
+          span.headline.green--text {{stock.change}}
+        .px-4.flex-stock(v-if="stock.change < 0")
           span.d-flex
-            .body-2 NASDAQ
+            .body-2 {{stock.name}}
             v-icon.red--text keyboard_arrow_down
-          span.headline.red--text 7.45
-        .px-4.flex-stock
-          span.d-flex
-            .body-2 NIFTY
-            v-icon.green--text keyboard_arrow_up
-          span.headline.green--text 4.45
+          span.headline.red--text {{stock.change}}
 
     v-menu(offset-y='' v-if='isLogged' )
       v-btn(icon='' slot='activator')
@@ -81,7 +76,8 @@ export default {
       { icon: "/icons/facebook.svg" },
       { icon: "/icons/twitter.svg" },
       { icon: "/icons/windows.svg" }
-    ]
+    ],
+    stocks: [{}, {}]
   }),
   props: {
     source: String
@@ -96,7 +92,15 @@ export default {
     });
   },
   methods: {
-    stockUpdater: function() {}
+    stockUpdater: function() {
+      this.axios.get("/stocks/getNSE").then(response => {
+        this.$set(this.stocks, 0, response.data.data[1]);
+      });
+
+      this.axios.get("/stocks/getSENSEX").then(response => {
+        this.$set(this.stocks, 1, response.data);
+      });
+    }
   },
   mounted() {
     this.stockUpdater();
