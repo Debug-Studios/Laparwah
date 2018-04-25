@@ -38,6 +38,7 @@
     "passport-google-oauth20": "^1.0.0",
     "passport-outlook": "^2.1.0",
     "passport-twitter": "^1.0.4",
+    "stocks.js": "0.0.17",
     "vee-validate": "^2.0.6",
     "vue": "^2.5.16",
     "vue-axios": "^2.1.1",
