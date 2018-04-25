@@ -134,6 +134,7 @@ router.delete('/deleteNewsPost/:id', IsAdmin, (req, res) => {
 
 // For Editor
 router.post('/createNewsPost', IsEditor, (req, res) => {
+  console.log(req);
   News.create(
     {
       creator_id: req.user._id,

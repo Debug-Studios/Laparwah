@@ -10,24 +10,29 @@
                 v-flex(xs6)
                    v-select(:items='items' label='Add Category' v-model='category' name='add_category' input-type='text')
                 v-flex(xs12='')
-                    v-text-field(name='add_content' label='Add Content' textarea dark)
+                    v-text-field(name='add_content' v-model='content' label='Add Content' textarea dark)
                 v-flex(xs12='')
-                    v-text-field(label='Add Tag' v-model='tag' name='add_tag')
+                    v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
+                v-flex(xs12='')
+                    v-text-field(label='Tags' v-model='tags' name='add_tag')
+                
             v-card-actions
-                input(type='file' name='heroImage' accept='image/*'  color='primary') 
                 v-spacer
-                v-btn( color='success' @click='sendPost') Add
+                v-btn( color='success' @click.native='sendPost') Add
                 v-btn( @click='') Cancel
+                
+                
                             
 </template>
 <script>
 export default {
     data: ()=> ({
-        ctg: null,
+        _id: '',
         title:'',
         category:'',
         content:'',
-        tag:'',
+        main_tag:'',
+        tags:'',
         heroImage:'',
         items: [
             {text : 'Politics'},
@@ -49,15 +54,19 @@ export default {
   methods: {
       sendPost(){
           this.axios.post('/dashboard/createNewsPost', {
+              _id : this._id,
               title: this.title,
               content: this.content,
               category: this.category,
-              tag: this.tag,
+              tag: this.main_tag,
+              tags: this.tags,
               heroImage: this.heroImage
 
-          }).then(function(response){
-              console.log(response);
-          }).catch(function(error){
+          })
+          .then(function(response){
+              console.log("Send Successfully" + response);
+          })
+          .catch(function(error){
               console.log(error);
           })
       }
