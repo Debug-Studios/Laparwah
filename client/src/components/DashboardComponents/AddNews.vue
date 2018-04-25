@@ -10,12 +10,16 @@
                 v-spacer
                 v-flex(xs3)
                    v-select(:items='items' label='Add Category' v-model='category' name='add_category' input-type='text')
-                v-flex(xs12='')
+                v-flex(xs12)
                     v-text-field(name='add_content' v-model='content' label='Add Content' textarea dark)
-                v-flex(xs12='')
+                v-flex(xs6)
+                    v-text-field(label='Apply Tags' v-model='tags' name='add_tags')
+                v-spacer
+                v-flex(xs3)
                     v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
-                v-flex(xs12='')
-                    v-text-field(label='Tags' v-model='tags' name='add_tag')
+                v-flex(xs12)
+                    v-text-field(label='Add Image Link' v-model='heroImage' name='add_image')
+                
                 
             v-card-actions
                 v-spacer
