@@ -13,10 +13,7 @@
                 v-flex(xs12)
                     v-text-field(name='add_content' v-model='content' label='Add Content' textarea dark)
                 v-flex(xs6)
-                    v-select(label='Apply Tags' chips tags solo clearable v-model='chips')
-                        template(slot='selection' slot-scope='data')
-                            v-chip(close @input='remove(data.item)' :selected='data.selected')
-                                strong {{data.item}}
+                    v-text-field(label='Apply Tags' v-model='tags' name='add_tags')
                 v-spacer
                 v-flex(xs3)
                     v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
