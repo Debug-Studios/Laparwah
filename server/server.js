@@ -63,6 +63,8 @@ const authRoutes = require('./routes/auth-routes');
 app.use('/auth', authRoutes);
 const accountRoutes = require('./routes/account-routes');
 app.use('/accounts', accountRoutes);
+const newsRoutes = require('./routes/news-routes');
+app.use('/news', newsRoutes);
 const dashboardRoutes = require('./routes/dashboard-routes');
 app.use('/dashboard', dashboardRoutes);
 
