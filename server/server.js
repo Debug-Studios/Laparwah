@@ -28,7 +28,8 @@ app.use(morgan('tiny'));
 app.use(cors());
 
 // Use Body-Parser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // MongoDB
 mongoose.connect(`${process.env.mongoUri}`).then(
