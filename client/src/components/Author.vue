@@ -9,7 +9,7 @@
             v-layout(row)
               v-flex(xs6 offset-xs3).flex-profile
                 v-avatar.main-avatar(size='256')
-                  v-gravatar(size='256' email="ayush.bahuguna12@gmail.com")
+                  v-gravatar(size='256' :email="email")
                 v-flex.flex-profile-text.ml-3
                   .display-2 Ravish Kumar
                   .headline.mt-1.ml-1 Digital Producer, News

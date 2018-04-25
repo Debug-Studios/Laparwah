@@ -19,6 +19,7 @@
         v-btn(flat) Travel
         v-btn(flat) Style
         v-btn(flat) Health
+        v-btn(flat) Culture
         v-btn(flat) Video
       v-spacer
       v-toolbar-items

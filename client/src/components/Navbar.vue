@@ -94,6 +94,16 @@ export default {
         this.name = response.data.user.name;
       }
     });
+  },
+  methods: {
+    stockUpdater: function() {}
+  },
+  mounted() {
+    this.stockUpdater();
+
+    setInterval(() => {
+      this.stockUpdater();
+    }, 30000);
   }
 };
 </script>
