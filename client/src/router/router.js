@@ -33,7 +33,7 @@ export default new Router({
       name: 'dashboard',
       component: Dashboard,
       children: [{
-        path: '',
+        path: 'addnews',
         name: 'addnews',
         component: AddNews
       },

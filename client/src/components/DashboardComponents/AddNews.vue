@@ -25,6 +25,8 @@
                 v-spacer
                 v-btn( color='success' @click='sendPost' ) Add
                 v-btn( type='reset' ) Reset
+        v-snackbar(:timeout='timeout' color='success' v-if='snackbar') Wallah!! Your News is added successfully.
+            v-btn(dark flat @click.native='snackbar = false') Close
         
                 
                 
@@ -73,6 +75,7 @@ export default {
 
           })
           .then(function(response){
+              this.snackbar = true;
               console.log(response);
               
           })

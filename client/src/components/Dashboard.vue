@@ -1,27 +1,25 @@
 <template lang="pug">
   v-app(dark)
     v-navigation-drawer(fixed :clipped='$vuetify.breakpoint.lgAndUp' app v-model='drawer' value='true')
-      v-list(dense v-show='isEditor')
+      v-list(dense )
         v-list-tile(@click='')
           v-list-tile-action
             v-icon face 
           v-list-tile-title Profile
-        v-list-group(subgroup no-action value='true')
+        v-list-group(subgroup no-action value='true' v-show='isEditor')
           v-list-tile(slot='activator')
             v-list-tile-action 
               v-icon people_outline
             v-list-tile-title News Management
-          v-list-tile
+          v-list-tile(v-on:click='allNewsCard')
             v-list-tile-title All News
             v-list-tile-action
               v-icon all_inclusive
-          v-list-tile(v-on:click='add_news = !add_news')
+          v-list-tile(v-on:click='addNewsCard')
             v-list-tile-title New News
             v-list-tile-action
               v-icon note_add
-
-      v-list(dense v-show='isAdmin')
-        v-list-group(subgroup no-action value='true')
+        v-list-group(subgroup no-action value='true' v-show='isAdmin')
           v-list-tile(slot='activator')
             v-list-tile-action 
               v-icon people_outline
@@ -34,6 +32,7 @@
             v-list-tile-title Delete User
             v-list-tile-action
               v-icon delete_forever
+
         
     v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
@@ -55,7 +54,7 @@
               v-btn(fab small dark)
                 v-icon directions_walk
     v-content
-      router-view(v-if='add_news')
+      router-view
       
     
     
@@ -76,6 +75,14 @@
     }),
     
     methods:{
+      addNewsCard(){
+          window.location.href=`${window.location.origin}/#/dashboard/addnews`;
+
+      },
+      allNewsCard(){
+          window.location.href=`${window.location.origin}/#/dashboard/allnews`;
+
+      }
       
       
     },
