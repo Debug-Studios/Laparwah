@@ -31,50 +31,30 @@
           v-container(fluid grid-list-md)
             v-layout(row wrap).mt-2
               v-flex(md7 xs12 sm12).mx-5
-                v-card
-                  v-card-media(src="https://cdn.cnn.com/cnnnext/dam/assets/180413094214-merker-macron-may-exlarge-169.jpg" height="400px")
+                v-card(v-if="breakingNews")
+                  v-card-media(:src="breakingNews.heroImage" height="400px")
                     v-container(fill-height)
                       v-layout(fill-height)
                         v-flex(xs12 align-end flexbox)
                           v-chip(label color="red" text-color="white") BREAKING NEWS
                   v-card-title(primary-title)
                     div
-                      h3.headline Trump Under Pressure on Iran Deal
-                      span.subheading.grey--text.text--darken-2 April 20, 2018
+                      h3.headline {{breakingNews.title}}
+                      span.subheading.grey--text.text--darken-2 {{breakingNews.created_at | moment("dddd, MMMM Do YYYY")}}
               v-flex(md4 xs12 sm12)
                 h3.headline.text-xs-center SPOTLIGHT
                 v-divider
                 v-container(fluid grid-list-lg style="min-height: 0;")
-                  v-layout(row wrap)
+                  v-layout(row wrap v-for="news in spotlights" :key="spotlight._id")
                     v-flex(xs12)
                       v-card(color="cyan darken-2" class="white--text")
                         v-container(fluid grid-list-lg)
                           v-layout(row)
                             v-flex(xs5)
-                              v-card-media(src="https://thewire.in/wp-content/uploads/2017/03/Arun-jaitley-pti.jpg", height="100%" contain)
+                              v-card-media(:src="news.heroImage", height="100%" contain)
                             v-flex(xs7)
-                              a.plain.title Allow us to jog your memory, Mr. Jaitley
-                              .subheading.mt-1 April, 2018
-
-                    v-flex(xs12)
-                      v-card(color="blue-grey darken-2" class="white--text")
-                        v-container(fluid grid-list-lg)
-                          v-layout(row)
-                            v-flex(xs5)
-                              v-card-media(src="https://thewire.in/wp-content/uploads/2017/04/Aseemanand-PTI.png", height="100%" contain)
-                            v-flex(xs7)
-                              a.plain.title I Am Waiting for the Right Moment to Strike.
-                              .subheading.mt-1 April, 2018
-
-                    v-flex(xs12)
-                      v-card(color="grey darken-2" class="white--text")
-                        v-container(fluid grid-list-lg)
-                          v-layout(row)
-                            v-flex(xs5)
-                              v-card-media(src="https://cdn.thewire.in/wp-content/uploads/2018/04/18174016/CJI-court-1024x541.jpg", height="100%" contain)
-                            v-flex(xs7)
-                              a.plain.title We Have Always Deprecated Restraints on Free Speech, Says SC
-                              .subheading.mt-1 April, 2018
+                              a.plain.title {{news.title}}
+                              .subheading.mt-1 {{news.created_at | moment("dddd, MMMM Do YYYY")}}
 
 
 </template>
@@ -86,7 +66,21 @@ export default {
   components: {
     navbar
   },
-  data: () => ({})
+  data: () => ({
+    breakingNews: {},
+    spotlights: []
+  }),
+  mounted() {
+    // Get one breaking news
+    this.axios.get("/news/getBreaking/1").then(response => {
+      this.breakingNews = response.data[0];
+    });
+
+    // Get spotlights
+    this.axios.get("/news/getSpotlights/5").then(response => {
+      this.spotlights = response.data;
+    });
+  }
 };
 </script>
 

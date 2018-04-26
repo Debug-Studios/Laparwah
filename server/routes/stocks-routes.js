@@ -3,6 +3,7 @@ const axios = require('axios');
 
 router.get('/getNSE', (req, res) => {
   axios.get('https://nseindia.com/homepage/Indices1.json').then(response => {
+    response.data.data[1].url = 'https://nseindia.com';
     res.json(response.data);
   });
 });
@@ -28,7 +29,8 @@ router.get('/getSENSEX', (req, res) => {
         lastPrice: lastPrice,
         change: change,
         name: 'SENSEX',
-        pChange: pChange
+        pChange: pChange,
+        url: 'https://bseindia.com'
       });
     });
 });

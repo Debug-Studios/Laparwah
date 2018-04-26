@@ -12,7 +12,9 @@ Vue.component('v-gravatar', Gravatar);
 Vue.use(VeeValidate);
 // VueAxios
 Vue.use(VueAxios, axios);
-// Vue-Gravatar
+
+// Moment
+Vue.use(require('vue-moment'));
 
 // Vuetify
 Vue.use(Vuetify);
