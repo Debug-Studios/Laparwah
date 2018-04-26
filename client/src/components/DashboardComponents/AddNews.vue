@@ -9,7 +9,7 @@
                      v-text-field(label="Add Title" name='add_title' v-model='title')
                 v-spacer
                 v-flex(xs3)
-                   v-select(:items='items' label='Add Category' v-model='category' name='add_category' input-type='text')
+                   v-select(:items='items' label='Select Category' v-model='category' name='add_category' input-type='text')
                 v-flex(xs12)
                     v-text-field(name='add_content' v-model='content' label='Add Content' textarea dark)
                 v-flex(xs6)
@@ -57,7 +57,7 @@ export default {
               _id : this._id,
               title: this.title,
               content: this.content,
-              category: this.category,
+              category: this.category.value,
               tags: this.tags,
               main_tag: this.main_tag,
               heroImage: this.heroImage
