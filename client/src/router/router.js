@@ -8,6 +8,9 @@ import NewsPost from './../components/NewsPost.vue';
 import Author from './../components/Author.vue';
 import AddNews from './../components/DashboardComponents/AddNews.vue';
 import AllNews from './../components/DashboardComponents/AllNews.vue';
+import AddUser from './../components/DashboardComponents/AddUser.vue';
+import DeleteUser from './../components/DashboardComponents/DeleteUser.vue';
+import UserProfile from './../components/DashboardComponents/UserProfile.vue';
 
 Vue.use(Router);
 
@@ -42,6 +45,21 @@ export default new Router({
         name: 'allnews',
         component: AllNews
 
+      },
+      {
+        path: 'adduser',
+        name: 'adduser',
+        component: AddUser
+      },
+      {
+        path: 'deleteuser',
+        name: 'deleteuser',
+        component: DeleteUser
+      },
+      {
+        path: 'userprofile',
+        name: 'userprofile',
+        component: UserProfile
       }]
     },
     {
