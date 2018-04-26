@@ -1,5 +1,20 @@
 const router = require('express').Router();
 const News = require('../models/news');
+const showdown = require('showdown');
+const converter = new showdown.Converter({
+  simplifiedAutoLink: true,
+  strikethrough: true
+});
+
+router.get('getNewsPost/:id', (req, res) => {
+  News.findById(req.params.id).then((err, post) => {
+    if (err) res.json(err);
+    else {
+      post.content = converter.makeHtml(post.content);
+      res.json(post);
+    }
+  });
+});
 
 // Get Breaking List
 router.get('/getBreaking/:count', (req, res) => {
