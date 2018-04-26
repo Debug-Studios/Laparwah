@@ -1,47 +1,54 @@
 <template lang="pug">
   #allnews
-    v-card
-        v-card-title.blue-grey.darken-2.py-4.title(v-model='title')
-            | {{title}}
+    v-card(v-for='(news, index) in allnews' :key='news._id')
+        v-card-title.blue-grey.darken-2.py-4.title
+            | {{news.title}}
         v-container.pa-4(grid-list-sm )
             v-layout(row wrap)
                 v-flex(xs6)
-                   p( label='Category' v-model='category' name='category') {{category}}
+                   h3( label='Category' name='category' ) Category: {{news.category}}
                 v-spacer
                 v-flex(xs3)
-                    p(label='Tag' v-model='main_tag' name='tag') {{main_tag}}
+                    h3(name='tag') Tag: {{news.main_tag}}
                 v-flex(xs12)
-                    p(name='show_content' v-model='content' label='Content') {{content}}
+                    p(name='show_content' label='Content') {{news.content}}
                 v-flex(xs6)
-                    p(label='Applied Tags' v-model='tags' name='applied_tags') {{tags}}
-                
+                    h3(label='Applied Tags' name='applied_tags') Applied Tags: {{news.tags}}
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click.native='' ) Edit
-                v-btn( @click='') Delete
+                v-btn( @click='deletePost') Delete
 </template>
 <script>
 export default {
     data: ()=>({
-        title: '',
-        category:'',
-        main_tag:'',
-        content:'',
-        tags:''
-        
+        allnews: [],
+
     }),
-    created(){
+    mounted(){
         this.axios.get('/dashboard/allNewsPosts/:page').then(response =>{
-            
-            this.title= response.data.title;
-            this.category= response.data.category;
-            this.tag= response.data.main_tag;
-            this.content= response.data.content;
-            this.tags= response.data.tags;
+            this.allnews = response.data;
             console.log(response);
+
         });
+    },
+    methods: {
+        deletePost(){
+            this.axios.post('/deleteNewsPost/:id').then(function(response){
+                console.log(response);
+            }).catch(function(error){
+                console.log(error);
+            })
+
+        }
     }
-  
+
 }
 </script>
+<style scoped>
+p {
+    text-align: justify;
+}
+</style>
+
 

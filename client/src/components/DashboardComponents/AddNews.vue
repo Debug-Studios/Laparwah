@@ -29,7 +29,7 @@ export default {
     data: ()=> ({
         _id: '',
         title:'',
-        category:'',
+        category:[],
         content:'',
         main_tag:'',
         tags:'',
