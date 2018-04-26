@@ -137,12 +137,12 @@ router.post('/createNewsPost', IsEditor, (req, res) => {
   News.create(
     {
       creator_id: req.user._id,
-      title: `${req.body.title}`,
-      content: `${req.body.content}`,
-      category: `${req.body.category}`,
+      title: req.body.title,
+      content: req.body.content,
+      category: req.body.category,
       locale: req.body.locale,
-      heroImage: `${req.body.heroImage}`,
-      main_tag: `${req.body.main_tag}`,
+      heroImage: req.body.heroImage,
+      main_tag: req.body.main_tag,
       tags: req.body.tags.split(' ')
     },
     (err, news) => {
@@ -173,11 +173,14 @@ router.post('/editOwnNewsPost/:id', IsEditor, (req, res) => {
       creator_id: req.user._id
     },
     {
+      creator_id: req.user._id,
       title: req.body.title,
       content: req.body.content,
       category: req.body.category,
+      locale: req.body.locale,
       heroImage: req.body.heroImage,
-      tag: req.body.tag
+      main_tag: req.body.main_tag,
+      tags: req.body.tags.split(' ')
     },
     (err, news) => {
       if (err) res.json(err);
