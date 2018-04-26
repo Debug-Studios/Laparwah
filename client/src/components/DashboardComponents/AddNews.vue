@@ -23,8 +23,10 @@
                 
             v-card-actions
                 v-spacer
-                v-btn( color='success' @click.native='sendPost') Add
-                v-btn( @click='') Cancel
+                v-btn( color='success' @click.native='sendPost' ) Add
+                v-btn( type='reset' ) Reset
+        
+                
                 
                 
                             
@@ -32,6 +34,8 @@
 <script>
 export default {
     data: ()=> ({
+        snackbar: false,
+        timeout: 6000,
         _id: '',
         title:'',
         category:'',
@@ -63,13 +67,14 @@ export default {
               title: this.title,
               content: this.content,
               category: this.category,
-              tag: this.main_tag,
+              main_tag: this.main_tag,
               tags: this.tags,
               heroImage: this.heroImage
 
           })
           .then(function(response){
-              console.log("Send Successfully" + response);
+              console.log(response);
+              
           })
           .catch(function(error){
               console.log(error);
