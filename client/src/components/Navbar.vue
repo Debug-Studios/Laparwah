@@ -2,26 +2,31 @@
   v-toolbar(dark)
     v-toolbar-title.ml-0.pl-3 Breaking News:
     //- Transition: First writes letters and then goes up
-    a.breaking-news-link.subheading.ml-0.pl-3(href="#") Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    transition(name="slide-fade" mode="out-in")
+      a.breaking-news-link.subheading.ml-0.pl-3(:key="breakingNewsIndex" href="#" v-if="breakingNews.length") {{breakingNews[breakingNewsIndex].title}}
     v-spacer
 
     v-toolbar-items
       .d-flex.pr-4.flex-weather
         v-icon.pr-2 cloud
-        .headline.pr-2 20&deg;C
-        .subheading (Gopeshwar, Chamoli)
+        .headline.pr-2 {{temp}}&deg;C
+        .subheading (Dehradun)
+        .subheading.ml-1 by
+        img.ml-1(src="https://icons.wxug.com/logos/PNG/wundergroundLogo_4c_rev_horz.png" height="24px")
 
       .d-flex(v-for="stock in stocks")
-        .px-4.flex-stock(v-if="stock.change > 0")
-          span.d-flex
-            .body-2 {{stock.name}}
-            v-icon.green--text keyboard_arrow_up
-          span.headline.green--text {{stock.change}}
-        .px-4.flex-stock(v-if="stock.change < 0")
-          span.d-flex
-            .body-2 {{stock.name}}
-            v-icon.red--text keyboard_arrow_down
-          span.headline.red--text {{stock.change}}
+        transition(name="slide-fade" mode="out-in")
+          .flex-center(:key="stock.change")
+            .px-4.flex-stock(v-if="stock.change > 0")
+              span.d-flex
+                .body-2 {{stock.name}}
+                v-icon.green--text keyboard_arrow_up
+              span.headline.green--text {{stock.change}}
+            .px-4.flex-stock(v-if="stock.change < 0")
+              span.d-flex
+                .body-2 {{stock.name}}
+                v-icon.red--text keyboard_arrow_down
+              span.headline.red--text {{stock.change}}
 
     v-menu(offset-y='' v-if='isLogged' )
       v-btn(icon='' slot='activator')
@@ -69,6 +74,8 @@ export default {
     user: "",
     dialog: false,
     isLogged: false,
+    breakingNews: [],
+    breakingNewsIndex: 0,
     name: "",
     email: "",
     socials: [
@@ -77,7 +84,8 @@ export default {
       { icon: "/icons/twitter.svg" },
       { icon: "/icons/windows.svg" }
     ],
-    stocks: [{}, {}]
+    stocks: [{}, {}],
+    temp: ""
   }),
   props: {
     source: String
@@ -100,14 +108,39 @@ export default {
       this.axios.get("/stocks/getSENSEX").then(response => {
         this.$set(this.stocks, 1, response.data);
       });
+    },
+
+    getBreakingNews: function() {
+      this.axios.get("/news/getBreaking/3").then(response => {
+        this.breakingNews = response.data;
+      });
     }
   },
   mounted() {
     this.stockUpdater();
+    this.getBreakingNews();
+
+    setInterval(() => {
+      this.stockUpdater();
+    }, 60000);
 
     setInterval(() => {
       this.stockUpdater();
     }, 30000);
+
+    // Breaking News ticker updater
+    setInterval(() => {
+      if (this.breakingNewsIndex < this.breakingNews.length - 1) {
+        this.breakingNewsIndex++;
+      } else {
+        this.breakingNewsIndex = 0;
+      }
+    }, 10000);
+
+    // Show weather report
+    this.axios.get("/weather/getCurrentWeather").then(response => {
+      this.temp = response.data.hourly_forecast[0].temp.metric;
+    });
   }
 };
 </script>
@@ -115,6 +148,12 @@ export default {
 <style scoped>
 .avatar {
   margin: 15px;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .flex-stock {
@@ -133,5 +172,18 @@ export default {
 .breaking-news-link {
   text-decoration: none;
   color: inherit;
+}
+
+/* Transitions */
+.slide-fade-enter-active {
+  transition: all 1s ease;
+}
+.slide-fade-leave-active {
+  transition: all 300ms ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
 }
 </style>

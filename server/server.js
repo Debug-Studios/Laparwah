@@ -67,6 +67,8 @@ const newsRoutes = require('./routes/news-routes');
 app.use('/news', newsRoutes);
 const stockRoutes = require('./routes/stocks-routes');
 app.use('/stocks', stockRoutes);
+const weatherRoutes = require('./routes/weather-routes');
+app.use('/weather', weatherRoutes);
 const dashboardRoutes = require('./routes/dashboard-routes');
 app.use('/dashboard', dashboardRoutes);
 
