@@ -16,7 +16,7 @@
                     v-text-field(label='Apply Tags' v-model='tags' name='add_tags')
                 v-spacer
                 v-flex(xs3)
-                    v-text-field(label='Add Tag' v-model='main_tag' name='main_tag')
+                    v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
                 v-flex(xs12)
                     v-text-field(label='Add Image Link' v-model='heroImage' name='add_image')
                 
@@ -24,8 +24,10 @@
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click='sendPost' ) Add
-                v-btn( type='reset' ) Reset
-        v-snackbar(:timeout='timeout' color='success' v-if='snackbar') Wallah!! Your News is added successfully.
+                v-btn( type='reset') Reset
+        v-snackbar(:timeout='timeout' color='success'  v-model='snackbar_success') Wallah!! Your News is added successfully.
+            v-btn(dark flat @click.native='snackbar = false') Close
+        v-snackbar(:timeout='timeout' color='red'  v-model='snackbar_failed') Sorry! Server is busy with other works.
             v-btn(dark flat @click.native='snackbar = false') Close
         
                 
@@ -36,8 +38,6 @@
 <script>
 export default {
     data: ()=> ({
-        snackbar: false,
-        timeout: 6000,
         _id: '',
         title:'',
         category:'',
@@ -45,6 +45,9 @@ export default {
         main_tag:'',
         tags:'',
         heroImage:'',
+        snackbar_success: false,
+        snackbar_failed: false,
+        timeout: 6000,
         items: [
             {text : 'Politics'},
             {text : 'Money'},
@@ -75,11 +78,12 @@ export default {
 
           })
           .then(function(response){
-              this.snackbar = true;
-              console.log(response);
+                  this.snackbar_success = true;
+                  console.log(response);
               
           })
           .catch(function(error){
+              this.snackbar_failed= true;
               console.log(error);
           })
       }
