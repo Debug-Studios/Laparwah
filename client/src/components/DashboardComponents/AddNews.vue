@@ -16,15 +16,17 @@
                     v-text-field(label='Apply Tags' v-model='tags' name='add_tags')
                 v-spacer
                 v-flex(xs3)
-                    v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
+                    v-text-field(label='Add Tag' v-model='main_tag' name='main_tag')
                 v-flex(xs12)
                     v-text-field(label='Add Image Link' v-model='heroImage' name='add_image')
                 
                 
             v-card-actions
                 v-spacer
-                v-btn( color='success' @click.native='sendPost') Add
-                v-btn( @click='') Cancel
+                v-btn( color='success' @click='sendPost' ) Add
+                v-btn( type='reset' ) Reset
+        
+                
                 
                 
                             
@@ -32,6 +34,8 @@
 <script>
 export default {
     data: ()=> ({
+        snackbar: false,
+        timeout: 6000,
         _id: '',
         title:'',
         category:'',
@@ -63,13 +67,14 @@ export default {
               title: this.title,
               content: this.content,
               category: this.category,
-              tag: this.main_tag,
               tags: this.tags,
+              main_tag: this.main_tag,
               heroImage: this.heroImage
 
           })
           .then(function(response){
-              console.log("Send Successfully" + response);
+              console.log(response);
+              
           })
           .catch(function(error){
               console.log(error);

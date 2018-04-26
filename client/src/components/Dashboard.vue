@@ -56,6 +56,7 @@
                 v-icon directions_walk
     v-content
       router-view(v-if='add_news')
+      
     
     
 </template>
@@ -67,6 +68,7 @@
       drawer: null,
       isLogged:false,
       add_news: false,
+      all_news: false,
       isAdmin: false,
       isEditor:false,
       name:''
@@ -74,6 +76,7 @@
     }),
     
     methods:{
+      
       
     },
     created(){
