@@ -26,51 +26,46 @@
 </template>
 <script>
 export default {
-    data: ()=> ({
-        _id: '',
-        title:'',
-        category:[],
-        content:'',
-        main_tag:'',
-        tags:'',
-        heroImage:'',
-        items: [
-            {text : 'Politics'},
-            {text : 'Money'},
-            {text : 'Entertainment'},
-            {text : 'Tech'},
-            {text : 'Sport'},
-            {text : 'Travel'},
-            {text : 'Style'},
-            {text : 'Health'},
-            {text : 'Video'}
-
-        ]
-
-    }),
-
-
+  data: () => ({
+    _id: "",
+    title: "",
+    category: [],
+    content: "",
+    main_tag: "",
+    tags: "",
+    heroImage: "",
+    items: [
+      { text: "Politics" },
+      { text: "Money" },
+      { text: "Entertainment" },
+      { text: "Tech" },
+      { text: "Sport" },
+      { text: "Travel" },
+      { text: "Style" },
+      { text: "Health" },
+      { text: "Video" }
+    ]
+  }),
 
   methods: {
-      sendPost(){
-          this.axios.post('/dashboard/createNewsPost', {
-              _id : this._id,
-              title: this.title,
-              content: this.content,
-              category: this.category.value,
-              tags: this.tags,
-              main_tag: this.main_tag,
-              heroImage: this.heroImage
-
-          })
-          .then(function(response){
-                  console.log(response);
-
-          })
-          .catch(function(error){
-              console.log(error);
-          })
-      }
+    sendPost() {
+      this.axios
+        .post("/dashboard/createNewsPost", {
+          _id: this._id,
+          title: this.title,
+          content: this.content,
+          category: this.category.text,
+          tags: this.tags,
+          main_tag: this.main_tag,
+          heroImage: this.heroImage
+        })
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
-}
+};
 </script>
