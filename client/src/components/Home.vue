@@ -89,6 +89,12 @@ export default {
     this.axios.get("/news/getSpotlights/5").then(response => {
       this.spotlights = response.data;
     });
+
+    this.$notify({
+      group: "dashboard",
+      title: "Important message",
+      type: "success"
+    });
   }
 };
 </script>
