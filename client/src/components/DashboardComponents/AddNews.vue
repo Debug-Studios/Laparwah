@@ -23,7 +23,7 @@
                 
             v-card-actions
                 v-spacer
-                v-btn( color='success' @click.native='sendPost' ) Add
+                v-btn( color='success' @click='sendPost' ) Add
                 v-btn( type='reset' ) Reset
         
                 
@@ -67,8 +67,8 @@ export default {
               title: this.title,
               content: this.content,
               category: this.category,
-              main_tag: this.main_tag,
               tags: this.tags,
+              main_tag: this.main_tag,
               heroImage: this.heroImage
 
           })

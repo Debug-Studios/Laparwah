@@ -15,7 +15,7 @@
             v-list-tile-title All News
             v-list-tile-action
               v-icon all_inclusive
-          v-list-tile(v-on:click="add_news = !add_news")
+          v-list-tile(v-on:click='add_news = !add_news')
             v-list-tile-title New News
             v-list-tile-action
               v-icon note_add
@@ -55,7 +55,7 @@
               v-btn(fab small dark)
                 v-icon directions_walk
     v-content
-      router-view
+      router-view(v-if='add_news')
       
     
     
@@ -76,6 +76,7 @@
     }),
     
     methods:{
+      
       
     },
     created(){
