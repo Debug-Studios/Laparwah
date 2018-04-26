@@ -18,12 +18,12 @@
         transition(name="slide-fade" mode="out-in")
           .flex-center(:key="stock.change")
             .px-4.flex-stock(v-if="stock.change > 0")
-              a.plain.span.d-flex(:href="stock.url")
+              a.plain.span.d-flex(:href="stock.url" target="_blank")
                 .body-2 {{stock.name}}
                 v-icon.green--text keyboard_arrow_up
               span.headline.green--text {{stock.change}}
             .px-4.flex-stock(v-if="stock.change < 0")
-              a.plain.span.d-flex(:href="stock.url")
+              a.plain.span.d-flex(:href="stock.url" target="_blank")
                 .body-2 {{stock.name}}
                 v-icon.red--text keyboard_arrow_down
               span.headline.red--text {{stock.change}}
