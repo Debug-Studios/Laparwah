@@ -44,9 +44,9 @@
               v-flex(md4 xs12 sm12)
                 h3.headline.text-xs-center SPOTLIGHT
                 v-divider
-                v-container(fluid grid-list-lg style="min-height: 0;")
-                  v-layout(row wrap v-for="(news, index) in spotlights" :key="news._id")
-                    v-flex(xs12)
+                v-container(fluid grid-list-sm)
+                  v-layout(row wrap )
+                    v-flex(xs6 md12 v-for="(news, index) in spotlights" :key="news._id")
                       v-card(:color="spotlightColors[index]" class="white--text")
                         v-container(fluid grid-list-lg)
                           v-layout(row)
