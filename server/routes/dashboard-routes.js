@@ -140,6 +140,7 @@ router.post('/createNewsPost', IsEditor, (req, res) => {
       title: `${req.body.title}`,
       content: `${req.body.content}`,
       category: `${req.body.category}`,
+      locale: req.body.locale,
       heroImage: `${req.body.heroImage}`,
       main_tag: `${req.body.tag}`,
       tags: req.body.tags.split(' ')

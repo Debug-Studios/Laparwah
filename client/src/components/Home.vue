@@ -45,36 +45,16 @@
                 h3.headline.text-xs-center SPOTLIGHT
                 v-divider
                 v-container(fluid grid-list-lg style="min-height: 0;")
-                  v-layout(row wrap)
+                  v-layout(row wrap v-for="news in spotlights")
                     v-flex(xs12)
                       v-card(color="cyan darken-2" class="white--text")
                         v-container(fluid grid-list-lg)
                           v-layout(row)
                             v-flex(xs5)
-                              v-card-media(src="https://thewire.in/wp-content/uploads/2017/03/Arun-jaitley-pti.jpg", height="100%" contain)
+                              v-card-media(:src="news.heroImage", height="100%" contain)
                             v-flex(xs7)
-                              a.plain.title Allow us to jog your memory, Mr. Jaitley
-                              .subheading.mt-1 April, 2018
-
-                    v-flex(xs12)
-                      v-card(color="blue-grey darken-2" class="white--text")
-                        v-container(fluid grid-list-lg)
-                          v-layout(row)
-                            v-flex(xs5)
-                              v-card-media(src="https://thewire.in/wp-content/uploads/2017/04/Aseemanand-PTI.png", height="100%" contain)
-                            v-flex(xs7)
-                              a.plain.title I Am Waiting for the Right Moment to Strike.
-                              .subheading.mt-1 April, 2018
-
-                    v-flex(xs12)
-                      v-card(color="grey darken-2" class="white--text")
-                        v-container(fluid grid-list-lg)
-                          v-layout(row)
-                            v-flex(xs5)
-                              v-card-media(src="https://cdn.thewire.in/wp-content/uploads/2018/04/18174016/CJI-court-1024x541.jpg", height="100%" contain)
-                            v-flex(xs7)
-                              a.plain.title We Have Always Deprecated Restraints on Free Speech, Says SC
-                              .subheading.mt-1 April, 2018
+                              a.plain.title {{news.title}}
+                              .subheading.mt-1 {{news.created_at | moment("dddd, MMMM Do YYYY")}}
 
 
 </template>
@@ -87,11 +67,18 @@ export default {
     navbar
   },
   data: () => ({
-    breakingNews: {}
+    breakingNews: {},
+    spotlights: []
   }),
   mounted() {
+    // Get one breaking news
     this.axios.get("/news/getBreaking/1").then(response => {
       this.breakingNews = response.data[0];
+    });
+
+    // Get spotlights
+    this.axios.get("/news/getSpotlights/5").then(response => {
+      this.spotlights = response.data;
     });
   }
 };
