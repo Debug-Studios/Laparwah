@@ -6,6 +6,7 @@ import VeeValidate from 'vee-validate';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Gravatar from 'vue-gravatar';
+require('vue2-animate/dist/vue2-animate.min.css');
 
 Vue.component('v-gravatar', Gravatar);
 // Vee-Validate

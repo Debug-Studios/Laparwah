@@ -44,23 +44,25 @@
               v-flex(md4 xs12 sm12)
                 h3.headline.text-xs-center SPOTLIGHT
                 v-divider
-                v-container(fluid grid-list-lg style="min-height: 0;")
-                  v-layout(row wrap v-for="(news, index) in spotlights" :key="news._id")
-                    v-flex(xs12)
-                      v-card(:color="spotlightColors[index]" class="white--text")
-                        v-container(fluid grid-list-lg)
-                          v-layout(row)
-                            v-flex(xs5)
-                              v-card-media(:src="news.heroImage", height="100%" contain)
-                            v-flex(xs7)
-                              a.plain.title {{news.title}}
-                              .subheading.mt-1 {{news.created_at | moment("dddd, MMMM Do YYYY")}}
+                v-container(fluid grid-list-sm)
+                  v-layout(row wrap)
+                    transition-group(name="fade" tag="div")
+                      v-flex(xs6 md12 v-for="(news, index) in spotlights" :key="news._id")
+                        v-card.white--text(:color="spotlightColors[index]")
+                          v-container(fluid grid-list-lg)
+                            v-layout(row)
+                              v-flex(xs5)
+                                v-card-media(:src="news.heroImage", height="100%" contain)
+                              v-flex(xs7)
+                                a.plain.title {{news.title}}
+                                .subheading.mt-1 {{news.created_at | moment("dddd, MMMM Do YYYY")}}
 
 
 </template>
 
 <script>
 import navbar from "./Navbar.vue";
+import { newExpression } from "babel-types";
 export default {
   name: "home",
   components: {
