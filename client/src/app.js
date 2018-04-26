@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import Notifications from 'vue-notification';
 import App from './App.vue';
 import Vuetify from 'vuetify';
 import router from './router/router';
@@ -13,7 +14,8 @@ Vue.component('v-gravatar', Gravatar);
 Vue.use(VeeValidate);
 // VueAxios
 Vue.use(VueAxios, axios);
-
+// Notifications
+Vue.use(Notifications);
 // Moment
 Vue.use(require('vue-moment'));
 
