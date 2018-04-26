@@ -31,16 +31,16 @@
           v-container(fluid grid-list-md)
             v-layout(row wrap).mt-2
               v-flex(md7 xs12 sm12).mx-5
-                v-card
-                  v-card-media(src="https://cdn.cnn.com/cnnnext/dam/assets/180413094214-merker-macron-may-exlarge-169.jpg" height="400px")
+                v-card(v-if="breakingNews")
+                  v-card-media(:src="breakingNews.heroImage" height="400px")
                     v-container(fill-height)
                       v-layout(fill-height)
                         v-flex(xs12 align-end flexbox)
                           v-chip(label color="red" text-color="white") BREAKING NEWS
                   v-card-title(primary-title)
                     div
-                      h3.headline Trump Under Pressure on Iran Deal
-                      span.subheading.grey--text.text--darken-2 April 20, 2018
+                      h3.headline {{breakingNews.title}}
+                      span.subheading.grey--text.text--darken-2 {{breakingNews.created_at | moment("dddd, MMMM Do YYYY")}}
               v-flex(md4 xs12 sm12)
                 h3.headline.text-xs-center SPOTLIGHT
                 v-divider
@@ -86,7 +86,14 @@ export default {
   components: {
     navbar
   },
-  data: () => ({})
+  data: () => ({
+    breakingNews: {}
+  }),
+  mounted() {
+    this.axios.get("/news/getBreaking/1").then(response => {
+      this.breakingNews = response.data[0];
+    });
+  }
 };
 </script>
 
