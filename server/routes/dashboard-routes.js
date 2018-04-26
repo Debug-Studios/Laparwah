@@ -142,7 +142,7 @@ router.post('/createNewsPost', IsEditor, (req, res) => {
       category: `${req.body.category}`,
       locale: req.body.locale,
       heroImage: `${req.body.heroImage}`,
-      main_tag: `${req.body.tag}`,
+      main_tag: `${req.body.main_tag}`,
       tags: req.body.tags.split(' ')
     },
     (err, news) => {

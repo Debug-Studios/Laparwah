@@ -16,7 +16,7 @@
                     v-text-field(label='Apply Tags' v-model='tags' name='add_tags')
                 v-spacer
                 v-flex(xs3)
-                    v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
+                    v-text-field(label='Add Tag' v-model='main_tag' name='main_tag')
                 v-flex(xs12)
                     v-text-field(label='Add Image Link' v-model='heroImage' name='add_image')
                 
