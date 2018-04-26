@@ -19,21 +19,10 @@
                     v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
                 v-flex(xs12)
                     v-text-field(label='Add Image Link' v-model='heroImage' name='add_image')
-                
-                
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click='sendPost' ) Add
                 v-btn( type='reset') Reset
-        v-snackbar(:timeout='timeout' color='success'  v-model='snackbar_success') Wallah!! Your News is added successfully.
-            v-btn(dark flat @click.native='snackbar_success = false') Close
-        v-snackbar(:timeout='timeout' color='red'  v-model='snackbar_failed') Sorry! Server is busy with other works.
-            v-btn(dark flat @click.native='snackbar_failed = false') Close
-        
-                
-                
-                
-                            
 </template>
 <script>
 export default {
@@ -45,9 +34,6 @@ export default {
         main_tag:'',
         tags:'',
         heroImage:'',
-        snackbar_success: false,
-        snackbar_failed: false,
-        timeout: 6000,
         items: [
             {text : 'Politics'},
             {text : 'Money'},
@@ -58,13 +44,13 @@ export default {
             {text : 'Style'},
             {text : 'Health'},
             {text : 'Video'}
-            
+
         ]
 
     }),
-        
 
-    
+
+
   methods: {
       sendPost(){
           this.axios.post('/dashboard/createNewsPost', {
@@ -78,12 +64,10 @@ export default {
 
           })
           .then(function(response){
-                  this.snackbar_success = true;
                   console.log(response);
-              
+
           })
           .catch(function(error){
-              this.snackbar_failed= true;
               console.log(error);
           })
       }
