@@ -6,7 +6,7 @@ router.get('/getBreaking/:count', (req, res) => {
   News.find({
     main_tag: 'Breaking News'
   })
-    .limit(req.params.count)
+    .limit(++req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -20,7 +20,7 @@ router.get('/getSpotlights/:count', (req, res) => {
   News.find({
     main_tag: 'Spotlight'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -34,7 +34,7 @@ router.get('/getPolitics/:count', (req, res) => {
   News.find({
     category: 'Politics'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -48,7 +48,7 @@ router.get('/getMoney/:count', (req, res) => {
   News.find({
     category: 'Money'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -62,7 +62,7 @@ router.get('/getEntertainment/:count', (req, res) => {
   News.find({
     category: 'Entertainment'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -76,7 +76,7 @@ router.get('/getTech/:count', (req, res) => {
   News.find({
     category: 'Tech'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -90,7 +90,7 @@ router.get('/getSports/:count', (req, res) => {
   News.find({
     category: 'Sports'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -104,7 +104,7 @@ router.get('/getTravel/:count', (req, res) => {
   News.find({
     category: 'Travel'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -118,7 +118,7 @@ router.get('/getHealth/:count', (req, res) => {
   News.find({
     category: 'Health'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
@@ -132,7 +132,7 @@ router.get('/getCulture/:count', (req, res) => {
   News.find({
     category: 'Culture'
   })
-    .limit(req.params.count)
+    .limit(+req.params.count)
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
     .exec((err, news) => {
