@@ -93,7 +93,8 @@ export default {
     this.$notify({
       group: "dashboard",
       title: "Important message",
-      type: "success"
+      type: "success",
+      duration: 30000
     });
   }
 };
