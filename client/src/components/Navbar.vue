@@ -18,12 +18,12 @@
         transition(name="slide-fade" mode="out-in")
           .flex-center(:key="stock.change")
             .px-4.flex-stock(v-if="stock.change > 0")
-              span.d-flex
+              a.plain.span.d-flex(:href="stock.url")
                 .body-2 {{stock.name}}
                 v-icon.green--text keyboard_arrow_up
               span.headline.green--text {{stock.change}}
             .px-4.flex-stock(v-if="stock.change < 0")
-              span.d-flex
+              a.plain.span.d-flex(:href="stock.url")
                 .body-2 {{stock.name}}
                 v-icon.red--text keyboard_arrow_down
               span.headline.red--text {{stock.change}}
@@ -148,6 +148,11 @@ export default {
 <style scoped>
 .avatar {
   margin: 15px;
+}
+
+a.plain {
+  text-decoration: none;
+  color: white;
 }
 
 .flex-center {
