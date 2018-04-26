@@ -11,8 +11,8 @@
         v-icon.pr-2 cloud
         .headline.pr-2 {{temp}}&deg;C
         .subheading (Dehradun)
-        .subheading.ml-1 by
-        img.ml-1(src="https://icons.wxug.com/logos/PNG/wundergroundLogo_4c_rev_horz.png" height="24px")
+        .subheading.pl-1 by
+        img.pl-1(src="https://icons.wxug.com/logos/PNG/wundergroundLogo_4c_rev_horz.png" height="24px")
 
       .d-flex(v-for="stock in stocks")
         transition(name="slide-fade" mode="out-in")
