@@ -26,9 +26,9 @@
                 v-btn( color='success' @click='sendPost' ) Add
                 v-btn( type='reset') Reset
         v-snackbar(:timeout='timeout' color='success'  v-model='snackbar_success') Wallah!! Your News is added successfully.
-            v-btn(dark flat @click.native='snackbar = false') Close
+            v-btn(dark flat @click.native='snackbar_success = false') Close
         v-snackbar(:timeout='timeout' color='red'  v-model='snackbar_failed') Sorry! Server is busy with other works.
-            v-btn(dark flat @click.native='snackbar = false') Close
+            v-btn(dark flat @click.native='snackbar_failed = false') Close
         
                 
                 
