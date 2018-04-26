@@ -16,15 +16,13 @@ router.get('/getSENSEX', (req, res) => {
       let string = response.data;
       string.trim();
       string = string.substr(13, string.length - 13);
-      let lastPrice = string.substr(0, string.indexOf('@', 0));
-      let change = string.substr(
-        lastPrice.length + 1,
-        string.indexOf('@', 0) - 2
-      );
-      let pChange = string.substr(
-        lastPrice.length + change.length + 2,
-        string.indexOf('@', 0) - 4
-      );
+      let lastPrice = string.substr(0, string.indexOf('@'));
+
+      let change = string.substr(lastPrice.length + 2);
+      change = change.substr(0, change.indexOf('@'));
+
+      let pChange = change.substr(change.length + 2);
+      pChange = pChange.substr(0, pChange.indexOf('@'));
 
       res.json({
         lastPrice: lastPrice,

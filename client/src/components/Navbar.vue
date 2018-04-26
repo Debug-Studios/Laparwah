@@ -9,8 +9,10 @@
     v-toolbar-items
       .d-flex.pr-4.flex-weather
         v-icon.pr-2 cloud
-        .headline.pr-2 20&deg;C
-        .subheading (Gopeshwar, Chamoli)
+        .headline.pr-2 {{temp}}&deg;C
+        .subheading (Dehradun)
+        .subheading.ml-1 by
+        img.ml-1(src="https://icons.wxug.com/logos/PNG/wundergroundLogo_4c_rev_horz.png" height="24px")
 
       .d-flex(v-for="stock in stocks")
         transition(name="slide-fade" mode="out-in")
@@ -82,7 +84,8 @@ export default {
       { icon: "/icons/twitter.svg" },
       { icon: "/icons/windows.svg" }
     ],
-    stocks: [{}, {}]
+    stocks: [{}, {}],
+    temp: ""
   }),
   props: {
     source: String
@@ -133,6 +136,11 @@ export default {
         this.breakingNewsIndex = 0;
       }
     }, 10000);
+
+    // Show weather report
+    this.axios.get("/weather/getCurrentWeather").then(response => {
+      this.temp = response.data.hourly_forecast[0].temp.metric;
+    });
   }
 };
 </script>
