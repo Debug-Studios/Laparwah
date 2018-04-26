@@ -45,9 +45,9 @@
                 h3.headline.text-xs-center SPOTLIGHT
                 v-divider
                 v-container(fluid grid-list-lg style="min-height: 0;")
-                  v-layout(row wrap v-for="news in spotlights" :key="news._id")
+                  v-layout(row wrap v-for="(news, index) in spotlights" :key="news._id")
                     v-flex(xs12)
-                      v-card(color="cyan darken-2" class="white--text")
+                      v-card(:color="spotlightColors[index]" class="white--text")
                         v-container(fluid grid-list-lg)
                           v-layout(row)
                             v-flex(xs5)
@@ -68,7 +68,14 @@ export default {
   },
   data: () => ({
     breakingNews: {},
-    spotlights: []
+    spotlights: [],
+    spotlightColors: [
+      "cyan darken-2",
+      "blue darken-2",
+      "green darken-2",
+      "orange darken-1",
+      "blue-grey darken-2"
+    ]
   }),
   mounted() {
     // Get one breaking news
