@@ -6,6 +6,10 @@
           v-list-tile-action
             v-icon face
           v-list-tile-title Profile
+        v-list-tile(v-on:click='newsModeration' v-show='isEditor' )
+          v-list-tile-action
+            v-icon face
+          v-list-tile-title Moderation Tools
         v-list-group(subgroup no-action value='true' v-show='isEditor')
           v-list-tile(slot='activator')
             v-list-tile-action
@@ -26,6 +30,10 @@
             v-list-tile-title User Management
           v-list-tile(v-on:click='addUser')
             v-list-tile-title Add User
+            v-list-tile-action
+              v-icon add_circle
+          v-list-tile(v-on:click='allUsers')
+            v-list-tile-title All Users
             v-list-tile-action
               v-icon add_circle
           v-list-tile(v-on:click='deleteUser')
@@ -65,9 +73,13 @@
       all_news: false,
       isAdmin: false,
       isEditor:false,
+      isWriter:false,
       name:''
     }),
     methods:{
+      newsModeration(){
+          window.location.href=`${window.location.origin}/#/dashboard/newsmoderation`;
+      },
       userProfile(){
             window.location.href=`${window.location.origin}/#/dashboard/userprofile`;
       },
@@ -79,6 +91,9 @@
       },
       addUser(){
           window.location.href=`${window.location.origin}/#/dashboard/adduser`;
+      },
+      allUsers(){
+          window.location.href=`${window.location.origin}/#/dashboard/allusers`;
       },
       deleteUser(){
           window.location.href=`${window.location.origin}/#/dashboard/deleteuser`;

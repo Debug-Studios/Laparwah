@@ -90,12 +90,6 @@ export default {
       this.spotlights = response.data;
     });
 
-    this.$notify({
-      group: "dashboard",
-      title: "Important message",
-      type: "success",
-      duration: 30000
-    });
   }
 };
 </script>

@@ -11,6 +11,9 @@ import AllNews from './../components/DashboardComponents/AllNews.vue';
 import AddUser from './../components/DashboardComponents/AddUser.vue';
 import DeleteUser from './../components/DashboardComponents/DeleteUser.vue';
 import UserProfile from './../components/DashboardComponents/UserProfile.vue';
+import EditNews from './../components/DashboardComponents/EditNews.vue';
+import NewsModeration from './../components/DashboardComponents/NewsModeration.vue';
+import AllUsers from './../components/DashboardComponents/AllUsers.vue';
 
 Vue.use(Router);
 
@@ -57,9 +60,24 @@ export default new Router({
         component: DeleteUser
       },
       {
+        path: 'allusers',
+        name: 'allusers',
+        component: AllUsers
+      },
+      {
         path: 'userprofile',
         name: 'userprofile',
         component: UserProfile
+      },
+      {
+        path: 'editnews',
+        name: 'edtnews',
+        component: EditNews
+      },
+      {
+        path: 'newsmoderation',
+        name: 'newsmoderation',
+        component: NewsModeration
       }]
     },
     {

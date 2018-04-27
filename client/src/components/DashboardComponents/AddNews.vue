@@ -59,11 +59,21 @@ export default {
           main_tag: this.main_tag,
           heroImage: this.heroImage
         })
-        .then(function(response) {
-          console.log(response);
+        .then((response) => {
+                  this.$notify({
+                  group: "dashboard",
+                  title: "Wallah! Your News is added Successfuly",
+                  type: "success",
+                  duration: 30000
+                  });
         })
-        .catch(function(error) {
-          console.log(error);
+        .catch((error) =>{
+                this.$notify({
+                group: "dashboard",
+                title: "Unable to add news",
+                type: "success",
+                duration: 30000
+                });
         });
     }
   }

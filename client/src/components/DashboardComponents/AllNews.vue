@@ -17,7 +17,7 @@
                         h3(label='Applied Tags' name='applied_tags') Applied Tags: {{news.tags}}
                 v-card-actions
                     v-spacer
-                    v-btn( color='success' @click.native='' ) Edit
+                    v-btn( color='success' @click.native='editNews' ) Edit
                     v-btn( @click='deletePost(news._id)' ) Delete
 </template>
 <script>
@@ -32,6 +32,9 @@ export default {
         });
     },
     methods: {
+        editNews(){
+            window.location.href=`${window.location.origin}/#/dashboard/editnews`
+        },
         deletePost(id){
             this.axios.delete(`/dashboard/deleteNewsPost/${id}`).then((response)=>{
                 this.allnews.forEach((news, index) => {
@@ -39,13 +42,13 @@ export default {
                         this.allnews.splice(index, 1);
                         this.$notify({
                         group: "dashboard",
-                        title: "Successfully Deleted",
+                        title: "Successfuly Deleted",
                         type: "success",
                         duration: 30000
                         });
                     }
                 });
-            }).catch(function(error){
+            }).catch((error) =>{
                 this.$notify({
                         group: "dashboard",
                         title: "Cannot Delete! Try Again",
