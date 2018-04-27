@@ -32,16 +32,16 @@
       v-btn(icon='' slot='activator')
         v-avatar(size='32')
           v-gravatar(v-bind:email='email'  )
-      v-card(style="margin-top:10px")
-        v-flex.text-xs-center(xs12 style='padding:15px')
-        span Welcome! {{name}}
-        v-flex.text-xs-center(xs12 style='padding:10px')
-          a(href='/#/dashboard')
+      v-card(style="margin-top:1rem").pa-4
+        v-flex.text-xs-center(xs12)
+        span.pa-3 Hi, {{name}}
+        v-flex.text-xs-center(xs12)
+          a.pa-3(href='/#/dashboard')
             v-btn(fab small dark)
               v-icon settings
           a(href='/auth/logout')
-            v-btn(fab small dark)
-              v-icon directions_walk
+            v-btn(fab small dark color="red")
+              v-icon exit_to_app
 
     v-menu(offset-y='' v-else)
       v-btn(icon='' slot='activator')
