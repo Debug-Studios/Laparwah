@@ -8,13 +8,13 @@
                 v-flex(xs4 align-center justify-space-between)
                      v-text-field(label="Add Name" name='add_name' v-model='name')
                 v-spacer
-                v-flex(xs5)
+                v-flex(xs6)
                    v-text-field(label='Add Roles' v-model='roles' name='add_roles')
+                v-flex(xs4)
+                    v-select(:items='items' label='Select Gender' v-model='gender' name='add_gender' input-type='text')
+                v-spacer
                 v-flex(xs6)
                     v-text-field(label='Add Email' v-model='email' name='add_email')
-                v-spacer
-                v-flex(xs3)
-                    v-text-field(label='Gender' v-model='gender' name='add_gender')
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click='addUser' ) Add
@@ -26,12 +26,10 @@ export default {
       name: '',
       roles: '',
       email: '',
-      gender: '',
+      gender: [],
       items: [
-            { text: "User" },
-            { text: "Writer" },
-            { text: "Editor" },
-            { text: "Admin" }
+            { text: "Male" },
+            { text: "Female" }
         ]
   }),
   methods: {
@@ -39,7 +37,7 @@ export default {
           this.axios.post('/dashboard/createAccount',{
               name:  this.name,
               email:  this.email,
-              gender: this.gender,
+              gender: this.gender.text,
               roles: this.roles
           })
           .then((response) =>{
