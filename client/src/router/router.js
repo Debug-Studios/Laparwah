@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from './../components/Login.vue';
 import Navbar from './../components/Navbar.vue';
 import Dashboard from './../components/Dashboard.vue';
 import Home from './../components/Home.vue';
@@ -25,11 +24,6 @@ export default new Router({
       component: Home
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
       path: '/navbar',
       name: 'navbar',
       component: Navbar
@@ -38,47 +32,48 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
-      children: [{
-        path: 'addnews',
-        name: 'addnews',
-        component: AddNews
-      },
-      {
-        path: 'allnews',
-        name: 'allnews',
-        component: AllNews
-
-      },
-      {
-        path: 'adduser',
-        name: 'adduser',
-        component: AddUser
-      },
-      {
-        path: 'deleteuser',
-        name: 'deleteuser',
-        component: DeleteUser
-      },
-      {
-        path: 'allusers',
-        name: 'allusers',
-        component: AllUsers
-      },
-      {
-        path: 'userprofile',
-        name: 'userprofile',
-        component: UserProfile
-      },
-      {
-        path: 'editnews',
-        name: 'edtnews',
-        component: EditNews
-      },
-      {
-        path: 'newsmoderation',
-        name: 'newsmoderation',
-        component: NewsModeration
-      }]
+      children: [
+        {
+          path: 'addnews',
+          name: 'addnews',
+          component: AddNews
+        },
+        {
+          path: 'allnews',
+          name: 'allnews',
+          component: AllNews
+        },
+        {
+          path: 'adduser',
+          name: 'adduser',
+          component: AddUser
+        },
+        {
+          path: 'deleteuser',
+          name: 'deleteuser',
+          component: DeleteUser
+        },
+        {
+          path: 'allusers',
+          name: 'allusers',
+          component: AllUsers
+        },
+        {
+          path: 'userprofile',
+          name: 'userprofile',
+          component: UserProfile
+        },
+        {
+          path: 'editnews',
+          name: 'edtnews',
+          component: EditNews
+        },
+        {
+          path: 'newsmoderation',
+          name: 'newsmoderation',
+          component: NewsModeration
+        }
+      ]
     },
     {
       path: '/news/:id',

@@ -62,7 +62,7 @@ export default {
         .then((response) => {
                   this.$notify({
                   group: "dashboard",
-                  title: "Wallah! Your News is added Successfuly",
+                  title: "Your News is added Successfully!",
                   type: "success",
                   duration: 30000
                   });
