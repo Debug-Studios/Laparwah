@@ -15,7 +15,7 @@
             v-list-tile-action
               v-icon people_outline
             v-list-tile-title News Management
-          v-list-tile(v-on:click='allNewsCard')
+          v-list-tile(v-on:click='allNewsCard(isAdmin)')
             v-list-tile-title All News
             v-list-tile-action
               v-icon all_inclusive
@@ -86,7 +86,7 @@
       addNewsCard(){
            window.location.href=`${window.location.origin}/#/dashboard/addnews`;
         },
-      allNewsCard(){
+      allNewsCard(isAdmin){
         if(isAdmin){
           window.location.href=`${window.location.origin}/#/dashboard/allnewsadmin`;
         }
@@ -110,6 +110,7 @@
           this.name = response.data.user.name;
           this.isAdmin = response.data.user.roles.includes('admin');
           this.isEditor = response.data.user.roles.includes('editor');
+          this.isWriter = response.data.user.roles.includes('writer');
       });
     }
   }
