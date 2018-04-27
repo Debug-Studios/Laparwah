@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from './../components/Login.vue';
 import Navbar from './../components/Navbar.vue';
 import Dashboard from './../components/Dashboard.vue';
 import Home from './../components/Home.vue';
@@ -24,11 +23,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
     },
     {
       path: '/navbar',
