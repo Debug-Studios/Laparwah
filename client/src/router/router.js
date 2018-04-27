@@ -7,13 +7,14 @@ import Home from './../components/Home.vue';
 import NewsPost from './../components/NewsPost.vue';
 import Author from './../components/Author.vue';
 import AddNews from './../components/DashboardComponents/AddNews.vue';
-import AllNews from './../components/DashboardComponents/AllNews.vue';
+import AllNewsOthers from './../components/DashboardComponents/AllNewsOthers.vue';
 import AddUser from './../components/DashboardComponents/AddUser.vue';
 import DeleteUser from './../components/DashboardComponents/DeleteUser.vue';
 import UserProfile from './../components/DashboardComponents/UserProfile.vue';
 import EditNews from './../components/DashboardComponents/EditNews.vue';
 import NewsModeration from './../components/DashboardComponents/NewsModeration.vue';
 import AllUsers from './../components/DashboardComponents/AllUsers.vue';
+import AllNewsAdmin from './../components/DashboardComponents/AllNewsAdmin.vue';
 
 Vue.use(Router);
 
@@ -44,9 +45,9 @@ export default new Router({
         component: AddNews
       },
       {
-        path: 'allnews',
-        name: 'allnews',
-        component: AllNews
+        path: 'allnewsothers',
+        name: 'allnewsothers',
+        component: AllNewsOthers
 
       },
       {
@@ -63,6 +64,11 @@ export default new Router({
         path: 'allusers',
         name: 'allusers',
         component: AllUsers
+      },
+      {
+        path: 'allnewsadmin',
+        name: 'allnewsadmin',
+        component: AllNewsAdmin
       },
       {
         path: 'userprofile',

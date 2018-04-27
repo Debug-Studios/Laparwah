@@ -10,7 +10,7 @@
           v-list-tile-action
             v-icon face
           v-list-tile-title Moderation Tools
-        v-list-group(subgroup no-action value='true' v-show='isEditor')
+        v-list-group(subgroup no-action value='true' v-show='isWriter')
           v-list-tile(slot='activator')
             v-list-tile-action
               v-icon people_outline
@@ -87,7 +87,11 @@
            window.location.href=`${window.location.origin}/#/dashboard/addnews`;
         },
       allNewsCard(){
-          window.location.href=`${window.location.origin}/#/dashboard/allnews`;
+        if(isAdmin){
+          window.location.href=`${window.location.origin}/#/dashboard/allnewsadmin`;
+        }
+        else
+          window.location.href=`${window.location.origin}/#/dashboard/allnewsothers`;
       },
       addUser(){
           window.location.href=`${window.location.origin}/#/dashboard/adduser`;
