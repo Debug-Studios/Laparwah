@@ -154,7 +154,7 @@ router.delete('/deleteNewsPost/:id', IsAdmin, (req, res) => {
 router.post('/createNewsPost', IsEditor, (req, res) => {
   News.create(
     {
-      creator_id: req.user._id,
+      creator: req.user._id,
       title: req.body.title,
       content: req.body.content,
       category: req.body.category,
