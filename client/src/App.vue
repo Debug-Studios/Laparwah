@@ -4,14 +4,18 @@
       template(slot="body" slot-scope="props")
         v-snackbar(:timeout="10000" :color="props.item.type" :value="true") {{props.item.title}}
 
-
     router-view
+    footer_custom
 
 </template>
 
 <script>
+import footer_custom from "./components/Footer.vue";
 export default {
   name: "app",
+  components: {
+    footer_custom
+  },
   data() {
     return {};
   }
