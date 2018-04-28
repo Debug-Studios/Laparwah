@@ -28,18 +28,11 @@
             v-list-tile-action
               v-icon people_outline
             v-list-tile-title User Management
-          v-list-tile(v-on:click='addUser')
-            v-list-tile-title Add User
-            v-list-tile-action
-              v-icon add_circle
           v-list-tile(v-on:click='allUsers')
             v-list-tile-title All Users
             v-list-tile-action
               v-icon people_outline
-          v-list-tile(v-on:click='deleteUser')
-            v-list-tile-title Delete User
-            v-list-tile-action
-              v-icon delete_forever
+          
 
     v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
       v-toolbar-title.ml-0.pl-3

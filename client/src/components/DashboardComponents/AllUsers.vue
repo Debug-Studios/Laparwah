@@ -1,21 +1,22 @@
 <template lang="pug">
     #allusers
-        v-flex(xs4)
-            transition-group(name="fade" tag="div")
-                v-card(v-for='(users, index) in allusers' :key='users._id')
-                    v-card-media#media
-                        v-flex.text-xs-center
-                            v-avatar(size='180px')
-                                v-gravatar(email='ayush.bahuguna12@gmail.com')
-                    v-divider
-                    v-card-title
-                        div
-                            h3 {{users.name}}
-                            span Roles: {{users.roles}}
-                    v-card-actions
-                        v-spacer
-                        v-btn(@click='deleteUser(users._id)' color='success' flat ) Remove User
-
+        v-flex(xs12)
+            v-flex(xs4)
+                transition-group(name="fade" tag="div")
+                    v-card(v-for='(users, index) in allusers' :key='users._id')
+                        v-card-media#media
+                            v-flex.text-xs-center
+                                v-avatar(size='180px')
+                                    v-gravatar(email='ayush.bahuguna12@gmail.com')
+                        v-divider
+                        v-card-title
+                            div
+                                h3 {{users.name}}
+                                span Roles: {{users.roles}}
+                        v-card-actions
+                            v-spacer
+                            v-btn(@click='deleteUser(users._id)' color='success' flat ) Remove User
+    
 </template>
 <script>
 export default {
