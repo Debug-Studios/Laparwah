@@ -59,6 +59,15 @@ router.post('/createAccount', IsAdmin, (req, res) => {
   );
 });
 
+router.get('/editAccount/:id', IsAdmin, (req, res) => {
+  Account.findById(req.params.id, (err, acc) => {
+    if (err) {
+      res.json(err);
+    }
+    res.json(acc);
+  });
+});
+
 router.post('/editAccount/:id', IsAdmin, (req, res) => {
   Account.findByIdAndUpdate(
     req.params.id,
@@ -96,6 +105,15 @@ router.get('/allNewsPosts/:page', IsAdmin, (req, res) => {
         res.json(news);
       }
     });
+});
+
+router.get('/editNewsPost/:id', IsAdmin, (req, res) => {
+  News.findById(req.params.id, (err, news) => {
+    if (err) res.json(err);
+    else {
+      res.json(news);
+    }
+  });
 });
 
 router.post('/editNewsPost/:id', IsAdmin, (req, res) => {
@@ -164,6 +182,21 @@ router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
         res.json(news);
       }
     });
+});
+
+router.get('/editOwnNewsPost/:id', IsEditor, (req, res) => {
+  News.findOne(
+    {
+      _id: req.params.id,
+      creator_id: req.user._id
+    },
+    (err, news) => {
+      if (err) res.json(err);
+      else {
+        res.json(news);
+      }
+    }
+  );
 });
 
 router.post('/editOwnNewsPost/:id', IsEditor, (req, res) => {

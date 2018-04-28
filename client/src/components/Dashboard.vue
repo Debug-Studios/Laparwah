@@ -4,7 +4,7 @@
       v-list(dense )
         v-list-tile(v-on:click='userProfile' )
           v-list-tile-action
-            v-icon face
+            v-icon account_circle
           v-list-tile-title Profile
         v-list-tile(v-on:click='newsModeration' v-show='isEditor' )
           v-list-tile-action
@@ -27,7 +27,7 @@
           v-list-tile(slot='activator')
             v-list-tile-action
               v-icon people_outline
-            v-list-tile-title User Management
+            v-list-tile-title Writer's Tools
           v-list-tile(v-on:click='addUser')
             v-list-tile-title Add User
             v-list-tile-action
@@ -65,55 +65,54 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      drawer: null,
-      isLogged:false,
-      add_news: false,
-      all_news: false,
-      isAdmin: false,
-      isEditor:false,
-      isWriter:false,
-      name:''
-    }),
-    methods:{
-      newsModeration(){
-          window.location.href=`${window.location.origin}/#/dashboard/newsmoderation`;
-      },
-      userProfile(){
-            window.location.href=`${window.location.origin}/#/dashboard/userprofile`;
-      },
-      addNewsCard(){
-           window.location.href=`${window.location.origin}/#/dashboard/addnews`;
-        },
-      allNewsCard(isAdmin){
-        if(isAdmin){
-          window.location.href=`${window.location.origin}/#/dashboard/allnewsadmin`;
-        }
-        else
-          window.location.href=`${window.location.origin}/#/dashboard/allnewsothers`;
-      },
-      addUser(){
-          window.location.href=`${window.location.origin}/#/dashboard/adduser`;
-      },
-      allUsers(){
-          window.location.href=`${window.location.origin}/#/dashboard/allusers`;
-      },
-      deleteUser(){
-          window.location.href=`${window.location.origin}/#/dashboard/deleteuser`;
-      }
+export default {
+  data: () => ({
+    drawer: null,
+    isLogged: false,
+    add_news: false,
+    all_news: false,
+    isAdmin: false,
+    isEditor: false,
+    isWriter: false,
+    name: ""
+  }),
+  methods: {
+    newsModeration() {
+      window.location.href = `${
+        window.location.origin
+      }/#/dashboard/newsmoderation`;
     },
-    created(){
-      this.axios.get('/accounts/getCurrentUser').then(response =>{
-          this.isLogged = response.data.isLoggedin === "true";
-          this.email = response.data.user.email;
-          this.name = response.data.user.name;
-          this.isAdmin = response.data.user.roles.includes('admin');
-          this.isEditor = response.data.user.roles.includes('editor');
-          this.isWriter = response.data.user.roles.includes('writer');
-      });
+    userProfile() {
+      window.location.href = `${
+        window.location.origin
+      }/#/dashboard/userprofile`;
+    },
+    addNewsCard() {
+      window.location.href = `${window.location.origin}/#/dashboard/addnews`;
+    },
+    allNewsCard() {
+      window.location.href = `${window.location.origin}/#/dashboard/allnews`;
+    },
+    addUser() {
+      window.location.href = `${window.location.origin}/#/dashboard/adduser`;
+    },
+    allUsers() {
+      window.location.href = `${window.location.origin}/#/dashboard/allusers`;
+    },
+    deleteUser() {
+      window.location.href = `${window.location.origin}/#/dashboard/deleteuser`;
     }
+  },
+  created() {
+    this.axios.get("/accounts/getCurrentUser").then(response => {
+      this.isLogged = response.data.isLoggedin === "true";
+      this.email = response.data.user.email;
+      this.name = response.data.user.name;
+      this.isAdmin = response.data.user.roles.includes("admin");
+      this.isEditor = response.data.user.roles.includes("editor");
+    });
   }
+};
 </script>
 <style scoped>
 
