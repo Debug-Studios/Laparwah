@@ -8,14 +8,14 @@
           v-list-tile-title Profile
         v-list-tile(v-on:click='newsModeration' v-show='isEditor' )
           v-list-tile-action
-            v-icon done_all
-          v-list-tile-title Admin's Tools
-        v-list-group(subgroup no-action value='true' v-show='isEditor')
+            v-icon face
+          v-list-tile-title Moderation Tools
+        v-list-group(subgroup no-action value='true' v-show='isWriter')
           v-list-tile(slot='activator')
             v-list-tile-action
               v-icon people_outline
-            v-list-tile-title Editor's Tools
-          v-list-tile(v-on:click='allNewsCard')
+            v-list-tile-title News Management
+          v-list-tile(v-on:click='allNewsCard(isAdmin)')
             v-list-tile-title All News
             v-list-tile-action
               v-icon all_inclusive

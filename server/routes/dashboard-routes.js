@@ -32,10 +32,10 @@ router.get('/allAccounts/:page', IsAdmin, (req, res) => {
   Account.find()
     .skip((req.params.page - 1) * 10)
     .limit(10)
-    .exec((err, news) => {
+    .exec((err, users) => {
       if (err) res.json(err);
       else {
-        res.json(news);
+        res.json(users);
       }
     });
 });
