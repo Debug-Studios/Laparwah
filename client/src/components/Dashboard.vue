@@ -51,9 +51,6 @@
             a(href='/#/')
               v-btn(fab small dark)
                 v-icon home
-            a(href='/#/dashboard')
-              v-btn(fab small dark)
-                v-icon settings
             a(href='/auth/logout')
               v-btn(fab small dark color='red')
                 v-icon exit_to_app
