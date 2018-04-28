@@ -29,18 +29,43 @@
       v-flex(xs12 sm12)
         v-card
           v-container(fluid grid-list-md)
-            v-layout(row wrap).mt-2
-              v-flex(md7 xs12 sm12).mx-5
-                v-card(v-if="breakingNews")
-                  v-card-media(:src="breakingNews.heroImage" height="400px")
-                    v-container(fill-height)
+            v-layout(row wrap).mt-1
+              v-flex(xs12 md8 style="display: flex;" v-if="breakingNews[0]")
+                v-jumbotron(:src="breakingNews[0].heroImage" dark :gradient="gradients[0]" height="100%")
+                  v-container(fill-height)
                       v-layout(fill-height)
-                        v-flex(xs12 align-end flexbox)
+                        v-flex.breaking-flex(xs12 align-end flexbox dark)
                           v-chip(label color="red" text-color="white") BREAKING NEWS
-                  v-card-title(primary-title)
-                    div
-                      h3.headline {{breakingNews.title}}
-                      span.subheading.grey--text.text--darken-2 {{breakingNews.created_at | moment("dddd, MMMM Do YYYY")}}
+                          v-flex.breaking-flex--text
+                            .display-2(style="font-weight: 800") {{breakingNews[0].title}}
+                            span.mt-2
+                              v-icon(left).mr-2 schedule
+                              span.subheading {{breakingNews[0].created_at | moment("dddd, MMMM Do YYYY")}}
+              v-flex(xs12 md4)
+                v-flex(xs12 style="display: flex;" v-if="breakingNews[1]").pt-0
+                  v-jumbotron(:src="breakingNews[1].heroImage" dark :gradient="gradients[1]" style="height:20rem")
+                    v-container(fill-height)
+                        v-layout(fill-height)
+                          v-flex.breaking-flex(xs12 align-end flexbox dark)
+                            v-chip(label color="red" text-color="white") BREAKING NEWS
+                            v-flex.breaking-flex--text
+                              .headline(style="font-weight: 800") {{breakingNews[1].title}}
+                              span.mt-2
+                                v-icon(left).mr-2 schedule
+                                span.subheading {{breakingNews[1].created_at | moment("dddd, MMMM Do YYYY")}}
+                v-flex(xs12 style="display: flex;" v-if="breakingNews[2]").pb-0
+                  v-jumbotron(:src="breakingNews[2].heroImage" dark :gradient="gradients[1]"  style="height:20rem")
+                    v-container(fill-height)
+                        v-layout(fill-height)
+                          v-flex.breaking-flex(xs12 align-end flexbox dark)
+                            v-chip(label color="red" text-color="white") BREAKING NEWS
+                            v-flex.breaking-flex--text
+                              .headline(style="font-weight: 800") {{breakingNews[2].title}}
+                              span.mt-2
+                                v-icon(left).mr-2 schedule
+                                span.subheading {{breakingNews[2].created_at | moment("dddd, MMMM Do YYYY")}}
+
+            v-layout(row wrap).mt-2
               v-flex(md4 xs12 sm12)
                 h3.headline.text-xs-center SPOTLIGHT
                 v-divider.mb-3
@@ -69,7 +94,7 @@ export default {
     navbar
   },
   data: () => ({
-    breakingNews: {},
+    breakingNews: [],
     spotlights: [],
     spotlightColors: [
       "cyan darken-2",
@@ -77,12 +102,16 @@ export default {
       "green darken-2",
       "orange darken-1",
       "blue-grey darken-2"
+    ],
+    gradients: [
+      "to bottom, rgba(36,36,62,0.4), rgba(51,51,51,1)",
+      "to bottom, rgba(0,0,0,0), rgba(0,0,0,1)"
     ]
   }),
   mounted() {
     // Get one breaking news
-    this.axios.get("/news/getBreaking/1").then(response => {
-      this.breakingNews = response.data[0];
+    this.axios.get("/news/getBreaking/3").then(response => {
+      this.breakingNews = response.data;
     });
 
     // Get spotlights
@@ -114,7 +143,27 @@ a.plain.title {
   font-weight: 300;
 }
 
+.breaking-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: space-between;
+
+  &--text {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+  }
+}
+
 #laparwah-header {
   height: 20vh !important;
 }
 </style>
+
+<style lang="scss">
+.jumbotron__image {
+  min-height: 100%;
+}
+</style>
+
