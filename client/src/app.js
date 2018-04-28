@@ -4,7 +4,7 @@ import App from './App.vue';
 import Vuetify from 'vuetify';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
-import axios from 'axios';
+import axios from './http';
 import VueAxios from 'vue-axios';
 import Gravatar from 'vue-gravatar';
 require('vue2-animate/dist/vue2-animate.min.css');

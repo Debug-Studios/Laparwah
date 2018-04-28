@@ -24,7 +24,7 @@ router.get('/getBreaking/:count', (req, res) => {
     .limit(parseInt(req.params.count))
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
-    .populate('creator')
+    .populate('creator', 'name _id')
     .exec((err, news) => {
       if (err) res.json(err);
       else res.json(news);
@@ -39,7 +39,7 @@ router.get('/getSpotlights/:count', (req, res) => {
     .limit(parseInt(req.params.count))
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
-    .populate('creator')
+    .populate('creator', 'name _id')
     .exec((err, news) => {
       if (err) res.json(err);
       else res.json(news);

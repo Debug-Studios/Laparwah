@@ -68,12 +68,12 @@
                                 v-icon(left color="grey").mr-1.ml-2 schedule
                                 span {{breakingNews[2].created_at | moment("dddd, MMMM Do YYYY")}}
 
-            v-layout(row).pa-5
+            v-layout(row).px-5.pt-5
               v-flex(xs12 sm12)
                 h3.headline(style="font-weight: 800").primary--text SPOTLIGHT
-                v-container(fluid grid-list-lg).py-4
+                .py-4(fluid grid-list-lg)
                   v-layout(row wrap)
-                    v-flex(xs4 md3 v-for="(news, index) in spotlights" :key="news._id")
+                    v-flex(xs12 md3 v-for="(news, index) in spotlights" :key="news._id")
                       v-card(flat)
                         v-card-media(:src="news.heroImage" height="10rem" cover)
                         v-card-title(primary-title).px-0
@@ -83,6 +83,14 @@
                               span by {{news.creator.name}}
                               v-icon(left color="grey").mr-1.ml-2 schedule
                               span {{news.created_at | moment("from", "now")}}
+
+            v-layout(row).px-5
+              v-flex(xs4 sm12)
+                h3.headline(style="font-weight: 800").primary--text Politics
+              v-flex(xs4 sm12)
+                h3.headline(style="font-weight: 800").primary--text Money
+              v-flex(xs4 sm12)
+                h3.headline(style="font-weight: 800").primary--text Entertainment
 
 
 </template>

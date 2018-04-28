@@ -1,3 +1,4 @@
+/* global NProgress */
 import Vue from 'vue';
 import Router from 'vue-router';
 import Navbar from './../components/Navbar.vue';
@@ -17,7 +18,7 @@ import AllNewsAdmin from './../components/DashboardComponents/AllNewsAdmin.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -33,52 +34,53 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
-      children: [{
-        path: 'addnews',
-        name: 'addnews',
-        component: AddNews
-      },
-      {
-        path: 'allnewsothers',
-        name: 'allnewsothers',
-        component: AllNewsOthers
-
-      },
-      {
-        path: 'adduser',
-        name: 'adduser',
-        component: AddUser
-      },
-      {
-        path: 'deleteuser',
-        name: 'deleteuser',
-        component: DeleteUser
-      },
-      {
-        path: 'allusers',
-        name: 'allusers',
-        component: AllUsers
-      },
-      {
-        path: 'allnewsadmin',
-        name: 'allnewsadmin',
-        component: AllNewsAdmin
-      },
-      {
-        path: '',
-        name: 'userprofile',
-        component: UserProfile
-      },
-      {
-        path: 'editnews',
-        name: 'edtnews',
-        component: EditNews
-      },
-      {
-        path: 'newsmoderation',
-        name: 'newsmoderation',
-        component: NewsModeration
-      }]
+      children: [
+        {
+          path: 'addnews',
+          name: 'addnews',
+          component: AddNews
+        },
+        {
+          path: 'allnewsothers',
+          name: 'allnewsothers',
+          component: AllNewsOthers
+        },
+        {
+          path: 'adduser',
+          name: 'adduser',
+          component: AddUser
+        },
+        {
+          path: 'deleteuser',
+          name: 'deleteuser',
+          component: DeleteUser
+        },
+        {
+          path: 'allusers',
+          name: 'allusers',
+          component: AllUsers
+        },
+        {
+          path: 'allnewsadmin',
+          name: 'allnewsadmin',
+          component: AllNewsAdmin
+        },
+        {
+          path: '',
+          name: 'userprofile',
+          component: UserProfile
+        },
+        {
+          path: 'editnews',
+          name: 'edtnews',
+          component: EditNews
+        },
+        {
+          path: 'newsmoderation',
+          name: 'newsmoderation',
+          component: NewsModeration
+        }
+      ]
     },
     {
       path: '/news/:id',
@@ -92,3 +94,16 @@ export default new Router({
     }
   ]
 });
+
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+    NProgress.start();
+  }
+  next();
+});
+
+router.afterEach((to, from) => {
+  NProgress.done();
+});
+
+export default router;
