@@ -43,7 +43,7 @@
                       span.subheading.grey--text.text--darken-2 {{breakingNews.created_at | moment("dddd, MMMM Do YYYY")}}
               v-flex(md4 xs12 sm12)
                 h3.headline.text-xs-center SPOTLIGHT
-                v-divider
+                v-divider.mb-3
                 v-container(fluid grid-list-sm)
                   v-layout(row wrap)
                     transition-group(name="fade" tag="div")
@@ -89,7 +89,6 @@ export default {
     this.axios.get("/news/getSpotlights/5").then(response => {
       this.spotlights = response.data;
     });
-
   }
 };
 </script>
