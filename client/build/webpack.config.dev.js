@@ -1,10 +1,11 @@
 'use strict';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+require('babel-polyfill');
 
 module.exports = {
   mode: 'development',
-  entry: ['./client/src/app.js'],
+  entry: ['babel-polyfill', './client/src/app.js'],
   devServer: {
     hot: true
   },

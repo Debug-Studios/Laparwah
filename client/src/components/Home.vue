@@ -118,16 +118,9 @@ export default {
       "to bottom, rgba(0,0,0,0), rgba(0,0,0,1)"
     ]
   }),
-  mounted() {
-    // Get one breaking news
-    this.axios.get("/news/getBreaking/3").then(response => {
-      this.breakingNews = response.data;
-    });
-
-    // Get spotlights
-    this.axios.get("/news/getSpotlights/8").then(response => {
-      this.spotlights = response.data;
-    });
+  async mounted() {
+    this.breakingNews = (await this.axios.get("/news/getBreaking/3")).data;
+    this.spotlights = (await this.axios.get("/news/getSpotlights/8")).data;
   }
 };
 </script>

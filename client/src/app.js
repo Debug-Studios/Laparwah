@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Notifications from 'vue-notification';
+import 'babel-polyfill';
 import App from './App.vue';
 import Vuetify from 'vuetify';
 import router from './router/router';
