@@ -27,7 +27,7 @@
           v-list-tile(slot='activator')
             v-list-tile-action
               v-icon people_outline
-            v-list-tile-title Writer's Tools
+            v-list-tile-title User Management
           v-list-tile(v-on:click='addUser')
             v-list-tile-title Add User
             v-list-tile-action
@@ -35,25 +35,29 @@
           v-list-tile(v-on:click='allUsers')
             v-list-tile-title All Users
             v-list-tile-action
-              v-icon add_circle
+              v-icon people_outline
           v-list-tile(v-on:click='deleteUser')
             v-list-tile-title Delete User
             v-list-tile-action
               v-icon delete_forever
 
     v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
-      v-toolbar-title.ml-0.pl-3(style='width: 300px')
+      v-toolbar-title.ml-0.pl-3
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
-        span(style="text-transform: capitalize") {{name}} Dashboard
+        span(style="text-transform: capitalize") {{name}}'s Dashboard
       v-spacer
       v-menu(offset-y='' v-if='isLogged' )
         v-btn(icon='' slot='activator')
           v-avatar(size='32')
             v-gravatar(v-bind:email='email'  )
-        v-card
+        v-card#user_panel
          v-flex.text-xs-center(xs12)
           span(style="text-transform: capitalize") Welcome! {{name}}
+         v-divider
          v-flex.text-xs-center(xs12)
+            a(href='/#/')
+              v-btn(fab small dark)
+                v-icon home
             a(href='/#/dashboard')
               v-btn(fab small dark)
                 v-icon settings
@@ -90,8 +94,13 @@ export default {
     addNewsCard() {
       window.location.href = `${window.location.origin}/#/dashboard/addnews`;
     },
-    allNewsCard() {
-      window.location.href = `${window.location.origin}/#/dashboard/allnews`;
+    allNewsCard(isAdmin) {
+      if(isAdmin){  
+        window.location.href = `${window.location.origin}/#/dashboard/allnewsadmin`;
+
+      }
+      else
+        window.location.href = `${window.location.origin}/#/dashboard/allnewsothers`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/#/dashboard/adduser`;
@@ -110,12 +119,15 @@ export default {
       this.name = response.data.user.name;
       this.isAdmin = response.data.user.roles.includes("admin");
       this.isEditor = response.data.user.roles.includes("editor");
+      this.isWriter = response.data.user.roles.includes("writer");
     });
   }
 };
 </script>
 <style scoped>
-
+    #user_panel{
+      padding: 15px;
+    }
 </style>
 
 
