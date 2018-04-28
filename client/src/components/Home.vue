@@ -38,11 +38,12 @@
                           v-chip(label color="red" text-color="white") BREAKING NEWS
                           v-flex.breaking-flex--text
                             .display-2(style="font-weight: 800") {{breakingNews[0].title}}
-                            span.mt-2
-                              v-icon(left).mr-2 schedule
-                              span.subheading {{breakingNews[0].created_at | moment("dddd, MMMM Do YYYY")}}
+                            span.subheading.mt-2.grey--text.text--lighten-1.ml-1
+                              span by {{breakingNews[0].creator.name}}
+                              v-icon(left color="grey").mr-1.ml-2 schedule
+                              span {{breakingNews[0].created_at | moment("dddd, MMMM Do YYYY")}}
               v-flex(xs12 md4)
-                v-flex(xs12 style="display: flex;" v-if="breakingNews[1]").pt-0
+                v-flex(xs12 style="display: flex;" v-if="breakingNews[1]").pt-0.pr-0
                   v-jumbotron(:src="breakingNews[1].heroImage" dark :gradient="gradients[1]" style="height:20rem")
                     v-container(fill-height)
                         v-layout(fill-height)
@@ -50,10 +51,11 @@
                             v-chip(label color="red" text-color="white") BREAKING NEWS
                             v-flex.breaking-flex--text
                               .headline(style="font-weight: 800") {{breakingNews[1].title}}
-                              span.mt-2
-                                v-icon(left).mr-2 schedule
-                                span.subheading {{breakingNews[1].created_at | moment("dddd, MMMM Do YYYY")}}
-                v-flex(xs12 style="display: flex;" v-if="breakingNews[2]").pb-0
+                              span.body-2.mt-2.grey--text.text--lighten-1.ml-1
+                                span by {{breakingNews[1].creator.name}}
+                                v-icon(left color="grey").mr-1.ml-2 schedule
+                                span {{breakingNews[1].created_at | moment("dddd, MMMM Do YYYY")}}
+                v-flex(xs12 style="display: flex;" v-if="breakingNews[2]").pb-0.pr-0
                   v-jumbotron(:src="breakingNews[2].heroImage" dark :gradient="gradients[1]"  style="height:20rem")
                     v-container(fill-height)
                         v-layout(fill-height)
@@ -61,26 +63,26 @@
                             v-chip(label color="red" text-color="white") BREAKING NEWS
                             v-flex.breaking-flex--text
                               .headline(style="font-weight: 800") {{breakingNews[2].title}}
-                              span.mt-2
-                                v-icon(left).mr-2 schedule
-                                span.subheading {{breakingNews[2].created_at | moment("dddd, MMMM Do YYYY")}}
+                              span.body-2.mt-2.grey--text.text--lighten-1.ml-1
+                                span by {{breakingNews[2].creator.name}}
+                                v-icon(left color="grey").mr-1.ml-2 schedule
+                                span {{breakingNews[2].created_at | moment("dddd, MMMM Do YYYY")}}
 
-            v-layout(row wrap).mt-2
-              v-flex(md4 xs12 sm12)
-                h3.headline.text-xs-center SPOTLIGHT
-                v-divider.mb-3
-                v-container(fluid grid-list-sm)
+            v-layout(row).pa-5
+              v-flex(xs12 sm12)
+                h3.headline(style="font-weight: 800").primary--text SPOTLIGHT
+                v-container(fluid grid-list-lg).py-4
                   v-layout(row wrap)
-                    transition-group(name="fade" tag="div")
-                      v-flex(xs6 md12 v-for="(news, index) in spotlights" :key="news._id")
-                        v-card.white--text(:color="spotlightColors[index]")
-                          v-container(fluid grid-list-lg)
-                            v-layout(row)
-                              v-flex(xs5)
-                                v-card-media(:src="news.heroImage", height="100%" contain)
-                              v-flex(xs7)
-                                a.plain.title {{news.title}}
-                                .subheading.mt-1 {{news.created_at | moment("dddd, MMMM Do YYYY")}}
+                    v-flex(xs4 md3 v-for="(news, index) in spotlights" :key="news._id")
+                      v-card(flat)
+                        v-card-media(:src="news.heroImage" height="10rem" width="100%" contain)
+                        v-card-title(primary-title)
+                          div
+                            h3.title.mb-0 {{news.title}}
+                            span.body-2.mt-1.grey--text.text--lighten-1.ml-1
+                              span by {{news.creator.name}}
+                              v-icon(left color="grey").mr-1.ml-2 schedule
+                              span {{news.created_at | moment("from", "now")}}
 
 
 </template>
@@ -115,7 +117,7 @@ export default {
     });
 
     // Get spotlights
-    this.axios.get("/news/getSpotlights/5").then(response => {
+    this.axios.get("/news/getSpotlights/8").then(response => {
       this.spotlights = response.data;
     });
   }
