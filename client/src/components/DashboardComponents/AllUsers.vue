@@ -1,31 +1,34 @@
 <template lang="pug">
     #allusers
-        v-flex(xs4)
-            transition-group(name="fade" tag="div")
-                v-card(v-for='(users, index) in allusers' :key='users._id')
-                    v-card-media#media
-                        v-flex.text-xs-center
-                            v-avatar(size='180px')
-                                v-gravatar(email='ayush.bahuguna12@gmail.com')
-                    v-divider
-                    v-card-title
-                        div
-                            h3 {{users.name}}
-                            span Roles: {{users.roles}}
-                    v-card-actions
-                        v-spacer
-                        v-btn(@click='deleteUser(users._id)' color='success' flat ) Remove User
+        v-container(fluid grid-list-sm)
+            v-layout(row wrap)
+                v-flex(xs4 v-for='(user, index) in allusers' :key='user._id')
+                    v-card
+                        v-card-media#media
+                            v-flex.text-xs-center
+                                v-avatar(size='180px')
+                                    v-gravatar(:email= 'user.email' :size='200')
+                        v-divider
+                        v-card-title
+                            div
+                                h3 {{user.name}}
+                                h4 Email: {{user.email}}
+                                h4(style="text-transform: capitalize") Roles: {{user.roles[user.roles.length - 1]}}
+                        v-card-actions
+                            v-spacer
+                            v-btn(@click='deleteUser(user._id)' color='success' flat ) Remove User
 
 </template>
 <script>
 export default {
     data: () => ({
-        allusers: [],
+        allusers: []
     }),
     mounted(){
         this.axios.get(`/dashboard/allAccounts/1`).then(response => {
             console.log(response);
             this.allusers = response.data;
+
         });
     },
     methods:{

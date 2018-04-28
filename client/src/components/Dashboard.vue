@@ -8,12 +8,12 @@
           v-list-tile-title Profile
         v-list-tile(v-on:click='newsModeration' v-show='isEditor' )
           v-list-tile-action
-            v-icon face
+            v-icon border_color
           v-list-tile-title Moderation Tools
         v-list-group(subgroup no-action value='true' v-show='isWriter')
           v-list-tile(slot='activator')
             v-list-tile-action
-              v-icon people_outline
+              v-icon trending_up
             v-list-tile-title News Management
           v-list-tile(v-on:click='allNewsCard(isAdmin)')
             v-list-tile-title All News
@@ -26,20 +26,13 @@
         v-list-group(subgroup no-action value='true' v-show='isAdmin')
           v-list-tile(slot='activator')
             v-list-tile-action
-              v-icon people_outline
+              v-icon accessibility
             v-list-tile-title User Management
-          v-list-tile(v-on:click='addUser')
-            v-list-tile-title Add User
-            v-list-tile-action
-              v-icon add_circle
           v-list-tile(v-on:click='allUsers')
             v-list-tile-title All Users
             v-list-tile-action
               v-icon people_outline
-          v-list-tile(v-on:click='deleteUser')
-            v-list-tile-title Delete User
-            v-list-tile-action
-              v-icon delete_forever
+          
 
     v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
       v-toolbar-title.ml-0.pl-3
@@ -58,12 +51,9 @@
             a(href='/#/')
               v-btn(fab small dark)
                 v-icon home
-            a(href='/#/dashboard')
-              v-btn(fab small dark)
-                v-icon settings
             a(href='/auth/logout')
-              v-btn(fab small dark)
-                v-icon directions_walk
+              v-btn(fab small dark color='red')
+                v-icon exit_to_app
     v-content
       router-view
 </template>
@@ -87,9 +77,7 @@ export default {
       }/#/dashboard/newsmoderation`;
     },
     userProfile() {
-      window.location.href = `${
-        window.location.origin
-      }/#/dashboard/userprofile`;
+      window.location.href = `${window.location.origin}/#/dashboard`;
     },
     addNewsCard() {
       window.location.href = `${window.location.origin}/#/dashboard/addnews`;
