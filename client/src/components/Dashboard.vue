@@ -8,12 +8,12 @@
           v-list-tile-title Profile
         v-list-tile(v-on:click='newsModeration' v-show='isEditor' )
           v-list-tile-action
-            v-icon face
+            v-icon border_color
           v-list-tile-title Moderation Tools
         v-list-group(subgroup no-action value='true' v-show='isWriter')
           v-list-tile(slot='activator')
             v-list-tile-action
-              v-icon people_outline
+              v-icon trending_up
             v-list-tile-title News Management
           v-list-tile(v-on:click='allNewsCard(isAdmin)')
             v-list-tile-title All News
@@ -26,7 +26,7 @@
         v-list-group(subgroup no-action value='true' v-show='isAdmin')
           v-list-tile(slot='activator')
             v-list-tile-action
-              v-icon people_outline
+              v-icon accessibility
             v-list-tile-title User Management
           v-list-tile(v-on:click='allUsers')
             v-list-tile-title All Users
