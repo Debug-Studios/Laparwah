@@ -75,11 +75,11 @@
                   v-layout(row wrap)
                     v-flex(xs4 md3 v-for="(news, index) in spotlights" :key="news._id")
                       v-card(flat)
-                        v-card-media(:src="news.heroImage" height="10rem" width="100%" contain)
-                        v-card-title(primary-title)
+                        v-card-media(:src="news.heroImage" height="10rem" cover)
+                        v-card-title(primary-title).px-0
                           div
-                            h3.title.mb-0 {{news.title}}
-                            span.body-2.mt-1.grey--text.text--lighten-1.ml-1
+                            h3.title.ml-1.mb-2 {{news.title}}
+                            span.body-2.mt-2.grey--text.text--lighten-1.ml-1
                               span by {{news.creator.name}}
                               v-icon(left color="grey").mr-1.ml-2 schedule
                               span {{news.created_at | moment("from", "now")}}

@@ -154,7 +154,7 @@ router.delete('/deleteNewsPost/:id', IsAdmin, (req, res) => {
 router.post('/createNewsPost', IsEditor, (req, res) => {
   News.create(
     {
-      creator_id: req.user._id,
+      creator: req.user._id,
       title: req.body.title,
       content: req.body.content,
       category: req.body.category,
@@ -173,7 +173,7 @@ router.post('/createNewsPost', IsEditor, (req, res) => {
 });
 
 router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
-  News.find({ creator_id: req.user._id })
+  News.find({ creator: req.user._id })
     .skip((req.params.page - 1) * 10)
     .limit(10)
     .exec((err, news) => {
@@ -188,7 +188,7 @@ router.get('/editOwnNewsPost/:id', IsEditor, (req, res) => {
   News.findOne(
     {
       _id: req.params.id,
-      creator_id: req.user._id
+      creator: req.user._id
     },
     (err, news) => {
       if (err) res.json(err);
@@ -203,10 +203,10 @@ router.post('/editOwnNewsPost/:id', IsEditor, (req, res) => {
   News.findOneAndUpdate(
     {
       _id: req.params.id,
-      creator_id: req.user._id
+      creator: req.user._id
     },
     {
-      creator_id: req.user._id,
+      creator: req.user._id,
       title: req.body.title,
       content: req.body.content,
       category: req.body.category,
@@ -228,7 +228,7 @@ router.delete('/deleteOwnNewsPost/:id', IsEditor, (req, res) => {
   News.findOneAndRemove(
     {
       _id: req.params.id,
-      creator_id: req.user._id
+      creator: req.user._id
     },
     (err, news) => {
       if (err) res.json(err);
