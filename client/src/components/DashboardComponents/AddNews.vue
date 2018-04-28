@@ -9,14 +9,14 @@
                      v-text-field(label="Add Title" name='add_title' v-model='title')
                 v-spacer
                 v-flex(xs3)
-                   v-select(:items='items' label='Select Category' v-model='category' name='add_category' input-type='text')
+                    v-select(:items='tag' label='Select Main Tag' v-model='main_tag' name='add_tag' input-type='text')
                 v-flex(xs12)
                     v-text-field(name='add_content' v-model='content' label='Add Content' textarea dark)
                 v-flex(xs6)
                     v-text-field(label='Apply Tags' v-model='tags' name='add_tags')
                 v-spacer
                 v-flex(xs3)
-                    v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
+                    v-select(:items='items' label='Select Category' v-model='category' name='add_category' input-type='text')
                 v-flex(xs12)
                     v-text-field(label='Add Image Link' v-model='heroImage' name='add_image')
             v-card-actions
@@ -31,7 +31,7 @@ export default {
     title: "",
     category: [],
     content: "",
-    main_tag: "",
+    main_tag: [],
     tags: "",
     heroImage: "",
     items: [
@@ -44,6 +44,12 @@ export default {
       { text: "Style" },
       { text: "Health" },
       { text: "Video" }
+    ],
+    tag: [
+      { text: "Breaking News" },
+      { text: "Spotlight" },
+      { text: "Live" },
+
     ]
   }),
 
@@ -56,7 +62,7 @@ export default {
           content: this.content,
           category: this.category.text,
           tags: this.tags,
-          main_tag: this.main_tag,
+          main_tag: this.main_tag.text,
           heroImage: this.heroImage
         })
         .then((response) => {
