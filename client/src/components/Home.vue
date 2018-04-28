@@ -10,17 +10,17 @@
 
     v-toolbar(flat)
       v-toolbar-items
-        v-btn(flat) Today
-        v-btn(flat) Politics
-        v-btn(flat) Money
-        v-btn(flat) Entertainment
-        v-btn(flat) Tech
-        v-btn(flat) Sport
-        v-btn(flat) Travel
-        v-btn(flat) Style
-        v-btn(flat) Health
-        v-btn(flat) Culture
-        v-btn(flat) Video
+        v-btn(flat @click="$vuetify.goTo('#today', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Today
+        v-btn(flat @click="$vuetify.goTo('#Politics', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Politics
+        v-btn(flat @click="$vuetify.goTo('#Money', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Money
+        v-btn(flat @click="$vuetify.goTo('#Entertainment', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Entertainment
+        v-btn(flat @click="$vuetify.goTo('#Tech', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Tech
+        v-btn(flat @click="$vuetify.goTo('#Sport', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Sport
+        v-btn(flat @click="$vuetify.goTo('#Travel', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Travel
+        v-btn(flat @click="$vuetify.goTo('#Style', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Style
+        v-btn(flat @click="$vuetify.goTo('#Health', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Health
+        v-btn(flat @click="$vuetify.goTo('#Culture', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Culture
+        v-btn(flat @click="$vuetify.goTo('#Today', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Video
       v-spacer
       v-toolbar-items
         v-text-field(name="search", label="Search", append-icon="search")
@@ -64,14 +64,14 @@
                           v-layout(fill-height)
                             v-flex.breaking-flex(xs12 align-end flexbox dark)
                               v-chip(label color="red" text-color="white") BREAKING NEWS
-                                .headline(style="font-weight: 800") {{breakingNews[2].title}}
                               v-flex.breaking-flex--text
+                                .headline(style="font-weight: 800") {{breakingNews[2].title}}
                                 span.body-2.mt-2.grey--text.text--lighten-1.ml-1
                                   span by {{breakingNews[2].creator.name}}
                                   v-icon(left color="grey").mr-1.ml-2 schedule
                                   span {{breakingNews[2].created_at | moment("dddd, MMMM Do YYYY")}}
 
-          v-container(fluid grid-list-xl)
+          v-container(fluid grid-list-xl)#today
             v-layout(row).px-5
               v-flex(xs12 sm12)
                 h3.headline(style="font-weight: 800").primary--text SPOTLIGHT
@@ -91,7 +91,7 @@
 
             v-layout(row wrap grid-list-xl).px-5
               v-flex(md4 sm12 v-for="(category, index1) in newsCategories" :key="index1")
-                h3.headline(style="font-weight: 800").primary--text {{category}}
+                h3.headline(style="font-weight: 800" :id="category").primary--text {{category}}
                 div(v-if="newsCategoriesData" v-for="(newsPosts, index2) in newsCategoriesData" :key="index2")
                   div(xs12 style="display: flex;" v-if="index2 == index1" v-for="(news, index3) in newsPosts" :key="news._id")
                     v-jumbotron.py-4(:src="news.heroImage" dark :gradient="gradients[1]" height="16rem" v-if="index3 == 0")
