@@ -28,7 +28,7 @@
     v-layout(column)
       v-flex(xs12 sm12)
         v-card
-          v-container(fluid grid-list-md)
+          v-container(fluid grid-list-xl)
             v-layout(row wrap).mt-1
               v-flex(xs12 md8 style="display: flex;" v-if="breakingNews[0]")
                 v-jumbotron(:src="breakingNews[0].heroImage" dark :gradient="gradients[0]" height="100%")
@@ -84,14 +84,25 @@
                               v-icon(left color="grey").mr-1.ml-2 schedule
                               span {{news.created_at | moment("from", "now")}}
 
-            v-layout(row).px-5
-              v-flex(xs4 sm12)
-                h3.headline(style="font-weight: 800").primary--text Politics
-              v-flex(xs4 sm12)
-                h3.headline(style="font-weight: 800").primary--text Money
-              v-flex(xs4 sm12)
-                h3.headline(style="font-weight: 800").primary--text Entertainment
-
+            v-layout(row wrap grid-list-xl).px-5
+              v-flex(md4 sm12 v-for="(category, index1) in newsCategories" :key="index1")
+                h3.headline(style="font-weight: 800").primary--text {{category}}
+                div(v-if="newsCategoriesData" v-for="(newsPosts, index2) in newsCategoriesData" :key="index2")
+                  div(xs12 style="display: flex;" v-if="index2 == index1" v-for="(news, index3) in newsPosts" :key="news._id")
+                    v-jumbotron.py-4(:src="news.heroImage" dark :gradient="gradients[1]" height="16rem" v-if="index3 == 0")
+                      v-container(fill-height)
+                          v-layout(fill-height)
+                            v-flex.breaking-flex(xs12 align-end flexbox dark).pb-0
+                              v-chip(label color="red" text-color="white") {{news.category}}
+                              v-flex.breaking-flex--text
+                                .title(style="font-weight: 800") {{news.title}}
+                                span.body-2.grey--text.text--lighten-1.pb-0
+                                  span {{news.created_at | moment("from", "now")}}
+                    a.plain.pb-2(v-else style="width: 100%" href="#").pt-3
+                      v-layout(grid row style="align-items: center").pb-3.mx-0
+                        .red--text.mr-2(xs1 style="font-size: 6px;") &#9679;
+                        .body-2.black--text.grey--text.text--darken-3(xs11 style="font-weight: 400") {{news.title}}
+                      v-divider(light)
 
 </template>
 
@@ -116,11 +127,32 @@ export default {
     gradients: [
       "to bottom, rgba(36,36,62,0.4), rgba(51,51,51,1)",
       "to bottom, rgba(0,0,0,0), rgba(0,0,0,1)"
-    ]
+    ],
+    newsCategories: [
+      "Politics",
+      "Money",
+      "Entertainment",
+      "Tech",
+      "Sport",
+      "Travel",
+      "Style",
+      "Health",
+      "Culture"
+    ],
+    newsCategoriesData: []
   }),
   async mounted() {
     this.breakingNews = (await this.axios.get("/news/getBreaking/3")).data;
     this.spotlights = (await this.axios.get("/news/getSpotlights/8")).data;
+    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(this.spotlights);
   }
 };
 </script>
