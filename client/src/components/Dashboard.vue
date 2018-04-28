@@ -77,9 +77,7 @@ export default {
       }/#/dashboard/newsmoderation`;
     },
     userProfile() {
-      window.location.href = `${
-        window.location.origin
-      }/#/dashboard/userprofile`;
+      window.location.href = `${window.location.origin}/#/dashboard`;
     },
     addNewsCard() {
       window.location.href = `${window.location.origin}/#/dashboard/addnews`;

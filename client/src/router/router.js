@@ -65,7 +65,7 @@ export default new Router({
         component: AllNewsAdmin
       },
       {
-        path: 'userprofile',
+        path: '',
         name: 'userprofile',
         component: UserProfile
       },
