@@ -55,8 +55,8 @@
               v-btn(fab small dark)
                 v-icon settings
             a(href='/auth/logout')
-              v-btn(fab small dark)
-                v-icon directions_walk
+              v-btn(fab small dark color='red')
+                v-icon exit_to_app
     v-content
       router-view
 </template>
