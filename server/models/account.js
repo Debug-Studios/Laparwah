@@ -20,6 +20,9 @@ const accountSchema = new Schema(
       facebook: String,
       twitter: String
     },
+    location: String,
+    designation: String,
+    spectrum: String,
     oauth: {
       google: {
         type: String,

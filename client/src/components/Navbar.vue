@@ -1,12 +1,12 @@
 <template lang="pug">
   v-toolbar(dark)
-    v-toolbar-title.ml-0.pl-3 Breaking News:
-    //- Transition: First writes letters and then goes up
+    v-toolbar-title.ml-0.pl-3.hidden-sm-and-down Breaking News:
     transition(name="slide-fade" mode="out-in")
-      a.breaking-news-link.subheading.ml-0.pl-3(:key="breakingNewsIndex" href="#" v-if="breakingNews.length") {{breakingNews[breakingNewsIndex].title}}
+      router-link(:to="'/news/' + breakingNews[breakingNewsIndex]._id" :key="breakingNewsIndex" v-if="breakingNews.length").breaking-news-link.subheading.ml-0.pl-3 {{breakingNews[breakingNewsIndex].title}}
+
     v-spacer
 
-    v-toolbar-items
+    v-toolbar-items.hidden-sm-and-down
       .d-flex.pr-4.flex-weather
         v-icon.pr-2 cloud
         .headline.pr-2 {{temp}}&deg;C
@@ -28,28 +28,34 @@
                 v-icon.red--text keyboard_arrow_down
               span.headline.red--text {{stock.change}}
 
-    v-menu(offset-y='' v-if='isLogged' )
-      v-btn(icon='' slot='activator')
+    v-menu(offset-y v-if='isLogged && user' dark)
+      v-btn(icon slot='activator')
         v-avatar(size='32')
-          v-gravatar(v-bind:email='email'  )
-      v-card(style="margin-top:1rem").pa-4
-        v-flex.text-xs-center(xs12)
-        span.pa-3 Hi, {{name}}
-        v-flex.text-xs-center(xs12)
-          a.pa-3(href='/dashboard/#/')
-            v-btn(fab small dark)
-              v-icon settings
-          a(href='/auth/logout')
-            v-btn(fab small dark color="red")
-              v-icon exit_to_app
-
-    v-menu(offset-y='' v-else)
-      v-btn(icon='' slot='activator')
-        v-icon account_circle
-
+          v-gravatar(v-bind:email='user.email')
       v-card
-        v-flex.text-xs-center(xs12)
-          span(style='margin-top:30px;') SIGN IN USING
+        v-list
+          v-list-tile(avatar).pr-4
+            v-list-tile-avatar
+              v-gravatar(:email="user.email" :size="64")
+            v-list-tile-content
+              v-list-tile-title {{user.name}}
+              v-list-tile-sub-title(v-if="user.designation") {{user.designation}}
+        v-divider
+        v-list
+          v-list-tile(@click="")
+            v-list-tile-action
+              v-icon account_box
+            v-list-tile-title My Dashboard
+          v-list-tile(@click="")
+            v-list-tile-action
+              v-icon(color="red") exit_to_app
+            v-list-tile-title Sign out
+
+    v-menu(offset-y v-else dark)
+      v-btn(flat slot='activator') SIGN IN
+      v-card
+        v-flex.text-xs-center(xs12).pt-2
+          span SIGN IN USING
         v-flex.text-xs-center(xs12 )
           a(href='/auth/google')
             v-avatar(size='32')
@@ -76,8 +82,7 @@ export default {
     isLogged: false,
     breakingNews: [],
     breakingNewsIndex: 0,
-    name: "",
-    email: "",
+    user: {},
     socials: [
       { icon: "/icons/google.svg" },
       { icon: "/icons/facebook.svg" },
@@ -94,8 +99,7 @@ export default {
     this.axios.get("/accounts/getCurrentUser").then(response => {
       this.isLogged = response.data.isLoggedin === "true";
       if (response.data.user) {
-        this.email = response.data.user.email;
-        this.name = response.data.user.name;
+        this.user = response.data.user;
       }
     });
   },
@@ -122,11 +126,7 @@ export default {
 
     setInterval(() => {
       this.stockUpdater();
-    }, 60000);
-
-    setInterval(() => {
-      this.stockUpdater();
-    }, 30000);
+    }, 40000);
 
     // Breaking News ticker updater
     setInterval(() => {

@@ -5,15 +5,29 @@ const converter = new showdown.Converter({
   simplifiedAutoLink: true,
   strikethrough: true
 });
+const crypto = require('crypto');
 
-router.get('getNewsPost/:id', (req, res) => {
-  News.findById(req.params.id).then((err, post) => {
-    if (err) res.json(err);
-    else {
-      post.content = converter.makeHtml(post.content);
-      res.json(post);
-    }
-  });
+router.get('/getNewsPost/:id', (req, res) => {
+  News.findById(req.params.id)
+    .populate('creator', 'name _id email')
+    .populate('co_creator', 'name _id email')
+    .exec((err, news) => {
+      if (err) res.json(err);
+      else {
+        news.creator.email = crypto
+          .createHash('md5')
+          .update(news.creator.email)
+          .digest('hex');
+        if (news.co_creator) {
+          news.co_creator.email = crypto
+            .createHash('md5')
+            .update(news.co_creator.email)
+            .digest('hex');
+        }
+        news.content = converter.makeHtml(news.content);
+        res.json(news);
+      }
+    });
 });
 
 // Get Breaking List
@@ -24,7 +38,7 @@ router.get('/getBreaking/:count', (req, res) => {
     .limit(parseInt(req.params.count))
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
-    .populate('creator')
+    .populate('creator', 'name _id')
     .exec((err, news) => {
       if (err) res.json(err);
       else res.json(news);
@@ -39,7 +53,7 @@ router.get('/getSpotlights/:count', (req, res) => {
     .limit(parseInt(req.params.count))
     .sort({ updated_at: 'desc' })
     .select({ content: 0 })
-    .populate('creator')
+    .populate('creator', 'name _id')
     .exec((err, news) => {
       if (err) res.json(err);
       else res.json(news);
