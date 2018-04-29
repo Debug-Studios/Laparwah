@@ -1,13 +1,12 @@
 <template lang="pug">
   v-toolbar(dark)
-    v-toolbar-title.ml-0.pl-3 Breaking News:
-    //- Transition: First writes letters and then goes up
+    v-toolbar-title.ml-0.pl-3.hidden-sm-and-down Breaking News:
     transition(name="slide-fade" mode="out-in")
       router-link(:to="'/news/' + breakingNews[breakingNewsIndex]._id" :key="breakingNewsIndex" v-if="breakingNews.length").breaking-news-link.subheading.ml-0.pl-3 {{breakingNews[breakingNewsIndex].title}}
 
     v-spacer
 
-    v-toolbar-items
+    v-toolbar-items.hidden-sm-and-down
       .d-flex.pr-4.flex-weather
         v-icon.pr-2 cloud
         .headline.pr-2 {{temp}}&deg;C

@@ -8,7 +8,7 @@
           v-flex
             h3.display-3.laparwah-font लापरवाह
 
-    v-toolbar(flat)
+    v-toolbar(flat).hidden-sm-and-down
       v-toolbar-items
         v-btn(flat @click="$vuetify.goTo('#today', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Today
         v-btn(flat @click="$vuetify.goTo('#Politics', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Politics
