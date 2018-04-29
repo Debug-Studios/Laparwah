@@ -1,6 +1,6 @@
 <template lang="pug">
   v-app
-    navbar
+    
 
     v-jumbotron(src="https://images.pexels.com/photos/314860/pexels-photo-314860.jpeg?cs=srgb&dl=clouds-cold-evening-314860.jpg&fm=jpg" dark)#laparwah-header
       v-container(fill-height)
@@ -113,13 +113,10 @@
 </template>
 
 <script>
-import navbar from "./Navbar.vue";
 import { newExpression } from "babel-types";
 export default {
   name: "home",
-  components: {
-    navbar
-  },
+
   data: () => ({
     breakingNews: [],
     spotlights: [],
