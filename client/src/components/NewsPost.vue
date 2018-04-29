@@ -5,7 +5,7 @@
     v-container(v-if="news")
       h1.display-3.pb-3(style="font-weight: 300; line-height: 1.2 !important;") {{news.title}}
       v-container.px-0(grid-list-md)
-        v-layout(row)
+        v-layout(row wrap)
           v-flex(md8 sm12)
             v-layout(row v-if="news.creator")
               v-flex(md1)
@@ -14,7 +14,7 @@
               v-flex(md10)
                 span
                   p.title.grey--text.text--darken-2.mb-1 By&nbsp;
-                    router-link(:to="'/author/' + news.creator._id").plain {{news.creator.name}}
+                    router-link(:to="'/author/' + news.creator._id").no-underline {{news.creator.name}}
                     span(v-if="news.co_creator") and {{news.co_creator.name}}
                     span , Laparwah
                 span
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss">
-a.plain {
+a.no-underline {
   text-decoration: none;
 }
 

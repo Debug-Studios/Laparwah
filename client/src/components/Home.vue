@@ -44,7 +44,7 @@
                                 v-icon(left color="grey").mr-1.ml-2 schedule
                                 span {{breakingNews[0].created_at | moment("dddd, MMMM Do YYYY")}}
               v-flex(xs12 md4)
-                v-flex(xs12 style="display: flex;" v-if="breakingNews[1]").pt-0.pr-0
+                v-flex(xs12 style="display: flex;" v-if="breakingNews[1]").pt-0.px-0
                   router-link(:to="'/news/' + breakingNews[1]._id").plain
                     v-jumbotron(:src="breakingNews[1].heroImage" dark :gradient="gradients[1]" style="height:20rem")
                       v-container(fill-height)
@@ -57,7 +57,7 @@
                                   span by {{breakingNews[1].creator.name}}
                                   v-icon(left color="grey").mr-1.ml-2 schedule
                                   span {{breakingNews[1].created_at | moment("dddd, MMMM Do YYYY")}}
-                v-flex(xs12 style="display: flex;" v-if="breakingNews[2]").pb-0.pr-0
+                v-flex(xs12 style="display: flex;" v-if="breakingNews[2]").pb-0.px-0
                   router-link(:to="'/news/' + breakingNews[2]._id").plain
                     v-jumbotron(:src="breakingNews[2].heroImage" dark :gradient="gradients[1]"  style="height:20rem")
                       v-container(fill-height)
@@ -71,8 +71,8 @@
                                   v-icon(left color="grey").mr-1.ml-2 schedule
                                   span {{breakingNews[2].created_at | moment("dddd, MMMM Do YYYY")}}
 
-          v-container(fluid grid-list-xl)#today
-            v-layout(row).px-5
+          v-container(fluid grid-list-xl).pa-0#today
+            v-layout(row).px-5#spotlight-layout
               v-flex(xs12 sm12)
                 h3.headline(style="font-weight: 800").primary--text SPOTLIGHT
                 .py-4(fluid grid-list-lg)
@@ -89,7 +89,7 @@
                                 v-icon(left color="grey").mr-1.ml-2 schedule
                                 span {{news.created_at | moment("from", "now")}}
 
-            v-layout(row wrap grid-list-xl).px-5
+            v-layout(row wrap grid-list-xl).px-5#other-news-layout
               v-flex(md4 sm12 v-for="(category, index1) in newsCategories" :key="index1")
                 h3.headline(style="font-weight: 800" :id="category").primary--text {{category}}
                 div(v-if="newsCategoriesData" v-for="(newsPosts, index2) in newsCategoriesData" :key="index2")
@@ -162,6 +162,19 @@ export default {
     this.newsCategoriesData.push(this.spotlights);
     this.newsCategoriesData.push(this.spotlights);
     this.newsCategoriesData.push(this.spotlights);
+
+    // Apply responsive padding
+    if (screen.width < 800) {
+      document.getElementById("other-news-layout").classList.remove("px-5");
+      document.getElementById("spotlight-layout").classList.remove("px-5");
+      document.getElementById("other-news-layout").classList.add("px-2");
+      document.getElementById("spotlight-layout").classList.add("px-2");
+    } else {
+      document.getElementById("other-news-layout").classList.remove("px-2");
+      document.getElementById("spotlight-layout").classList.remove("px-2");
+      document.getElementById("other-news-layout").classList.add("px-5");
+      document.getElementById("spotlight-layout").classList.add("px-5");
+    }
   }
 };
 </script>
