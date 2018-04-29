@@ -62,8 +62,8 @@ export default {
   mounted() {
     this.axios
       .get(`/news/getNewsPost/${this.$route.params.id}`)
-      .then((err, data) => {
-        this.news = data;
+      .then(response => {
+        this.news = response.data;
       });
   }
 };

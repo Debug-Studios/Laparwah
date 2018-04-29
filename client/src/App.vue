@@ -4,7 +4,7 @@
       template(slot="body" slot-scope="props")
         v-snackbar(:timeout="10000" :color="props.item.type" :value="true") {{props.item.title}}
 
-    router-view
+    router-view(:key="$route.fullPath")
     footer_custom
 
 </template>
