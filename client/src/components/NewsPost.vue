@@ -64,6 +64,7 @@ export default {
       .get(`/news/getNewsPost/${this.$route.params.id}`)
       .then(response => {
         this.news = response.data;
+        document.title = `${this.news.title}`;
       });
   }
 };

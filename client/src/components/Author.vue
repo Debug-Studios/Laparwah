@@ -58,6 +58,7 @@ export default {
     this.author = (await this.axios.get(
       `/author/getAuthor/${this.$route.params.id}`
     )).data;
+    document.title = `${this.author.name}, Laparwah`;
   }
 };
 </script>

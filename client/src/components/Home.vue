@@ -147,6 +147,11 @@ export default {
     ],
     newsCategoriesData: []
   }),
+  created() {
+    document.title = "Home";
+    document.head.querySelector("meta[name=description]").content =
+      "Laparwah is an independent and unbiased news platform for Uttarakhand.";
+  },
   async mounted() {
     this.breakingNews = (await this.axios.get("/news/getBreaking/3")).data;
     this.spotlights = (await this.axios.get("/news/getSpotlights/8")).data;

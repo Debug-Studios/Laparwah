@@ -83,12 +83,14 @@ export default {
       window.location.href = `${window.location.origin}/#/dashboard/addnews`;
     },
     allNewsCard(isAdmin) {
-      if(isAdmin){  
-        window.location.href = `${window.location.origin}/#/dashboard/allnewsadmin`;
-
-      }
-      else
-        window.location.href = `${window.location.origin}/#/dashboard/allnewsothers`;
+      if (isAdmin) {
+        window.location.href = `${
+          window.location.origin
+        }/#/dashboard/allnewsadmin`;
+      } else
+        window.location.href = `${
+          window.location.origin
+        }/#/dashboard/allnewsothers`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/#/dashboard/adduser`;
@@ -100,7 +102,7 @@ export default {
       window.location.href = `${window.location.origin}/#/dashboard/deleteuser`;
     }
   },
-  created() {
+  mounted() {
     this.axios.get("/accounts/getCurrentUser").then(response => {
       this.isLogged = response.data.isLoggedin === "true";
       this.email = response.data.user.email;
@@ -108,14 +110,15 @@ export default {
       this.isAdmin = response.data.user.roles.includes("admin");
       this.isEditor = response.data.user.roles.includes("editor");
       this.isWriter = response.data.user.roles.includes("writer");
+      document.title = `${this.name}'s Dashboard'`;
     });
   }
 };
 </script>
 <style scoped>
-    #user_panel{
-      padding: 15px;
-    }
+#user_panel {
+  padding: 15px;
+}
 </style>
 
 
