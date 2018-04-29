@@ -28,28 +28,33 @@
                 v-icon.red--text keyboard_arrow_down
               span.headline.red--text {{stock.change}}
 
-    v-menu(offset-y='' v-if='isLogged' )
-      v-btn(icon='' slot='activator')
+    v-menu(offset-y v-if='isLogged' dark)
+      v-btn(icon slot='activator')
         v-avatar(size='32')
           v-gravatar(v-bind:email='email'  )
-      v-card(style="margin-top:1rem").pa-4
-        v-flex.text-xs-center(xs12)
-        span.pa-3 Hi, {{name}}
-        v-flex.text-xs-center(xs12)
-          a.pa-3(href='/#/dashboard')
-            v-btn(fab small dark)
-              v-icon settings
-          a(href='/auth/logout')
-            v-btn(fab small dark color="red")
-              v-icon exit_to_app
-
-    v-menu(offset-y='' v-else)
-      v-btn(icon='' slot='activator')
-        v-icon account_circle
-
       v-card
-        v-flex.text-xs-center(xs12)
-          span(style='margin-top:30px;') SIGN IN USING
+        v-list
+          v-list-tile(avatar).pr-4
+            v-list-tile-avatar
+              v-gravatar(:email="email" :size="64")
+            v-list-tile-content
+              v-list-tile-title {{name}}
+        v-divider
+        v-list
+          v-list-tile(@click="")
+            v-list-tile-action
+              v-icon account_box
+            v-list-tile-title My Dashboard
+          v-list-tile(@click="")
+            v-list-tile-action
+              v-icon(color="red") exit_to_app
+            v-list-tile-title Sign out
+
+    v-menu(offset-y v-else dark)
+      v-btn(flat slot='activator') SIGN IN
+      v-card
+        v-flex.text-xs-center(xs12).pt-2
+          span SIGN IN USING
         v-flex.text-xs-center(xs12 )
           a(href='/auth/google')
             v-avatar(size='32')
