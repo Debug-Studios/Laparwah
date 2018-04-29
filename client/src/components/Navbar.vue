@@ -36,7 +36,7 @@
         v-flex.text-xs-center(xs12)
         span.pa-3 Hi, {{name}}
         v-flex.text-xs-center(xs12)
-          a.pa-3(href='/#/dashboard')
+          a.pa-3(href='/dashboard/#/')
             v-btn(fab small dark)
               v-icon settings
           a(href='/auth/logout')

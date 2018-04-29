@@ -32,8 +32,6 @@
             v-list-tile-title All Users
             v-list-tile-action
               v-icon people_outline
-          
-
     v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
       v-toolbar-title.ml-0.pl-3
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
@@ -60,6 +58,7 @@
 
 <script>
 export default {
+  name:"dashboard",
   data: () => ({
     drawer: null,
     isLogged: false,
@@ -72,32 +71,30 @@ export default {
   }),
   methods: {
     newsModeration() {
-      window.location.href = `${
-        window.location.origin
-      }/#/dashboard/newsmoderation`;
+      window.location.href = `${window.location.origin}/dashboard/newsmoderation`;
     },
     userProfile() {
-      window.location.href = `${window.location.origin}/#/dashboard`;
+      window.location.href = `${window.location.origin}/dashboard/userprofile`;
     },
     addNewsCard() {
-      window.location.href = `${window.location.origin}/#/dashboard/addnews`;
+      window.location.href = `${window.location.origin}/dashboard/addnews`;
     },
     allNewsCard(isAdmin) {
       if(isAdmin){  
-        window.location.href = `${window.location.origin}/#/dashboard/allnewsadmin`;
+        window.location.href = `${window.location.origin}/dashboard/allnewsadmin`;
 
       }
       else
-        window.location.href = `${window.location.origin}/#/dashboard/allnewsothers`;
+        window.location.href = `${window.location.origin}/dashboard/allnewsothers`;
     },
     addUser() {
-      window.location.href = `${window.location.origin}/#/dashboard/adduser`;
+      window.location.href = `${window.location.origin}/dashboard/adduser`;
     },
     allUsers() {
-      window.location.href = `${window.location.origin}/#/dashboard/allusers`;
+      window.location.href = `${window.location.origin}/dashboard/allusers`;
     },
     deleteUser() {
-      window.location.href = `${window.location.origin}/#/dashboard/deleteuser`;
+      window.location.href = `${window.location.origin}/dashboard/deleteusers`;
     }
   },
   created() {

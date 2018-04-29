@@ -70,6 +70,12 @@ module.exports = {
       filename: 'client/index.html',
       template: 'client/index.html',
       inject: true
+    }),
+
+    new HtmlWebpackPlugin({
+      filename: 'client/dashboard.html',
+      template: 'client/dashboard.html',
+      inject: true
     })
   ]
 };

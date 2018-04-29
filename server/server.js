@@ -76,6 +76,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/index.html'));
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/client/dashboard.html'));
+});
+
 // Error handling
 app.use((err, req, res, next) => {
   // Logs error

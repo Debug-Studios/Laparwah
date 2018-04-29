@@ -16,6 +16,7 @@
                                 h4(style="text-transform: capitalize") Roles: {{user.roles[user.roles.length - 1]}}
                         v-card-actions
                             v-spacer
+                            v-btn(@click='editUser' color='success' flat ) Edit
                             v-btn(@click='deleteUser(user._id)' color='success' flat ) Remove User
 
 </template>
@@ -53,6 +54,9 @@ export default {
                         duration: 30000
                         });
             })
+        },
+        editUser(){
+            window.location.href=`${window.location.origin}/#/dashboard/edituser`;
         }
 
     }
