@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const newsSchema = new Schema(
   {
     creator: { type: Schema.Types.ObjectId, ref: 'Account' },
-    co_creator_id: { type: Schema.Types.ObjectId, ref: 'Account' },
+    co_creator: { type: Schema.Types.ObjectId, ref: 'Account' },
     title: String,
     content: String,
     heroImage: String,

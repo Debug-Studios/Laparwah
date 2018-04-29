@@ -3,7 +3,8 @@
     v-toolbar-title.ml-0.pl-3 Breaking News:
     //- Transition: First writes letters and then goes up
     transition(name="slide-fade" mode="out-in")
-      a.breaking-news-link.subheading.ml-0.pl-3(:key="breakingNewsIndex" href="#" v-if="breakingNews.length") {{breakingNews[breakingNewsIndex].title}}
+      router-link(:to="'/news/' + breakingNews[breakingNewsIndex]._id" :key="breakingNewsIndex" v-if="breakingNews.length").breaking-news-link.subheading.ml-0.pl-3 {{breakingNews[breakingNewsIndex].title}}
+
     v-spacer
 
     v-toolbar-items
