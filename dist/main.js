@@ -606,7 +606,7 @@ eval("\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_Footer_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Footer.vue */ \"./client/src/components/Footer.vue\");\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"app\",\n  components: {\n    footer_custom: _components_Footer_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  data: function data() {\n    return {};\n  }\n});\n\n//# sourceURL=webpack:///./client/src/App.vue?./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_Footer_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Footer.vue */ \"./client/src/components/Footer.vue\");\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"app\",\n  components: {\n    footer_custom: _components_Footer_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  data: function data() {\n    return {};\n  }\n});\n\n//# sourceURL=webpack:///./client/src/App.vue?./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0");
 
 /***/ }),
 
