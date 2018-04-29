@@ -10,20 +10,20 @@
             v-layout(row v-if="news.creator")
               v-flex(md1)
                 v-avatar(size='48')
-                  v-gravatar(v-bind:email='news.creator.email')
+                  v-gravatar(:hash='news.creator.email' :size='48')
               v-flex(md10)
                 span
                   p.title.grey--text.text--darken-2.mb-1 By&nbsp;
-                    router-link(:to="'/test'").plain {{news.creator.name}}
+                    router-link(:to="'/author/' + news.creator._id").plain {{news.creator.name}}
                     span(v-if="news.co_creator") and {{news.co_creator.name}}
                     span , Laparwah
                 span
                   p.subheading.grey--text
+                    v-icon(right color="grey").mr-1 schedule
                     span Updated&nbsp;
                     span {{news.updated_at | moment('timezone', 'Asia/Kolkata', 'HH:mm z')}}&nbsp;
                     span ({{news.updated_at | moment('timezone', 'Atlantic/Reykjavik', 'HH:mm z')}})&nbsp;
-                    span {{news.updated_at | moment('dddd, MMMM Do YYYY')}}&nbsp;
-                    v-icon(right) schedule
+                    span {{news.updated_at | moment('dddd, MMMM Do YYYY')}}
 
             v-layout(row)
               img(:src="news.heroImage", style="width:100%")
@@ -59,10 +59,12 @@ export default {
       news: {}
     };
   },
-  async mounted() {
-    this.news = (await this.axios.get(
-      `/news/getNewsPost/${this.$route.params.id}`
-    )).data;
+  mounted() {
+    this.axios
+      .get(`/news/getNewsPost/${this.$route.params.id}`)
+      .then((err, data) => {
+        this.news = data;
+      });
   }
 };
 </script>

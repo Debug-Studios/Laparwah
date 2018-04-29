@@ -5,6 +5,7 @@ const converter = new showdown.Converter({
   simplifiedAutoLink: true,
   strikethrough: true
 });
+const crypto = require('crypto');
 
 router.get('/getNewsPost/:id', (req, res) => {
   News.findById(req.params.id)
@@ -13,6 +14,16 @@ router.get('/getNewsPost/:id', (req, res) => {
     .exec((err, news) => {
       if (err) res.json(err);
       else {
+        news.creator.email = crypto
+          .createHash('md5')
+          .update(news.creator.email)
+          .digest('hex');
+        if (news.co_creator) {
+          news.co_creator.email = crypto
+            .createHash('md5')
+            .update(news.co_creator.email)
+            .digest('hex');
+        }
         news.content = converter.makeHtml(news.content);
         res.json(news);
       }
