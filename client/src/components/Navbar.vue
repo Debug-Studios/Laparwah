@@ -122,11 +122,7 @@ export default {
 
     setInterval(() => {
       this.stockUpdater();
-    }, 60000);
-
-    setInterval(() => {
-      this.stockUpdater();
-    }, 30000);
+    }, 40000);
 
     // Breaking News ticker updater
     setInterval(() => {
