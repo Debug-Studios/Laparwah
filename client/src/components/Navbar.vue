@@ -28,17 +28,18 @@
                 v-icon.red--text keyboard_arrow_down
               span.headline.red--text {{stock.change}}
 
-    v-menu(offset-y v-if='isLogged' dark)
+    v-menu(offset-y v-if='isLogged && user' dark)
       v-btn(icon slot='activator')
         v-avatar(size='32')
-          v-gravatar(v-bind:email='email'  )
+          v-gravatar(v-bind:email='user.email')
       v-card
         v-list
           v-list-tile(avatar).pr-4
             v-list-tile-avatar
-              v-gravatar(:email="email" :size="64")
+              v-gravatar(:email="user.email" :size="64")
             v-list-tile-content
-              v-list-tile-title {{name}}
+              v-list-tile-title {{user.name}}
+              v-list-tile-sub-title(v-if="user.designation") {{user.designation}}
         v-divider
         v-list
           v-list-tile(@click="")
@@ -81,8 +82,7 @@ export default {
     isLogged: false,
     breakingNews: [],
     breakingNewsIndex: 0,
-    name: "",
-    email: "",
+    user: {},
     socials: [
       { icon: "/icons/google.svg" },
       { icon: "/icons/facebook.svg" },
@@ -99,8 +99,7 @@ export default {
     this.axios.get("/accounts/getCurrentUser").then(response => {
       this.isLogged = response.data.isLoggedin === "true";
       if (response.data.user) {
-        this.email = response.data.user.email;
-        this.name = response.data.user.name;
+        this.user = response.data.user;
       }
     });
   },
