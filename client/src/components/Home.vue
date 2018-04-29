@@ -96,10 +96,10 @@
                   div(xs12 style="display: flex;" v-if="index2 == index1" v-for="(news, index3) in newsPosts" :key="news._id")
                     v-jumbotron.py-4(:src="news.heroImage" dark :gradient="gradients[1]" height="16rem" v-if="index3 == 0")
                       router-link(:to="'/news/' + news._id").plain
-                        v-container(fill-height)
+                        v-container(fill-height).py-1
                             v-layout(fill-height)
-                              v-flex.breaking-flex(xs12 align-end flexbox dark).pb-0
-                                v-chip(label color="red" text-color="white") {{news.category}}
+                              v-flex.breaking-flex(xs12 align-end flexbox dark).pb-0.pt-0
+                                v-chip(label color="red" text-color="white").pt-0 {{news.category}}
                                 v-flex.breaking-flex--text
                                   .title(style="font-weight: 800") {{news.title}}
                                   span.body-2.grey--text.text--lighten-1.pb-0
