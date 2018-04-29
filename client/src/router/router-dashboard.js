@@ -1,3 +1,4 @@
+/* global NProgress */
 import Vue from 'vue';
 import Router from 'vue-router';
 import AddNews from './../components/DashboardComponents/AddNews.vue';
@@ -13,7 +14,7 @@ import EditUser from './../components/DashboardComponents/EditUser.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/addnews',
@@ -67,3 +68,16 @@ export default new Router({
     }
   ]
 });
+
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+    NProgress.start();
+  }
+  next();
+});
+
+router.afterEach((to, from) => {
+  NProgress.done();
+});
+
+export default router;

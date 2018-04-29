@@ -37,8 +37,8 @@
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
         span(style="text-transform: capitalize") {{name}}'s Dashboard
       v-spacer
-      v-menu(offset-y='' v-if='isLogged' )
-        v-btn(icon='' slot='activator')
+      v-menu(offset-y v-if='isLogged' )
+        v-btn(icon slot='activator')
           v-avatar(size='32')
             v-gravatar(v-bind:email='email'  )
         v-card#user_panel
@@ -66,8 +66,7 @@ export default {
     all_news: false,
     isAdmin: false,
     isEditor: false,
-    isWriter: false,
-    name: ""
+    isWriter: false
   }),
   methods: {
     newsModeration() {
@@ -80,7 +79,7 @@ export default {
       window.location.href = `${window.location.origin}/dashboard/addnews`;
     },
     allNewsCard(isAdmin) {
-      if(isAdmin){  
+      if(isAdmin){
         window.location.href = `${window.location.origin}/dashboard/allnewsadmin`;
 
       }
@@ -101,7 +100,6 @@ export default {
     this.axios.get("/accounts/getCurrentUser").then(response => {
       this.isLogged = response.data.isLoggedin === "true";
       this.email = response.data.user.email;
-      this.name = response.data.user.name;
       this.isAdmin = response.data.user.roles.includes("admin");
       this.isEditor = response.data.user.roles.includes("editor");
       this.isWriter = response.data.user.roles.includes("writer");
