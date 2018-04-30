@@ -5,7 +5,11 @@ require('babel-polyfill');
 
 module.exports = {
   mode: 'development',
-  entry: ['babel-polyfill', './client/src/app.js', './client/src/dashboard.js'],
+  entry: {
+    babel: 'babel-polyfill',
+    app: './client/src/app.js',
+    dashboard: './client/src/dashboard.js'
+  },
   devServer: {
     hot: true
   },
@@ -70,14 +74,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'client/index.html',
       template: 'client/index.html',
-      chunks: './client/src/app.js',
+      chunks: ['app'],
       inject: true
     }),
 
     new HtmlWebpackPlugin({
       filename: 'client/dashboard.html',
       template: 'client/dashboard.html',
-      chunks: './client/src/dashboard.js',
+      chunks: ['dashboard'],
       inject: true
     })
   ]

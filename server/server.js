@@ -78,7 +78,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/index.html'));
 });
 
-app.get('/dashboard/', (req, res) => {
+app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/dashboard.html'));
 });
 

@@ -35,15 +35,15 @@
     v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
       v-toolbar-title.ml-0.pl-3
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
-        span(style="text-transform: capitalize") {{name}}'s Dashboard
+        span(style="text-transform: capitalize") {{user.name}}'s Dashboard
       v-spacer
       v-menu(offset-y v-if='isLogged' )
         v-btn(icon slot='activator')
           v-avatar(size='32')
-            v-gravatar(v-bind:email='email'  )
+            v-gravatar(v-bind:email='user.email'  )
         v-card#user_panel
          v-flex.text-xs-center(xs12)
-          span(style="text-transform: capitalize") Welcome! {{name}}
+          span(style="text-transform: capitalize") Welcome! {{user.name}}
          v-divider
          v-flex.text-xs-center(xs12)
             a(href='/#/')
@@ -66,7 +66,8 @@ export default {
     all_news: false,
     isAdmin: false,
     isEditor: false,
-    isWriter: false
+    isWriter: false,
+    user: {}
   }),
   methods: {
     newsModeration() {
@@ -99,10 +100,9 @@ export default {
   created() {
     this.axios.get("/accounts/getCurrentUser").then(response => {
       this.isLogged = response.data.isLoggedin === "true";
-      this.email = response.data.user.email;
-      this.isAdmin = response.data.user.roles.includes("admin");
-      this.isEditor = response.data.user.roles.includes("editor");
-      this.isWriter = response.data.user.roles.includes("writer");
+      if (response.data.user) {
+        this.user = response.data.user;
+      }
     });
   }
 };
