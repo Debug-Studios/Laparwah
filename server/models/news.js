@@ -5,13 +5,19 @@ const newsSchema = new Schema(
   {
     creator: { type: Schema.Types.ObjectId, ref: 'Account' },
     co_creator: { type: Schema.Types.ObjectId, ref: 'Account' },
-    title: String,
+    title: { type: String, required: true },
     content: String,
     heroImage: String,
     locale: String,
-    category: String,
+    category: { type: String, required: true },
     main_tag: String,
     tags: [String],
+    approval: {
+      mod1: { type: Boolean, default: false },
+      mod2: { type: Boolean, default: false },
+      admin: { type: Boolean }
+    },
+    url: { type: String, lowercase: true, required: true, unique: true },
     stats: {
       likes: Number
     }

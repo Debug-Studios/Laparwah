@@ -9,6 +9,8 @@ const crypto = require('crypto');
 
 router.get('/getNewsPost/:id', (req, res) => {
   News.findById(req.params.id)
+    .where('approval.mod1')
+    .equals(true)
     .populate('creator', 'name _id email')
     .populate('co_creator', 'name _id email')
     .exec((err, news) => {

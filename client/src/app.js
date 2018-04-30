@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Notifications from 'vue-notification';
 import 'babel-polyfill';
+import VueDisqus from 'vue-disqus';
 import App from './App.vue';
 import Vuetify from 'vuetify';
 import router from './router/router';
@@ -16,6 +17,8 @@ Vue.component('v-gravatar', Gravatar);
 Vue.use(VeeValidate);
 // VueAxios
 Vue.use(VueAxios, axios);
+// Disqus comments
+Vue.use(VueDisqus);
 // Notifications
 Vue.use(Notifications);
 // Moment
