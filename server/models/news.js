@@ -13,9 +13,9 @@ const newsSchema = new Schema(
     main_tag: String,
     tags: [String],
     approval: {
-      mod1_approved: { type: Boolean, default: false },
-      mod2_approved: { type: Boolean, default: false },
-      admin_approved: { type: Boolean }
+      mod1: { type: Boolean, default: false },
+      mod2: { type: Boolean, default: false },
+      admin: { type: Boolean }
     },
     url: { type: String, lowercase: true, required: true, unique: true },
     stats: {
