@@ -27,13 +27,14 @@
 <script>
 export default {
   data: () => ({
-    _id: "",
-    title: "",
+    _id: '',
+    title: '',
     category: [],
-    content: "",
+    content: '',
     main_tag: [],
-    tags: "",
-    heroImage: "",
+    tags: '',
+    heroImage: '',
+    url: '',
     items: [
       { text: "Politics" },
       { text: "Money" },
@@ -55,6 +56,7 @@ export default {
 
   methods: {
     sendPost() {
+      this.createUrl();
       this.axios
         .post("/dashboard/createNewsPost", {
           _id: this._id,
@@ -63,7 +65,8 @@ export default {
           category: this.category.text,
           tags: this.tags,
           main_tag: this.main_tag.text,
-          heroImage: this.heroImage
+          heroImage: this.heroImage,
+          url: this.url
         })
         .then((response) => {
                   this.$notify({
@@ -81,6 +84,13 @@ export default {
                 duration: 30000
                 });
         });
+    },
+
+    createUrl(){
+      let urltitle = this.title;
+      urltitle = urltitle.toLowerCase().split("").join("-");
+      let date = new Date();
+      this.url = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()+1}/${urltitle}`;
     }
   }
 };
