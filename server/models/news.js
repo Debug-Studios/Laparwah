@@ -13,7 +13,10 @@ const newsSchema = new Schema(
     main_tag: String,
     tags: [String],
     approval: {
-      done: { type: Boolean, default: false },
+      done: {
+        mod1: { type: Boolean, default: false },
+        mod2: { type: Boolean, default: false }
+      },
       mod1: { type: Boolean, default: false },
       mod2: { type: Boolean, default: false },
       admin: { type: Boolean }

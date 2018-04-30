@@ -249,26 +249,27 @@ router.delete('/deleteOwnNewsPost/:id', IsWriter, (req, res) => {
 });
 
 // Moderation Queue
-router.get('/moderationQueue/:page', IsEditor, (req, res) => {
-  if (IsAdmin) {
+router.get('/moderationQueueAdmin/:page', IsAdmin, (req, res) => {
+  News.find({})
+    .and([{ 'approval.done.mod1': true }, { 'approval.done.mod2': true }])
+    .and([{ 'approval.mod1': false }, { 'approval.mod2': false }])
+    .populate('creator', 'name _id')
+    .skip((req.params.page - 1) * 10)
+    .limit(10)
+    .exec((err, news) => {
+      if (err) res.json(err);
+      else {
+        res.json(news);
+      }
+    });
+});
+
+router.get(
+  '/moderationQueueEditor/:page/:special_role',
+  IsEditor,
+  (req, res) => {
     News.find({})
-      .or([
-        { 'approval.done': true },
-        { 'approval.mod1': false },
-        { 'approval.mod2': false }
-      ])
-      .populate('creator', 'name _id')
-      .skip((req.params.page - 1) * 10)
-      .limit(10)
-      .exec((err, news) => {
-        if (err) res.json(err);
-        else {
-          res.json(news);
-        }
-      });
-  } else if (IsEditor) {
-    News.find({})
-      .where('approval.done')
+      .where(`approval.done.${req.params.special_role}`)
       .equals(false)
       .populate('creator', 'name _id')
       .skip((req.params.page - 1) * 10)
@@ -280,6 +281,30 @@ router.get('/moderationQueue/:page', IsEditor, (req, res) => {
         }
       });
   }
-});
+);
+
+router.patch(
+  '/updateNewsPostStatus/:id/:special_role',
+  IsEditor,
+  (req, res) => {
+    const doneString = `approval.done.${req.params.special_role}`;
+    const approvalString = `approval.${req.params.special_role}`;
+    News.findOneAndUpdate(
+      {
+        _id: req.params.id
+      },
+      {
+        [doneString]: true,
+        [approvalString]: req.body.status
+      },
+      (err, news) => {
+        if (err) res.json(err);
+        else {
+          res.json(news);
+        }
+      }
+    );
+  }
+);
 
 module.exports = router;

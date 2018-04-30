@@ -18,10 +18,10 @@
                   v-flex(xs6)
                     h3(label='Author') Author: {{news.creator.name}}
                 v-card-actions.mt-3
-                  v-btn( color='success' @click.native='approveNews' )
+                  v-btn( color='success' @click.native='updateNewsStatus(news._id, true)' )
                     v-icon.mr-2 verified_user
                     | Approve
-                  v-btn( @click='rejectNews' color='error' )
+                  v-btn( @click='updateNewsStatus(news._id, false)' color='error' )
                     v-icon.mr-2 remove_circle
                     | Reject
 
@@ -31,12 +31,45 @@
 export default {
   data: () => {
     return {
+      user: {},
       allNews: []
     };
   },
   methods: {
-    approveNews() {},
-    rejectNews() {}
+    async updateNewsStatus(id, isApproved) {
+      if (this.user.special_role) {
+        this.axios
+          .patch(
+            `/dashboard/updateNewsPostStatus/${id}/${this.user.special_role}`,
+            {
+              status: isApproved
+            }
+          )
+          .then(response => {
+            let title = isApproved ? "Approved" : "Rejected!";
+            let type = isApproved ? "success" : "error";
+            this.$notify({
+              group: "dashboard",
+              title: title,
+              type: type,
+              duration: 30000
+            });
+            this.allNews.forEach((news, index) => {
+              if (news._id == response.data._id) {
+                this.allNews.splice(index, 1);
+              }
+            });
+          })
+          .catch(error => {
+            this.$notify({
+              group: "dashboard",
+              title: error,
+              type: "error",
+              duration: 30000
+            });
+          });
+      }
+    }
   },
   async mounted() {
     this.$notify({
@@ -45,7 +78,16 @@ export default {
       type: "error",
       duration: 30000
     });
-    this.allNews = (await this.axios.get("/dashboard/moderationQueue/1")).data;
+    this.user = (await this.axios.get("/accounts/getCurrentUser")).data.user;
+    if (this.user.roles.includes("admin")) {
+      this.allNews = (await this.axios.get(
+        `/dashboard/moderationQueueAdmin/1/`
+      )).data;
+    } else if (this.user.roles.includes("editor")) {
+      this.allNews = (await this.axios.get(
+        `/dashboard/moderationQueueEditor/1/${this.user.special_role}`
+      )).data;
+    }
   }
 };
 </script>

@@ -75,7 +75,7 @@ export default {
           this.$notify({
             group: "dashboard",
             title: "Unable to add news",
-            type: "success",
+            type: "error",
             duration: 30000
           });
         });

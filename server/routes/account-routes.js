@@ -17,7 +17,8 @@ router.get('/getCurrentUser', (req, res) => {
         name: req.user.name,
         email: req.user.email,
         roles: req.user.roles,
-        designation: req.user.designation
+        designation: req.user.designation,
+        special_role: req.user.special_role
       }
     });
   } else {
