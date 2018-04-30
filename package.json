@@ -46,6 +46,7 @@
     "vee-validate": "^2.0.8",
     "vue": "^2.5.16",
     "vue-axios": "^2.1.1",
+    "vue-disqus": "^3.0.1",
     "vue-gravatar": "^1.2.1",
     "vue-material-design-icons": "^1.4.0",
     "vue-moment": "^3.2.0",

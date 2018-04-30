@@ -1,6 +1,5 @@
 <template lang="pug">
   v-app
-    navbar
 
     v-container(v-if="news")
       h1.display-3.pb-3(style="font-weight: 300; line-height: 1.2 !important;") {{news.title}}
@@ -43,6 +42,9 @@
               a(href='#')
                 v-avatar.teal(size='36')
                   v-icon(dark) mail
+
+      v-flex.comments
+        vue-disqus(shortname="laparwah" :identifier="news._id")
 
 </template>
 
