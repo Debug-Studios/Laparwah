@@ -30,7 +30,7 @@
 
           v-flex(md4 sm12)
             .text-xs-center
-              a(href='#').mr-4
+              a(:href="'https://plus.google.com/share?url='+ disqus_url + '&text=' + news.title" target="_blank").mr-4
                 v-avatar(size='32')
                   img(src='/icons/google.svg')
               a(href='#').mr-4
