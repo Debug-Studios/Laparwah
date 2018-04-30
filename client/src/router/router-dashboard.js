@@ -11,11 +11,17 @@ import NewsModeration from './../components/DashboardComponents/NewsModeration.v
 import AllUsers from './../components/DashboardComponents/AllUsers.vue';
 import AllNewsAdmin from './../components/DashboardComponents/AllNewsAdmin.vue';
 import EditUser from './../components/DashboardComponents/EditUser.vue';
+import Dashboard from '../Dashboard.vue';
 
 Vue.use(Router);
 
 const router = new Router({
   routes: [
+    {
+      path: '/',
+      name: 'dashboard',
+      component: Dashboard
+    },
     {
       path: '/addnews',
       name: 'addnews',

@@ -76,29 +76,25 @@ export default {
       }/dashboard/newsmoderation`;
     },
     userProfile() {
-      window.location.href = `${window.location.origin}/dashboard/userprofile`;
+      window.location.href = `${window.location.origin}/dashboard#/userprofile`;
     },
     addNewsCard() {
-      window.location.href = `${window.location.origin}/dashboard/addnews`;
+      window.location.href = `${window.location.origin}/dashboard#/addnews`;
     },
     allNewsCard(isAdmin) {
       if (isAdmin) {
-        window.location.href = `${
-          window.location.origin
-        }/dashboard/allnewsadmin`;
+        window.location.href = `${window.location.origin}/dashboard#/allnewsadmin`;
       } else
-        window.location.href = `${
-          window.location.origin
-        }/dashboard/allnewsothers`;
+        window.location.href = `${window.location.origin}/dashboard#/allnewsothers`;
     },
     addUser() {
-      window.location.href = `${window.location.origin}/dashboard/adduser`;
+      window.location.href = `${window.location.origin}/dashboard#/adduser`;
     },
     allUsers() {
-      window.location.href = `${window.location.origin}/dashboard/allusers`;
+      window.location.href = `${window.location.origin}/dashboard#/allusers`;
     },
     deleteUser() {
-      window.location.href = `${window.location.origin}/dashboard/deleteusers`;
+      window.location.href = `${window.location.origin}/dashboard#/deleteusers`;
     }
   },
   created() {
@@ -106,6 +102,9 @@ export default {
       this.isLogged = response.data.isLoggedin === "true";
       if (response.data.user) {
         this.user = response.data.user;
+        this.isAdmin = response.data.user.roles.includes('admin');
+        this.isEditor = response.data.user.roles.includes('editor');
+        this.isWriter = response.data.user.roles.includes('writer');
       }
     });
   }
