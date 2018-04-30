@@ -18,10 +18,10 @@
                   v-flex(xs6)
                     h3(label='Author') Author: {{news.creator.name}}
                 v-card-actions.mt-3
-                  v-btn( color='success' @click.native='updateNewsStatus(news._id, true)' )
+                  v-btn(:loading="loadingApproved" :disabled="loadingApproved" color='success' @click.native='updateNewsStatus(news._id, true)' )
                     v-icon.mr-2 verified_user
                     | Approve
-                  v-btn( @click='updateNewsStatus(news._id, false)' color='error' )
+                  v-btn(:loading="loadingReject"  :disabled="loadingReject" @click.native='updateNewsStatus(news._id, false)' color='error' )
                     v-icon.mr-2 remove_circle
                     | Reject
 
@@ -32,11 +32,18 @@ export default {
   data: () => {
     return {
       user: {},
-      allNews: []
+      allNews: [],
+      loadingApproved: false,
+      loadingReject: false
     };
   },
   methods: {
     async updateNewsStatus(id, isApproved) {
+      if (isApproved) {
+        this.loadingApproved = true;
+      } else {
+        this.loadingReject = true;
+      }
       if (this.user.special_role) {
         this.axios
           .patch(
@@ -59,6 +66,8 @@ export default {
                 this.allNews.splice(index, 1);
               }
             });
+            this.loadingApproved = false;
+            this.loadingReject = false;
           })
           .catch(error => {
             this.$notify({
