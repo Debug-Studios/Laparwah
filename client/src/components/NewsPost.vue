@@ -44,7 +44,7 @@
                   v-icon(dark) mail
 
       v-flex.comments
-        vue-disqus(shortname="laparwah" :identifier="news._id")
+        vue-disqus(shortname="laparwah" :identifier="news._id" :url="$route.fullPath")
 
 </template>
 
