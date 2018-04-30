@@ -21,7 +21,7 @@
                         v-text-field(label='Added Image Link' v-model='heroImage' name='add_image')
                 v-card-actions
                     v-spacer
-                    v-btn( color='success' @click='sendPost' ) Save
+                    v-btn( color='success' @click='savePost' ) Save
                     v-btn( type='reset') Cancel
 </template>
 <script>
@@ -43,6 +43,32 @@ export default {
         this.main_tag = this.news.main_tag;
         this.tags = this.news.tags;
         this.heroImage = this.news.heroImage;
+    },
+    methods: {
+        savePost(){
+            this.axios.post('/dashboard/editOwnNewsPost/',{
+                title: this.title,
+                content: this.content,
+                category: this.category,
+                main_tag: this.main_tag,
+                tags: this.tags,
+                heroImage: this.heroImage
+                }).then(response => {
+                    this.$notify({
+                    group: "dashboard",
+                    title: "News Updated!",
+                    type: "success",
+                    duration: 30000
+                    });
+                }).catch(error => {
+                    this.$notify({
+                    group: "dashboard",
+                    title: "News cannot be updated at this time!",
+                    type: "error",
+                    duration: 30000
+                    });
+                })
+        }
     }
 }
 </script>
