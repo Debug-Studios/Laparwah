@@ -42,9 +42,13 @@ router.post('/updateAccount', IsLoggedIn, (req, res) => {
       email: `${req.user.email}`
     },
     {
-      name: `${req.body.name}`,
-      age: `${req.body.age}`,
-      gender: `${req.body.gender}`
+      name: req.body.name,
+      age: req.body.age,
+      gender: req.body.gender,
+      location: req.body.location,
+      'social.facebook': req.body.social_facebook,
+      'social.email': req.body.social_email,
+      'social.twitter': req.body.social_twitter
     },
     (err, acc) => {
       if (err) res.status(500);
