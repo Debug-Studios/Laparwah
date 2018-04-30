@@ -6,19 +6,19 @@
             v-container.pa-4(grid-list-sm )
                 v-layout(row wrap)
                     v-flex(xs6 align-center justify-space-between)
-                        v-text-field(label="Add Title" name='add_title' v-model='title')
+                        v-text-field(label="Title" name='add_title' v-model='title')
                     v-spacer
                     v-flex(xs3)
-                        v-text-field(label="Add Title" name='add_title' v-model='title')
+                        v-text-field(label="Category" name='add_category' v-model='category')
                     v-flex(xs12)
-                        v-text-field(name='add_content' v-model='content' label='Add Content' textarea dark)
+                        v-text-field(name='add_content' v-model='content' label='Content' textarea dark)
                     v-flex(xs6)
-                        v-text-field(label='Apply Tags' v-model='tags' name='add_tags')
+                        v-text-field(label='Applied Tags' v-model='tags' name='add_tags')
                     v-spacer
                     v-flex(xs3)
-                        v-text-field(label='Add Tag' v-model='main_tag' name='add_tag')
+                        v-text-field(label='Tag' v-model='main_tag' name='add_tag')
                     v-flex(xs12)
-                        v-text-field(label='Add Image Link' v-model='heroImage' name='add_image')
+                        v-text-field(label='Added Image Link' v-model='heroImage' name='add_image')
                 v-card-actions
                     v-spacer
                     v-btn( color='success' @click='sendPost' ) Save
@@ -27,12 +27,22 @@
 <script>
 export default {
     data: () =>({
-        newsPost: []
+        news: {},
+        title:'',
+        category:'',
+        content:'',
+        main_tag:'',
+        tags:'',
+        heroImage:''
     }),
-    mounted(){
-        this.axios.get('/dashboard/editNewsPost/').then((response) => {
-            console.log(response);
-        })
+   async mounted(){
+        this.news = (await this.axios.get('/dashboard/editNewsPost/')).data.news;
+        this.title = this.news.title;
+        this.category = this.news.category;
+        this.content = this.news.content;
+        this.main_tag = this.news.main_tag;
+        this.tags = this.news.tags;
+        this.heroImage = this.news.heroImage;
     }
 }
 </script>
