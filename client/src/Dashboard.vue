@@ -1,5 +1,8 @@
 <template lang="pug">
   v-app(dark)
+    notifications(group="dashboard" position="bottom" width="100%")
+      template(slot="body" slot-scope="props")
+        v-snackbar(:timeout="10000" :color="props.item.type" :value="true") {{props.item.title}}
     v-navigation-drawer(fixed :clipped='$vuetify.breakpoint.lgAndUp' app v-model='drawer' value='true')
       v-list(dense )
         v-list-tile(v-on:click='userProfile' )
