@@ -33,15 +33,12 @@
               a(:href="'https://plus.google.com/share?url='+ disqus_url + '&text=' + news.title" target="_blank").mr-4
                 v-avatar(size='32')
                   img(src='/icons/google.svg')
-              a(href='#').mr-4
+              a(:href="'https://www.facebook.com/sharer.php?u='+ disqus_url" target="_blank").mr-4
                 v-avatar(size='36')
                   img(src='/icons/facebook.svg')
-              a(href='#').mr-4
+              a(:href="'https://twitter.com/intent/tweet?url=' + disqus_url+ '&text=' + news.title" target="_blank").mr-4
                 v-avatar(size='36')
                   img(src='/icons/twitter.svg')
-              a(href='#')
-                v-avatar.teal(size='36')
-                  v-icon(dark) mail
 
       v-flex.comments
         vue-disqus(shortname="laparwah" :identifier="disqus_id" :url="disqus_url")

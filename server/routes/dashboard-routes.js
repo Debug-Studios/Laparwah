@@ -257,6 +257,7 @@ router.get('/moderationQueue/:page', IsEditor, (req, res) => {
         { 'approval.mod1': false },
         { 'approval.mod2': false }
       ])
+      .populate('creator', 'name _id')
       .skip((req.params.page - 1) * 10)
       .limit(10)
       .exec((err, news) => {
@@ -269,6 +270,7 @@ router.get('/moderationQueue/:page', IsEditor, (req, res) => {
     News.find({})
       .where('approval.done')
       .equals(false)
+      .populate('creator', 'name _id')
       .skip((req.params.page - 1) * 10)
       .limit(10)
       .exec((err, news) => {

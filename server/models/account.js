@@ -23,6 +23,7 @@ const accountSchema = new Schema(
     location: String,
     designation: String,
     spectrum: String,
+    special_role: String,
     oauth: {
       google: {
         type: String,

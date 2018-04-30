@@ -27,14 +27,14 @@
 <script>
 export default {
   data: () => ({
-    _id: '',
-    title: '',
+    _id: "",
+    title: "",
     category: [],
-    content: '',
+    content: "",
     main_tag: [],
-    tags: '',
-    heroImage: '',
-    url: '',
+    tags: "",
+    heroImage: "",
+    url: "",
     items: [
       { text: "Politics" },
       { text: "Money" },
@@ -46,12 +46,7 @@ export default {
       { text: "Health" },
       { text: "Video" }
     ],
-    tag: [
-      { text: "Breaking News" },
-      { text: "Spotlight" },
-      { text: "Live" },
-
-    ]
+    tag: [{ text: "Breaking News" }, { text: "Spotlight" }, { text: "Live" }]
   }),
 
   methods: {
@@ -68,31 +63,34 @@ export default {
           heroImage: this.heroImage,
           url: this.url
         })
-        .then((response) => {
-                  this.$notify({
-                  group: "dashboard",
-                  title: "Your News is added Successfully!",
-                  type: "success",
-                  duration: 30000
-                  });
+        .then(response => {
+          this.$notify({
+            group: "dashboard",
+            title: "Your News is added Successfully!",
+            type: "success",
+            duration: 30000
+          });
         })
-        .catch((error) =>{
-                this.$notify({
-                group: "dashboard",
-                title: "Unable to add news",
-                type: "success",
-                duration: 30000
-                });
+        .catch(error => {
+          this.$notify({
+            group: "dashboard",
+            title: "Unable to add news",
+            type: "success",
+            duration: 30000
+          });
         });
     },
 
-    createUrl(){
+    createUrl() {
       let urltitle = this.title;
-      urltitle = urltitle.toLowerCase().split(" ").join("-");
+      urltitle = urltitle
+        .toLowerCase()
+        .split(" ")
+        .join("-");
       let date = new Date();
-      this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()+1}-${this.category.text.toLowerCase()}-${urltitle}`;
-    },
-   
+      this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear() +
+        1}-${this.category.text.toLowerCase()}-${urltitle}`;
+    }
   }
 };
 </script>

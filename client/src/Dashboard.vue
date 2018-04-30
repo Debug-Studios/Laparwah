@@ -3,6 +3,7 @@
     notifications(group="dashboard" position="bottom" width="100%")
       template(slot="body" slot-scope="props")
         v-snackbar(:timeout="10000" :color="props.item.type" :value="true") {{props.item.title}}
+
     v-navigation-drawer(fixed :clipped='$vuetify.breakpoint.lgAndUp' app v-model='drawer' value='true')
       v-list(dense )
         v-list-tile(v-on:click='userProfile' )
@@ -81,7 +82,9 @@ export default {
   }),
   methods: {
     newsModeration() {
-      window.location.href = `${window.location.origin}/dashboard#/newsmoderation`;
+      window.location.href = `${
+        window.location.origin
+      }/dashboard#/newsmoderation`;
     },
     userProfile() {
       window.location.href = `${window.location.origin}/dashboard#/userprofile`;
@@ -91,9 +94,13 @@ export default {
     },
     allNewsCard(isAdmin) {
       if (isAdmin) {
-        window.location.href = `${window.location.origin}/dashboard#/allnewsadmin`;
+        window.location.href = `${
+          window.location.origin
+        }/dashboard#/allnewsadmin`;
       } else
-        window.location.href = `${window.location.origin}/dashboard#/allnewsothers`;
+        window.location.href = `${
+          window.location.origin
+        }/dashboard#/allnewsothers`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/dashboard#/adduser`;
@@ -104,10 +111,10 @@ export default {
     deleteUser() {
       window.location.href = `${window.location.origin}/dashboard#/deleteusers`;
     },
-    logout(){
+    logout() {
       window.location.href = `${window.location.origin}/auth/logout`;
     },
-    toHome(){
+    toHome() {
       window.location.href = `${window.location.origin}/#/`;
     }
   },
@@ -116,9 +123,9 @@ export default {
       this.isLogged = response.data.isLoggedin === "true";
       if (response.data.user) {
         this.user = response.data.user;
-        this.isAdmin = response.data.user.roles.includes('admin');
-        this.isEditor = response.data.user.roles.includes('editor');
-        this.isWriter = response.data.user.roles.includes('writer');
+        this.isAdmin = response.data.user.roles.includes("admin");
+        this.isEditor = response.data.user.roles.includes("editor");
+        this.isWriter = response.data.user.roles.includes("writer");
       }
     });
   }
