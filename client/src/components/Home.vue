@@ -150,15 +150,33 @@ export default {
   async mounted() {
     this.breakingNews = (await this.axios.get("/news/getBreaking/3")).data;
     this.spotlights = (await this.axios.get("/news/getSpotlights/8")).data;
-    this.newsCategoriesData.push(this.spotlights);
-    this.newsCategoriesData.push(this.spotlights);
-    this.newsCategoriesData.push(this.spotlights);
-    this.newsCategoriesData.push(this.spotlights);
-    this.newsCategoriesData.push(this.spotlights);
-    this.newsCategoriesData.push(this.spotlights);
-    this.newsCategoriesData.push(this.spotlights);
-    this.newsCategoriesData.push(this.spotlights);
-    this.newsCategoriesData.push(this.spotlights);
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getPolitics/6")).data
+    );
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getMoney/6")).data
+    );
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getEntertainment/6")).data
+    );
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getTech/6")).data
+    );
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getSport/6")).data
+    );
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getTravel/6")).data
+    );
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getStyle/6")).data
+    );
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getHealth/6")).data
+    );
+    this.newsCategoriesData.push(
+      (await this.axios.get("/news/getCulture/6")).data
+    );
 
     // Apply responsive padding
     if (screen.width < 800) {
