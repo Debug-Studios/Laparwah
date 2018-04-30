@@ -22,7 +22,7 @@
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click='sendPost' ) Add
-                v-btn( type='reset') Reset
+                v-btn( @click='') Reset
 </template>
 <script>
 export default {
@@ -88,10 +88,11 @@ export default {
 
     createUrl(){
       let urltitle = this.title;
-      urltitle = urltitle.toLowerCase().split("").join("-");
+      urltitle = urltitle.toLowerCase().split(" ").join("-");
       let date = new Date();
-      this.url = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()+1}/${urltitle}`;
-    }
+      this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()+1}-${this.category.text.toLowerCase()}-${urltitle}`;
+    },
+   
   }
 };
 </script>
