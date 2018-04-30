@@ -12,8 +12,12 @@ const newsSchema = new Schema(
     category: { type: String, required: true },
     main_tag: String,
     tags: [String],
-    mod_approved: { type: Boolean, default: false },
-    url: { type: String, lowercase: true, required: true },
+    approval: {
+      mod1_approved: { type: Boolean, default: false },
+      mod2_approved: { type: Boolean, default: false },
+      admin_approved: { type: Boolean }
+    },
+    url: { type: String, lowercase: true, required: true, unique: true },
     stats: {
       likes: Number
     }
