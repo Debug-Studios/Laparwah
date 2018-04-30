@@ -58,7 +58,7 @@
 
 <script>
 export default {
-  name:"dashboard",
+  name: "dashboard",
   data: () => ({
     drawer: null,
     isLogged: false,
@@ -71,7 +71,9 @@ export default {
   }),
   methods: {
     newsModeration() {
-      window.location.href = `${window.location.origin}/dashboard/newsmoderation`;
+      window.location.href = `${
+        window.location.origin
+      }/dashboard/newsmoderation`;
     },
     userProfile() {
       window.location.href = `${window.location.origin}/dashboard/userprofile`;
@@ -80,12 +82,14 @@ export default {
       window.location.href = `${window.location.origin}/dashboard/addnews`;
     },
     allNewsCard(isAdmin) {
-      if(isAdmin){
-        window.location.href = `${window.location.origin}/dashboard/allnewsadmin`;
-
-      }
-      else
-        window.location.href = `${window.location.origin}/dashboard/allnewsothers`;
+      if (isAdmin) {
+        window.location.href = `${
+          window.location.origin
+        }/dashboard/allnewsadmin`;
+      } else
+        window.location.href = `${
+          window.location.origin
+        }/dashboard/allnewsothers`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/dashboard/adduser`;
@@ -107,10 +111,13 @@ export default {
   }
 };
 </script>
-<style scoped>
-    #user_panel{
-      padding: 15px;
-    }
+<style lang="scss">
+@import "./scss/main.scss";
+@import url("https://fonts.googleapis.com/css?family=Kalam");
+
+#user_panel {
+  padding: 15px;
+}
 </style>
 
 
