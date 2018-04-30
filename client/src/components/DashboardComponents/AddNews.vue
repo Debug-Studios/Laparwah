@@ -22,7 +22,7 @@
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click='sendPost' ) Add
-                v-btn( @click='') Reset
+                v-btn( @click='clear') Reset
 </template>
 <script>
 export default {
@@ -70,6 +70,7 @@ export default {
             type: "success",
             duration: 30000
           });
+          this.clear();
         })
         .catch(error => {
           this.$notify({
@@ -90,7 +91,16 @@ export default {
       let date = new Date();
       this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear() +
         1}-${this.category.text.toLowerCase()}-${urltitle}`;
-    }
+    },
+
+    clear(){
+      this.title = '';
+      this.category= '';
+      this.content= '';
+      this.main_tag= '';
+      this.tags= '';
+      this.heroImage= '';
+      }
   }
 };
 </script>
