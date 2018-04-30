@@ -71,9 +71,7 @@ export default {
   }),
   methods: {
     newsModeration() {
-      window.location.href = `${
-        window.location.origin
-      }/dashboard/newsmoderation`;
+      window.location.href = `${window.location.origin}/dashboard#/newsmoderation`;
     },
     userProfile() {
       window.location.href = `${window.location.origin}/dashboard#/userprofile`;
