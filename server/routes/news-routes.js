@@ -7,8 +7,9 @@ const converter = new showdown.Converter({
 });
 const crypto = require('crypto');
 
-router.get('/getNewsPost/:id', (req, res) => {
-  News.findById(req.params.id)
+router.get('/getNewsPost/:url', (req, res) => {
+  console.log(req.params.url);
+  News.find({ url: req.params.url })
     .populate('creator', 'name _id email')
     .populate('co_creator', 'name _id email')
     .exec((err, news) => {
