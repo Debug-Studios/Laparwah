@@ -14,30 +14,43 @@
                                 h3 Name:{{acc.name}}
                                 h4 Email: {{acc.email}}
                             v-flex(xs12)
-                                v-switch(label='Admin' v-model='role' value='admin')
-                                v-switch(label='Writer' v-model='role' value='writer')
-                                v-switch(label='Editor' v-model='role' value='editor')
-                                v-switch(label='User' v-model='role' value='user')
+                                v-switch(label='Admin' v-model='setAdmin' value='admin')
+                                v-switch(label='Writer' v-model='setWriter' value='writer')
+                                v-switch(label='Editor' v-model='setEditor' value='editor')
+                                v-switch(label='User' v-model='setUser' value='user')
 
                         v-card-actions
                             v-spacer
-                            v-btn(@click='' color='success' flat ) Save
-                            v-btn(@click='' color='red' flat ) Cancel
+                            v-btn(@click='saveProfile' color='success' flat ) Save
+                            v-btn(@click='goBack' color='red' flat ) Cancel
 
 </template>
 <script>
 export default {
   data: () => ({
       acc: {},
-      role: ['user'],
-      id: ''
+      setAdmin: false,
+      setWriter: false,
+      setEditor: false,
+      setUser: false,
   }),
   mounted(){
       console.log(this.role);
-      this.axios.get(`/dashboard/editAccount/${id}`).then((response) => {
+      this.axios.get(`/dashboard/editAccount/${router._id}`).then((response) => {
           console.log(response);
           this.acc = response.data;
       });
+  },
+
+  methods:{
+      saveProfile(){
+
+
+      },
+
+      goBack(){
+          window.location.href = `${window.location.origin}/dashboard#/allusers`;
+      }
   }
 }
 </script>
