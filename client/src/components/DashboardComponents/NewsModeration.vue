@@ -1,5 +1,5 @@
 <template lang="pug">
-  #moderation-queue
+  v-container
     transition-group(name="fade" tag="div" v-if="allNews")
         v-card(v-for='(news, index) in allNews' :key='news._id')
             v-card-title.blue-grey.darken-2.py-4.title
