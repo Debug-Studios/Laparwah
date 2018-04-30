@@ -37,21 +37,28 @@
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
         span(style="text-transform: capitalize") {{user.name}}'s Dashboard
       v-spacer
-      v-menu(offset-y v-if='isLogged' )
+      v-menu(offset-y v-if='isLogged && user' dark)
         v-btn(icon slot='activator')
           v-avatar(size='32')
-            v-gravatar(v-bind:email='user.email'  )
-        v-card#user_panel
-         v-flex.text-xs-center(xs12)
-          span(style="text-transform: capitalize") Welcome! {{user.name}}
-         v-divider
-         v-flex.text-xs-center(xs12)
-            a(href='/#/')
-              v-btn(fab small dark)
+            v-gravatar(v-bind:email='user.email')
+        v-card
+          v-list
+            v-list-tile(avatar).pr-4
+              v-list-tile-avatar
+                v-gravatar(:email="user.email" :size="64")
+              v-list-tile-content
+                v-list-tile-title {{user.name}}
+                v-list-tile-sub-title(v-if="user.designation") {{user.designation}}
+          v-divider
+          v-list
+            v-list-tile(@click="toHome")
+              v-list-tile-action
                 v-icon home
-            a(href='/auth/logout')
-              v-btn(fab small dark color='red')
-                v-icon exit_to_app
+              v-list-tile-title Home
+            v-list-tile(@click="logout")
+              v-list-tile-action
+                v-icon(color="red") exit_to_app
+              v-list-tile-title Sign out
     v-content
       router-view
 </template>
@@ -93,6 +100,12 @@ export default {
     },
     deleteUser() {
       window.location.href = `${window.location.origin}/dashboard#/deleteusers`;
+    },
+    logout(){
+      window.location.href = `${window.location.origin}/auth/logout`;
+    },
+    toHome(){
+      window.location.href = `${window.location.origin}/#/`;
     }
   },
   created() {

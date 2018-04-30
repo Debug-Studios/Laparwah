@@ -42,11 +42,11 @@
               v-list-tile-sub-title(v-if="user.designation") {{user.designation}}
         v-divider
         v-list
-          v-list-tile(@click="")
+          v-list-tile(@click="toDashboard")
             v-list-tile-action
               v-icon account_box
             v-list-tile-title My Dashboard
-          v-list-tile(@click="")
+          v-list-tile(@click="logout")
             v-list-tile-action
               v-icon(color="red") exit_to_app
             v-list-tile-title Sign out
@@ -118,6 +118,14 @@ export default {
       this.axios.get("/news/getBreaking/3").then(response => {
         this.breakingNews = response.data;
       });
+    },
+
+    toDashboard(){
+      window.location.href = `${window.location.origin}/dashboard`;
+    },
+
+    logout(){
+      window.location.href = `${window.location.origin}/auth/logout`;
     }
   },
   mounted() {
