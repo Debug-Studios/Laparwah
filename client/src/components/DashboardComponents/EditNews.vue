@@ -26,6 +26,14 @@
 </template>
 <script>
 export default {
+    data: () =>({
+        newsPost: []
+    }),
+    mounted(){
+        this.axios.get('/dashboard/editNewsPost/').then((response) => {
+            console.log(response);
+        })
+    }
 }
 </script>
 

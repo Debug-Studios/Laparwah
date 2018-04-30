@@ -27,7 +27,6 @@ export default {
     }),
     mounted(){
         this.axios.get(`/dashboard/allAccounts/1`).then(response => {
-            console.log(response);
             this.allusers = response.data;
 
         });
@@ -56,7 +55,7 @@ export default {
             })
         },
         editUser(){
-            window.location.href=`${window.location.origin}/#/dashboard/edituser`;
+            window.location.href=`${window.location.origin}/dashboard#/edituser`;
         }
 
     }

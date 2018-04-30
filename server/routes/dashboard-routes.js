@@ -80,6 +80,7 @@ router.post('/editAccount/:id', IsAdmin, (req, res) => {
   Account.findByIdAndUpdate(
     req.params.id,
     {
+      creator: req.user._id,
       name: req.body.name,
       gender: req.body.gender,
       roles: req.body.roles.split(' '),

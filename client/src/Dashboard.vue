@@ -82,9 +82,7 @@ export default {
   }),
   methods: {
     newsModeration() {
-      window.location.href = `${
-        window.location.origin
-      }/dashboard#/newsmoderation`;
+      window.location.href = `${window.location.origin}/dashboard#/newsmoderation`;
     },
     userProfile() {
       window.location.href = `${window.location.origin}/dashboard#/userprofile`;
@@ -94,13 +92,9 @@ export default {
     },
     allNewsCard(isAdmin) {
       if (isAdmin) {
-        window.location.href = `${
-          window.location.origin
-        }/dashboard#/allnewsadmin`;
+        window.location.href = `${window.location.origin}/dashboard#/allnewsadmin`;
       } else
-        window.location.href = `${
-          window.location.origin
-        }/dashboard#/allnewsothers`;
+        window.location.href = `${window.location.origin}/dashboard#/allnewsothers`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/dashboard#/adduser`;
