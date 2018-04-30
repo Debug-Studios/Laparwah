@@ -2,7 +2,7 @@
   v-toolbar(dark)
     v-toolbar-title.ml-0.pl-3.hidden-sm-and-down Breaking News:
     transition(name="slide-fade" mode="out-in")
-      router-link(:to="'/news/' + breakingNews[breakingNewsIndex]._id" :key="breakingNewsIndex" v-if="breakingNews.length").breaking-news-link.subheading.ml-0.pl-3 {{breakingNews[breakingNewsIndex].title}}
+      router-link(:to="'/news/' + breakingNews[breakingNewsIndex].url" :key="breakingNewsIndex" v-if="breakingNews.length").breaking-news-link.subheading.ml-0.pl-3 {{breakingNews[breakingNewsIndex].title}}
 
     v-spacer
 
@@ -120,11 +120,11 @@ export default {
       });
     },
 
-    toDashboard(){
+    toDashboard() {
       window.location.href = `${window.location.origin}/dashboard`;
     },
 
-    logout(){
+    logout() {
       window.location.href = `${window.location.origin}/auth/logout`;
     }
   },

@@ -31,7 +31,7 @@
           v-container(fluid grid-list-md)
             v-layout(row wrap).mt-1
               v-flex(xs12 md8 style="display: flex;" v-if="breakingNews[0]")
-                router-link(:to="'/news/' + breakingNews[0]._id").plain
+                router-link(:to="'/news/' + breakingNews[0].url").plain
                   v-jumbotron(:src="breakingNews[0].heroImage" dark :gradient="gradients[0]" height="100%")
                     v-container(fill-height)
                         v-layout(fill-height)
@@ -45,7 +45,7 @@
                                 span {{breakingNews[0].created_at | moment("dddd, MMMM Do YYYY")}}
               v-flex(xs12 md4)
                 v-flex(xs12 style="display: flex;" v-if="breakingNews[1]").pt-0.px-0
-                  router-link(:to="'/news/' + breakingNews[1]._id").plain
+                  router-link(:to="'/news/' + breakingNews[1].url").plain
                     v-jumbotron(:src="breakingNews[1].heroImage" dark :gradient="gradients[1]" style="height:20rem")
                       v-container(fill-height)
                           v-layout(fill-height)
@@ -58,7 +58,7 @@
                                   v-icon(left color="grey").mr-1.ml-2 schedule
                                   span {{breakingNews[1].created_at | moment("dddd, MMMM Do YYYY")}}
                 v-flex(xs12 style="display: flex;" v-if="breakingNews[2]").pb-0.px-0
-                  router-link(:to="'/news/' + breakingNews[2]._id").plain
+                  router-link(:to="'/news/' + breakingNews[2].url").plain
                     v-jumbotron(:src="breakingNews[2].heroImage" dark :gradient="gradients[1]"  style="height:20rem")
                       v-container(fill-height)
                           v-layout(fill-height)
@@ -78,7 +78,7 @@
                 .py-4(fluid grid-list-lg)
                   v-layout(row wrap)
                     v-flex(xs12 md3 v-for="(news, index) in spotlights" :key="news._id")
-                      router-link(:to="'/news/' + news._id").plain
+                      router-link(:to="'/news/' + news.url").plain
                         v-card(flat)
                           v-card-media(:src="news.heroImage" height="10rem" cover)
                           v-card-title(primary-title).px-0
@@ -95,7 +95,7 @@
                 div(v-if="newsCategoriesData" v-for="(newsPosts, index2) in newsCategoriesData" :key="index2")
                   div(xs12 style="display: flex;" v-if="index2 == index1" v-for="(news, index3) in newsPosts" :key="news._id")
                     v-jumbotron.py-4(:src="news.heroImage" dark :gradient="gradients[1]" height="16rem" v-if="index3 == 0")
-                      router-link(:to="'/news/' + news._id").plain
+                      router-link(:to="'/news/' + news.url").plain
                         v-container(fill-height).py-1
                             v-layout(fill-height)
                               v-flex.breaking-flex(xs12 align-end flexbox dark).pb-0.pt-0
