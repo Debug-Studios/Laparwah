@@ -19,6 +19,14 @@ function IsEditor (req, res, next) {
   }
 }
 
+function IsWriter (req, res, next) {
+  if (req.user.roles.includes('writer')) {
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+}
+
 function IsAdmin (req, res, next) {
   if (req.user.roles.includes('admin')) {
     next();
@@ -150,8 +158,8 @@ router.delete('/deleteNewsPost/:id', IsAdmin, (req, res) => {
   );
 });
 
-// For Editor
-router.post('/createNewsPost', IsEditor, (req, res) => {
+// For Writer
+router.post('/createNewsPost', IsWriter, (req, res) => {
   News.create(
     {
       creator: req.user._id,
@@ -161,7 +169,8 @@ router.post('/createNewsPost', IsEditor, (req, res) => {
       locale: req.body.locale,
       heroImage: req.body.heroImage,
       main_tag: req.body.main_tag,
-      tags: req.body.tags.split(' ')
+      tags: req.body.tags.split(' '),
+      url: req.body.url
     },
     (err, news) => {
       if (err) res.json(err);
@@ -172,7 +181,7 @@ router.post('/createNewsPost', IsEditor, (req, res) => {
   );
 });
 
-router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
+router.get('/ownNewsPosts/:page', IsWriter, (req, res) => {
   News.find({ creator: req.user._id })
     .skip((req.params.page - 1) * 10)
     .limit(10)
@@ -184,7 +193,7 @@ router.get('/ownNewsPosts/:page', IsEditor, (req, res) => {
     });
 });
 
-router.get('/editOwnNewsPost/:id', IsEditor, (req, res) => {
+router.get('/editOwnNewsPost/:id', IsWriter, (req, res) => {
   News.findOne(
     {
       _id: req.params.id,
@@ -199,7 +208,7 @@ router.get('/editOwnNewsPost/:id', IsEditor, (req, res) => {
   );
 });
 
-router.post('/editOwnNewsPost/:id', IsEditor, (req, res) => {
+router.post('/editOwnNewsPost/:id', IsWriter, (req, res) => {
   News.findOneAndUpdate(
     {
       _id: req.params.id,
@@ -224,7 +233,7 @@ router.post('/editOwnNewsPost/:id', IsEditor, (req, res) => {
   );
 });
 
-router.delete('/deleteOwnNewsPost/:id', IsEditor, (req, res) => {
+router.delete('/deleteOwnNewsPost/:id', IsWriter, (req, res) => {
   News.findOneAndRemove(
     {
       _id: req.params.id,
@@ -237,6 +246,38 @@ router.delete('/deleteOwnNewsPost/:id', IsEditor, (req, res) => {
       }
     }
   );
+});
+
+// Moderation Queue
+router.get('/moderationQueue/:page', IsEditor, (req, res) => {
+  if (IsAdmin) {
+    News.find({})
+      .or([
+        { 'approval.done': true },
+        { 'approval.mod1': false },
+        { 'approval.mod2': false }
+      ])
+      .skip((req.params.page - 1) * 10)
+      .limit(10)
+      .exec((err, news) => {
+        if (err) res.json(err);
+        else {
+          res.json(news);
+        }
+      });
+  } else if (IsEditor) {
+    News.find({})
+      .where('approval.done')
+      .equals(false)
+      .skip((req.params.page - 1) * 10)
+      .limit(10)
+      .exec((err, news) => {
+        if (err) res.json(err);
+        else {
+          res.json(news);
+        }
+      });
+  }
 });
 
 module.exports = router;
