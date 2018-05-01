@@ -32,6 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // MongoDB
+console.log(process.env.mongoUri);
 mongoose.connect(`${process.env.mongoUri}`).then(
   () => {
     console.log(chalk.green('Mongo Running'));
