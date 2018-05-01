@@ -6,26 +6,29 @@
         v-container.pa-4(grid-list-sm )
             v-layout(row wrap)
                 v-flex(xs6 align-center justify-space-between)
-                     v-text-field(required label="Add Title" name='add_title' v-model='title')
+                     v-text-field(required label="Add Title" name='add_title' v-model='title' v-validate="'required'" :error-messages="errors.collect('title')")
                 v-spacer
                 v-flex(xs3)
-                    v-select(:items='tag' label='Select Main Tag' v-model='main_tag' name='add_tag' input-type='text' required)
+                    v-select(required :items='tag' label='Select Main Tag' v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')")
                 v-flex(xs12)
-                    v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark)
+                    v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')")
                 v-flex(xs6)
-                    v-text-field(required label='Apply Tags' v-model='tags' name='add_tags')
+                    v-text-field(required label='Apply Tags' v-model='tags' name='add_tags' v-validate="'required'" :error-messages="errors.collect('tags')")
                 v-spacer
                 v-flex(xs3)
-                    v-select(:items='items' label='Select Category' v-model='category' name='add_category' input-type='text' required)
+                    v-select(required :items='items' label='Select Category' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')")
                 v-flex(xs12)
-                    v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image')
+                    v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image' v-validate="'required'" :error-messages="errors.collect('heroImage')")
             v-card-actions
                 v-spacer
-                v-btn( color='success' @click='sendPost' ) Add
+                v-btn( color='success' @click='sendPost' :loading="loading" :disabled="loading" ) Add
                 v-btn( @click='clear') Reset
 </template>
 <script>
 export default {
+   $_veeValidate: {
+    validator: "new"
+  },
   data: () => ({
     _id: "",
     title: "",
@@ -35,6 +38,7 @@ export default {
     tags: "",
     heroImage: "",
     url: "",
+    loading: false,
     items: [
       { text: "Politics" },
       { text: "Money" },
@@ -51,9 +55,10 @@ export default {
 
   methods: {
     sendPost() {
+      this.loading = true;
+      this.$validator.validateAll();
       this.createUrl();
-      this.axios
-        .post("/dashboard/createNewsPost", {
+      this.axios.post("/dashboard/createNewsPost", {
           _id: this._id,
           title: this.title,
           content: this.content,
@@ -71,6 +76,7 @@ export default {
             duration: 30000
           });
           this.clear();
+          this.loading = false;
         })
         .catch(error => {
           this.$notify({
@@ -79,6 +85,7 @@ export default {
             type: "error",
             duration: 30000
           });
+          this.loading = false;
         });
     },
 
@@ -100,6 +107,7 @@ export default {
       this.main_tag= '';
       this.tags= '';
       this.heroImage= '';
+      this.$validator.reset();
       }
   }
 };

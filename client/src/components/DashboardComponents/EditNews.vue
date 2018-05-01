@@ -9,19 +9,19 @@
                         v-text-field(label="Title" name='add_title' v-model='title')
                     v-spacer
                     v-flex(xs3)
-                        v-select(:items='tag'  v-model='main_tag' name='add_tag' input-type='text' )
+                        v-select(:items='tag' label='Apply Tag'  v-model='main_tag' name='add_tag' input-type='text' )
                     v-flex(xs12)
                         v-text-field(name='add_content' v-model='content' label='Content' textarea dark)
                     v-flex(xs6)
                         v-text-field(label='Applied Tags' v-model='tags' name='add_tags')
                     v-spacer
                     v-flex(xs3)
-                         v-select(:items='items'  v-model='category' name='add_category' input-type='text' )
+                         v-select(:items='items' label='Select Category'   v-model='category' name='add_category' input-type='text' )
                     v-flex(xs12)
                         v-text-field(label='Added Image Link' v-model='heroImage' name='add_image')
                 v-card-actions
                     v-spacer
-                    v-btn( color='success' @click='savePost' ) Save
+                    v-btn( color='success' @click='savePost'  :loading="loading" :disabled="loading" ) Save
                     v-btn( @click='goBack') Cancel
 </template>
 <script>
@@ -35,6 +35,7 @@ export default {
         main_tag:[],
         tags:'',
         heroImage:'',
+        loading: false,
         items: [
             { text: "Politics" },
             { text: "Money" },
@@ -60,6 +61,7 @@ export default {
     },
     methods: {
         savePost(){
+            this.loading = true;
             this.axios.post(`/dashboard/editOwnNewsPost/${this.$route.params.id}`,{
                 title: this.title,
                 content: this.content,
@@ -74,6 +76,7 @@ export default {
                     type: "success",
                     duration: 30000
                     });
+                    this.loading = false;
                 }).catch(error => {
                     this.$notify({
                     group: "dashboard",
@@ -81,6 +84,7 @@ export default {
                     type: "error",
                     duration: 30000
                     });
+                    this.loading = false;
                 })
         },
         goBack(){
