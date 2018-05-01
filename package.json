@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Independent, Open and Unbiased News Portal",
   "main": "server/server.js",
+  "engines":{
+    "node":"9.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --watch --config client/build/webpack.config.dev.js",
