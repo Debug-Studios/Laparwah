@@ -26,7 +26,8 @@
 </template>
 <script>
 export default {
-    data: () =>({
+    data: () =>{
+        return{
         news: {},
         title:'',
         category:'',
@@ -34,12 +35,17 @@ export default {
         main_tag:'',
         tags:'',
         heroImage:''
-    }),
-  mounted(){
-         this.axios.get(`/dashboard/editNewsPost/${this.$route.params.id}`).then((response) => {
-             console.log(response);
-             this.news = response.data;
-         });
+        }
+    },
+  async mounted(){
+        this.news = (await this.axios.get(`/dashboard/editNewsPost/${this.$route.params.id}`)).data;
+        console.log(this.news);
+             this.title = this.news.title;
+             this.category = this.news.category;
+             this.content  = this.news.content;
+             this.main_tag = this.news.main_tag;
+             this.tags = this.news.tags;
+             this.heroImage = this.news.heroImage;
     },
     methods: {
         savePost(){
