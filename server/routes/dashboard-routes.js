@@ -83,8 +83,7 @@ router.post('/editAccount/:id', IsAdmin, (req, res) => {
       creator: req.user._id,
       name: req.body.name,
       gender: req.body.gender,
-      roles: req.body.roles.split(' '),
-      username: req.body.username
+      roles: req.body.roles.split(' ')
     },
     (err, acc) => {
       if (err) {
@@ -210,6 +209,7 @@ router.get('/editOwnNewsPost/:id', IsWriter, (req, res) => {
 });
 
 router.post('/editOwnNewsPost/:id', IsWriter, (req, res) => {
+  console.log(req.body.tags);
   News.findOneAndUpdate(
     {
       _id: req.params.id,

@@ -39,7 +39,6 @@ export default {
     },
   async mounted(){
         this.news = (await this.axios.get(`/dashboard/editNewsPost/${this.$route.params.id}`)).data;
-        console.log(this.news);
              this.title = this.news.title;
              this.category = this.news.category;
              this.content  = this.news.content;
