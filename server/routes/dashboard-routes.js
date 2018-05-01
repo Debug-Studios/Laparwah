@@ -108,6 +108,7 @@ router.get('/allNewsPosts/:page', IsAdmin, (req, res) => {
   News.find()
     .skip((req.params.page - 1) * 10)
     .limit(10)
+    .sort('-updated_at')
     .exec((err, news) => {
       if (err) res.json(err);
       else {
@@ -186,6 +187,7 @@ router.get('/ownNewsPosts/:page', IsWriter, (req, res) => {
   News.find({ creator: req.user._id })
     .skip((req.params.page - 1) * 10)
     .limit(10)
+    .sort('-updated_at')
     .exec((err, news) => {
       if (err) res.json(err);
       else {
@@ -257,6 +259,7 @@ router.get('/moderationQueueAdmin/:page', IsAdmin, (req, res) => {
     .populate('creator', 'name _id')
     .skip((req.params.page - 1) * 10)
     .limit(10)
+    .sort('-updated_at')
     .exec((err, news) => {
       if (err) res.json(err);
       else {
