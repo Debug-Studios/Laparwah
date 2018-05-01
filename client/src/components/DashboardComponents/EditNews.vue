@@ -35,14 +35,11 @@ export default {
         tags:'',
         heroImage:''
     }),
-   async mounted(){
-        this.news = (await this.axios.get(`/dashboard/editNewsPost/${this.$route.params.id}`)).data.news;
-        this.title = this.news.title;
-        this.category = this.news.category;
-        this.content = this.news.content;
-        this.main_tag = this.news.main_tag;
-        this.tags = this.news.tags;
-        this.heroImage = this.news.heroImage;
+  mounted(){
+         this.axios.get(`/dashboard/editNewsPost/${this.$route.params.id}`).then((response) => {
+             console.log(response);
+             this.news = response.data;
+         });
     },
     methods: {
         savePost(){
