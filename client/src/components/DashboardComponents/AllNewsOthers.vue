@@ -17,7 +17,7 @@
                         h3(label='Applied Tags' name='applied_tags') Applied Tags: {{news.tags}}
                 v-card-actions
                     v-spacer
-                    v-btn( color='success' @click.native='editNews' ) Edit
+                    v-btn( color='success' @click.native='editNews(news._id)' ) Edit
                     v-btn( @click='deletePost(news._id)' ) Delete
 </template>
 <script>
@@ -32,8 +32,8 @@ export default {
         });
     },
     methods: {
-        editNews(){
-            window.location.href=`${window.location.origin}/#/dashboard/editnews`
+        editNews(id){
+            window.location.href=`${window.location.origin}/dashboard#/editnews/${id}`
         },
         deletePost(id){
             this.axios.delete(`/dashboard/deleteNewsPost/${id}`).then((response)=>{

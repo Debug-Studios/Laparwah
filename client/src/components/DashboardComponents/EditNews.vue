@@ -9,20 +9,20 @@
                         v-text-field(label="Title" name='add_title' v-model='title')
                     v-spacer
                     v-flex(xs3)
-                        v-text-field(label="Category" name='add_category' v-model='category')
+                        v-select(:items='tag'  v-model='main_tag' name='add_tag' input-type='text' )
                     v-flex(xs12)
                         v-text-field(name='add_content' v-model='content' label='Content' textarea dark)
                     v-flex(xs6)
                         v-text-field(label='Applied Tags' v-model='tags' name='add_tags')
                     v-spacer
                     v-flex(xs3)
-                        v-text-field(label='Tag' v-model='main_tag' name='add_tag')
+                         v-select(:items='items'  v-model='category' name='add_category' input-type='text' )
                     v-flex(xs12)
                         v-text-field(label='Added Image Link' v-model='heroImage' name='add_image')
                 v-card-actions
                     v-spacer
                     v-btn( color='success' @click='savePost' ) Save
-                    v-btn( type='reset') Cancel
+                    v-btn( @click='goBack') Cancel
 </template>
 <script>
 export default {
@@ -30,11 +30,23 @@ export default {
         return{
         news: {},
         title:'',
-        category:'',
+        category:[],
         content:'',
-        main_tag:'',
+        main_tag:[],
         tags:'',
-        heroImage:''
+        heroImage:'',
+        items: [
+            { text: "Politics" },
+            { text: "Money" },
+            { text: "Entertainment" },
+            { text: "Tech" },
+            { text: "Sport" },
+            { text: "Travel" },
+            { text: "Style" },
+            { text: "Health" },
+            { text: "Video" }
+            ],
+        tag: [{ text: "Breaking News" }, { text: "Spotlight" }, { text: "Live" }]
         }
     },
   async mounted(){
@@ -51,8 +63,8 @@ export default {
             this.axios.post(`/dashboard/editOwnNewsPost/${this.$route.params.id}`,{
                 title: this.title,
                 content: this.content,
-                category: this.category,
-                main_tag: this.main_tag,
+                category: this.category.text,
+                main_tag: this.main_tag.text,
                 tags: this.tags,
                 heroImage: this.heroImage
                 }).then(response => {
@@ -70,6 +82,9 @@ export default {
                     duration: 30000
                     });
                 })
+        },
+        goBack(){
+            window.location.href = `${window.location.origin}/dashboard#/`;
         }
     }
 }

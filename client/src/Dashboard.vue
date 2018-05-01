@@ -1,5 +1,8 @@
 <template lang="pug">
   v-app(dark)
+    notifications(group="dashboard" position="bottom left" width="100%")
+          template(slot="body" slot-scope="props")
+            v-snackbar(:timeout="10000" :color="props.item.type" :value="true" bottom left) {{props.item.title}}
     v-navigation-drawer(fixed :clipped='$vuetify.breakpoint.lgAndUp' app v-model='drawer' value='true')
       v-list(dense )
         v-list-tile(v-on:click='userProfile' )
@@ -61,16 +64,13 @@
               v-list-tile-title Sign out
     v-content
       router-view
-      notifications(group="dashboard" position="bottom left" width="100%")
-        template(slot="body" slot-scope="props")
-          v-snackbar(:timeout="10000" :color="props.item.type" :value="true" bottom left) {{props.item.title}}
 </template>
 
 <script>
 export default {
   name: "dashboard",
   data: () => ({
-    drawer: null,
+    drawer:null,
     isLogged: false,
     add_news: false,
     all_news: false,
