@@ -84,7 +84,7 @@ export default {
     this.$notify({
       group: "dashboard",
       title: "Remember to be unbiased when approving or rejecting these posts!",
-      type: "error",
+      type: "info",
       duration: 30000
     });
     this.user = (await this.axios.get("/accounts/getCurrentUser")).data.user;
