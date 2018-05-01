@@ -53,7 +53,7 @@ const router = new Router({
       component: DeleteUser
     },
     {
-      path: '/edituser',
+      path: '/edituser/:id',
       name: 'edituser',
       component: EditUser
     },
@@ -63,7 +63,7 @@ const router = new Router({
       component: UserProfile
     },
     {
-      path: '/editnews',
+      path: '/editnews/:id',
       name: 'editnews',
       component: EditNews
     },

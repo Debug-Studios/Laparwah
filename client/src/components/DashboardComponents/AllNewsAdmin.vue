@@ -36,7 +36,7 @@ export default {
             window.location.href=`${window.location.origin}/dashboard#/editnews`
         },
         deletePost(id){
-            this.axios.delete(`/dashboard/deleteNewsPost/${id}`).then((response)=>{
+            this.axios.delete(`/dashboard/deleteNewsPost/${this.$routes.params.id}`).then((response)=>{
                 this.allnews.forEach((news, index) => {
                     if(news._id == response.data._id){
                         this.allnews.splice(index, 1);

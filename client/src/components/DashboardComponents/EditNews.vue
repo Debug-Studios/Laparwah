@@ -36,7 +36,7 @@ export default {
         heroImage:''
     }),
    async mounted(){
-        this.news = (await this.axios.get('/dashboard/editNewsPost/')).data.news;
+        this.news = (await this.axios.get(`/dashboard/editNewsPost/${id}`)).data.news;
         this.title = this.news.title;
         this.category = this.news.category;
         this.content = this.news.content;
@@ -46,7 +46,7 @@ export default {
     },
     methods: {
         savePost(){
-            this.axios.post('/dashboard/editOwnNewsPost/',{
+            this.axios.post(`/dashboard/editOwnNewsPost/${id}`,{
                 title: this.title,
                 content: this.content,
                 category: this.category,

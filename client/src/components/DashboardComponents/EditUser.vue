@@ -35,8 +35,7 @@ export default {
       setUser: false,
   }),
   mounted(){
-      console.log(this.role);
-      this.axios.get(`/dashboard/editAccount/${router._id}`).then((response) => {
+      this.axios.get(`/dashboard/editAccount/${this.$route.params.id}`).then((response) => {
           console.log(response);
           this.acc = response.data;
       });
@@ -44,6 +43,21 @@ export default {
 
   methods:{
       saveProfile(){
+          if(this.setAdmin == true){
+              this.setWriter = true;
+              this.setEditor = true;
+              this.setUser = true;
+          }
+          else if(this.setEditor == true){
+             this.setWriter = true;
+             this.setUser = true;
+          }
+          else if (this.setWriter == true){
+              this.setUser = true;
+          }
+          else
+           this.setUser = true;
+
 
 
       },
