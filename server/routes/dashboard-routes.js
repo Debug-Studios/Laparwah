@@ -211,7 +211,7 @@ router.get('/editOwnNewsPost/:id', IsWriter, (req, res) => {
 });
 
 router.post('/editOwnNewsPost/:id', IsWriter, (req, res) => {
-  console.log(req.body.tags);
+  console.log(req.body.main_tag);
   News.findOneAndUpdate(
     {
       _id: req.params.id,

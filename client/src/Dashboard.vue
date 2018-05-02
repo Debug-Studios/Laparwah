@@ -28,10 +28,14 @@
         v-list-group(subgroup no-action value='true' v-show='isWriter' prepend-icon="library_books")
           v-list-tile(slot='activator')
             v-list-tile-title News Management
-          v-list-tile(v-on:click='allNewsCard(isAdmin)')
+          v-list-tile(v-on:click='allNews' v-show='isAdmin')
             v-list-tile-title All News
             v-list-tile-action
               v-icon all_inclusive
+          v-list-tile(v-on:click='ownNews' v-show='isEditor')
+            v-list-tile-title My News
+            v-list-tile-action
+              v-icon shopping_cart
           v-list-tile(v-on:click='addNewsCard')
             v-list-tile-title New News
             v-list-tile-action
@@ -89,7 +93,7 @@ export default {
     isEditor: false,
     isWriter: false,
     user: {},
-    id: ''
+    id: '',
     role: "USER",
     roleColor: "black"
   }),
@@ -105,16 +109,11 @@ export default {
     addNewsCard() {
       window.location.href = `${window.location.origin}/dashboard#/addnews`;
     },
-    allNewsCard(isAdmin) {
-      if (isAdmin) {
-        window.location.href = `${
-          window.location.origin
-        }/dashboard#/allnewsadmin`;
-      } else
-        window.location.href = `${window.location.origin}/dashboard#/allnewsothers/${this.id}`;
-        window.location.href = `${
-          window.location.origin
-        }/dashboard#/allnewsothers`;
+    allNews(){
+        window.location.href = `${window.location.origin}/dashboard#/allnewsadmin`;
+    },
+    ownNews(){
+        window.location.href = `${window.location.origin}/dashboard#/allnewsothers`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/dashboard#/adduser`;
@@ -140,7 +139,7 @@ export default {
         this.isAdmin = response.data.user.roles.includes("admin");
         this.isEditor = response.data.user.roles.includes("editor");
         this.isWriter = response.data.user.roles.includes("writer");
-        this.id = response.data.user._id;
+        this.id = response.data.user.id;
         if (this.isAdmin) {
           this.role = "ADMIN  (★★★)";
           this.roleColor = "red lighten-2";

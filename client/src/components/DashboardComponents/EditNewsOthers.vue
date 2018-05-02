@@ -5,24 +5,18 @@
                 | Edit News
             v-container.pa-4(grid-list-sm )
                 v-layout(row wrap)
-                    v-flex(xs5 align-center justify-space-between)
+                    v-flex(xs6 align-center justify-space-between)
                         v-text-field(label="Title" name='add_title' v-model='title')
                     v-spacer
-                    v-flex(xs3 align-center justify-space-between)
-                        v-text-field(label="Applied Tag" name='added_tag' v-model='applied_tag')
-                    v-spacer
                     v-flex(xs3)
-                        v-select(:items='tag' label='Apply Tag' v-model='main_tag' name='add_tag' input-type='text')
+                        v-text-field(label='Applied Tag' v-model='main_tag' name='add_tag')
                     v-flex(xs12)
                         v-text-field(name='add_content' v-model='content' label='Content' textarea dark)
-                    v-flex(xs5)
+                    v-flex(xs6)
                         v-text-field(label='Applied Tags' v-model='tags' name='add_tags')
                     v-spacer
-                    v-flex(xs3 align-center justify-space-between)
-                        v-text-field(label="Applied Category" name='added_category' v-model='applied_category')
-                    v-spacer
                     v-flex(xs3)
-                        v-select(:items='items' label='Select Category' v-model='category' name='add_category' input-type='text')
+                        v-text-field(label='Applied Category' v-model='category' name='add_category')
                     v-flex(xs12)
                         v-text-field(label='Added Image Link' v-model='heroImage' name='add_image')
                 v-card-actions
@@ -36,11 +30,9 @@ export default {
         return{
         news: {},
         title:'',
-        category:[],
+        category:'',
         content:'',
-        main_tag:[],
-        applied_tag: '',
-        applied_category: '',
+        main_tag:'',
         tags:'',
         heroImage:'',
         loading: false,
@@ -59,22 +51,22 @@ export default {
         }
     },
   async mounted(){
-        this.news = (await this.axios.get(`/dashboard/editNewsPost/${this.$route.params.id}`)).data;
+        this.news = (await this.axios.get(`/dashboard/editOwnNewsPost/${this.$route.params.id}`)).data;
              this.title = this.news.title;
-             this.applied_category = this.news.category;
+             this.category = this.news.category;
              this.content  = this.news.content;
-             this.applied_tag = this.news.main_tag;
+             this.main_tag = this.news.main_tag;
              this.tags = this.news.tags;
              this.heroImage = this.news.heroImage;
     },
     methods: {
         savePost(){
             this.loading = true;
-            this.axios.post(`/dashboard/editNewsPost/${this.$route.params.id}`,{
+            this.axios.post(`/dashboard/editOwnNewsPost/${this.$route.params.id}`,{
                 title: this.title,
                 content: this.content,
-                category: this.category.text,
-                main_tag: this.main_tag.text,
+                category: this.category,
+                main_tag: this.main_tag,
                 tags: this.tags,
                 heroImage: this.heroImage
                 }).then(response => {

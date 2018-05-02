@@ -33,7 +33,7 @@ export default {
     },
     methods: {
         editNews(id){
-            window.location.href=`${window.location.origin}/dashboard#/editOwnNewsPost/${id}`
+            window.location.href=`${window.location.origin}/dashboard#/editnewsothers/${id}`
         },
         deletePost(id){
             this.axios.delete(`/dashboard/deleteNewsPost/${id}`).then((response)=>{
