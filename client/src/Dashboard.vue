@@ -1,22 +1,32 @@
 <template lang="pug">
   v-app(dark)
     notifications(group="dashboard" position="bottom left" width="100%")
-          template(slot="body" slot-scope="props")
-            v-snackbar(:timeout="10000" :color="props.item.type" :value="true" bottom left) {{props.item.title}}
-    v-navigation-drawer(fixed :clipped='$vuetify.breakpoint.lgAndUp' app v-model='drawer' value='true')
-      v-list(dense )
-        v-list-tile(v-on:click='userProfile' )
+      template(slot="body" slot-scope="props")
+        v-snackbar(:timeout="10000" :color="props.item.type" :value="true" bottom left) {{props.item.title}}
+
+    v-navigation-drawer(app v-model='drawer')
+      v-toolbar(flat :color="roleColor")
+        v-list
+          v-list-tile
+            v-list-tile-title.title.text-xs-center {{role}}
+
+      v-toolbar(flat).transparent
+        v-list.pa-0
+          v-list-tile(avatar v-on:click='userProfile' )
+            v-list-tile-avatar
+              v-gravatar(v-bind:email='user.email')
+            v-list-tile-content
+              v-list-tile-title {{user.name}}
+
+      v-divider
+
+      v-list.pt-0
+        v-list-tile(v-on:click='newsModeration' v-show='isEditor' prepend-icon="border_color")
           v-list-tile-action
-            v-icon account_circle
-          v-list-tile-title Profile
-        v-list-tile(v-on:click='newsModeration' v-show='isEditor' )
-          v-list-tile-action
-            v-icon border_color
+            v-icon gavel
           v-list-tile-title Moderation Tools
-        v-list-group(subgroup no-action value='true' v-show='isWriter')
+        v-list-group(subgroup no-action value='true' v-show='isWriter' prepend-icon="library_books")
           v-list-tile(slot='activator')
-            v-list-tile-action
-              v-icon trending_up
             v-list-tile-title News Management
           v-list-tile(v-on:click='allNewsCard(isAdmin)')
             v-list-tile-title All News
@@ -26,18 +36,17 @@
             v-list-tile-title New News
             v-list-tile-action
               v-icon note_add
-        v-list-group(subgroup no-action value='true' v-show='isAdmin')
+        v-list-group(subgroup no-action value='true' v-show='isAdmin' prepend-icon="accessibility")
           v-list-tile(slot='activator')
-            v-list-tile-action
-              v-icon accessibility
             v-list-tile-title User Management
           v-list-tile(v-on:click='allUsers')
             v-list-tile-title All Users
             v-list-tile-action
               v-icon people_outline
-    v-toolbar(app :clipped-left='$vuetify.breakpoint.lgAndUp' fixed)
+
+    v-toolbar(app flat)
       v-toolbar-title.ml-0.pl-3
-        v-toolbar-side-icon(@click.stop='drawer = !drawer')
+        v-toolbar-side-icon(@click.stop='drawer = !drawer').hidden-md-and-up
         span(style="text-transform: capitalize") {{user.name}}'s Dashboard
       v-spacer
       v-menu(offset-y v-if='isLogged && user' dark)
@@ -62,15 +71,17 @@
               v-list-tile-action
                 v-icon(color="red") exit_to_app
               v-list-tile-title Sign out
+
     v-content
-      router-view
+      v-container(fluid)
+        router-view
 </template>
 
 <script>
 export default {
   name: "dashboard",
   data: () => ({
-    drawer:null,
+    drawer: null,
     isLogged: false,
     add_news: false,
     all_news: false,
@@ -79,10 +90,14 @@ export default {
     isWriter: false,
     user: {},
     id: ''
+    role: "USER",
+    roleColor: "black"
   }),
   methods: {
     newsModeration() {
-      window.location.href = `${window.location.origin}/dashboard#/newsmoderation`;
+      window.location.href = `${
+        window.location.origin
+      }/dashboard#/newsmoderation`;
     },
     userProfile() {
       window.location.href = `${window.location.origin}/dashboard#/userprofile`;
@@ -92,9 +107,14 @@ export default {
     },
     allNewsCard(isAdmin) {
       if (isAdmin) {
-        window.location.href = `${window.location.origin}/dashboard#/allnewsadmin`;
+        window.location.href = `${
+          window.location.origin
+        }/dashboard#/allnewsadmin`;
       } else
         window.location.href = `${window.location.origin}/dashboard#/allnewsothers/${this.id}`;
+        window.location.href = `${
+          window.location.origin
+        }/dashboard#/allnewsothers`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/dashboard#/adduser`;
@@ -121,8 +141,20 @@ export default {
         this.isEditor = response.data.user.roles.includes("editor");
         this.isWriter = response.data.user.roles.includes("writer");
         this.id = response.data.user._id;
+        if (this.isAdmin) {
+          this.role = "ADMIN  (★★★)";
+          this.roleColor = "red lighten-2";
+        } else if (this.isEditor) {
+          this.role = "EDITOR  (★★)";
+          this.roleColor = "blue lighten-2";
+        } else if (this.isWriter) {
+          this.role = "WRITER  (★)";
+          this.roleColor = "green lighten-2";
+        }
       }
     });
+
+    // Make Navigation Drawer Responsive
   }
 };
 </script>
