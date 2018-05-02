@@ -46,6 +46,7 @@ router.post('/updateAccount', IsLoggedIn, (req, res) => {
       age: req.body.age,
       gender: req.body.gender,
       location: req.body.location,
+      spectrum: req.body.spectrum,
       'social.facebook': req.body.social_facebook,
       'social.email': req.body.social_email,
       'social.twitter': req.body.social_twitter
