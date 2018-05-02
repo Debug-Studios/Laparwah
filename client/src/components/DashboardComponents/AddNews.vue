@@ -12,8 +12,11 @@
                     v-select(required :items='tag' label='Select Main Tag' v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')")
                 v-flex(xs12)
                     v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')")
-                v-flex(xs6)
-                    v-text-field(required label='Apply Tags' v-model='tags' name='add_tags' v-validate="'required'" :error-messages="errors.collect('tags')")
+                v-flex(xs8)
+                  template
+                    v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='')
+                      template(slot='selection' slot-scope='data')
+                        v-chip(close @input='remove(data.item)' :selected='data.selected') {{data.item}}
                 v-spacer
                 v-flex(xs3)
                     v-select(required :items='items' label='Select Category' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')")
@@ -35,7 +38,7 @@ export default {
     category: [],
     content: "",
     main_tag: [],
-    tags: "",
+    tags: [],
     heroImage: "",
     url: "",
     loading: false,
@@ -63,7 +66,7 @@ export default {
           title: this.title,
           content: this.content,
           category: this.category.text,
-          tags: this.tags,
+          tags: this.tags.toString(),
           main_tag: this.main_tag.text,
           heroImage: this.heroImage,
           url: this.url
@@ -108,6 +111,10 @@ export default {
       this.tags= '';
       this.heroImage= '';
       this.$validator.reset();
+      },
+      remove (item) {
+        this.tags.splice(this.tags.indexOf(item), 1);
+        this.tags = [...this.tags];
       }
   }
 };

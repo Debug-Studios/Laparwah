@@ -170,7 +170,7 @@ router.post('/createNewsPost', IsWriter, (req, res) => {
       locale: req.body.locale,
       heroImage: req.body.heroImage,
       main_tag: req.body.main_tag,
-      tags: req.body.tags.split(' '),
+      tags: req.body.tags.split(','),
       url: req.body.url
     },
     (err, news) => {
