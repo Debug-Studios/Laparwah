@@ -1,7 +1,7 @@
 <template lang="pug">
   #allnewsothers
     transition-group(name="fade" tag="div")
-        v-card(v-for='(news, index) in allnews' :key='news._id')
+        v-card(v-for='(news, index) in allnewsothers' :key='news._id')
             v-card-title.blue-grey.darken-2.py-4.title
                 | {{news.title}}
             v-container.pa-4(grid-list-sm )
@@ -33,7 +33,7 @@ export default {
     },
     methods: {
         editNews(id){
-            window.location.href=`${window.location.origin}/dashboard#/editnews/${id}`
+            window.location.href=`${window.location.origin}/dashboard#/editOwnNewsPost/${id}`
         },
         deletePost(id){
             this.axios.delete(`/dashboard/deleteNewsPost/${id}`).then((response)=>{

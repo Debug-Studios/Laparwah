@@ -9,14 +9,14 @@
                         v-text-field(label="Title" name='add_title' v-model='title')
                     v-spacer
                     v-flex(xs3)
-                        v-select(:items='tag' label='Apply Tag'  v-model='main_tag' name='add_tag' input-type='text' )
+                        v-text-field(label='Applied Tag' v-model='main_tag' name='add_tag')
                     v-flex(xs12)
                         v-text-field(name='add_content' v-model='content' label='Content' textarea dark)
                     v-flex(xs6)
                         v-text-field(label='Applied Tags' v-model='tags' name='add_tags')
                     v-spacer
                     v-flex(xs3)
-                         v-select(:items='items' label='Select Category'   v-model='category' name='add_category' input-type='text' )
+                        v-text-field(label='Applied Category' v-model='category' name='add_category')
                     v-flex(xs12)
                         v-text-field(label='Added Image Link' v-model='heroImage' name='add_image')
                 v-card-actions
@@ -30,9 +30,9 @@ export default {
         return{
         news: {},
         title:'',
-        category:[],
+        category:'',
         content:'',
-        main_tag:[],
+        main_tag:'',
         tags:'',
         heroImage:'',
         loading: false,
@@ -62,14 +62,15 @@ export default {
     methods: {
         savePost(){
             this.loading = true;
-            this.axios.post(`/dashboard/editOwnNewsPost/${this.$route.params.id}`,{
+            this.axios.post(`/dashboard/editNewsPost/${this.$route.params.id}`,{
                 title: this.title,
                 content: this.content,
-                category: this.category.text,
-                main_tag: this.main_tag.text,
+                category: this.category,
+                main_tag: this.main_tag,
                 tags: this.tags,
                 heroImage: this.heroImage
                 }).then(response => {
+                    console.log(response);
                     this.$notify({
                     group: "dashboard",
                     title: "News Updated!",

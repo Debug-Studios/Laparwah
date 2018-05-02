@@ -28,7 +28,7 @@ const router = new Router({
       component: AddNews
     },
     {
-      path: '/allnewsothers',
+      path: '/allnewsothers/:id',
       name: 'allnewsothers',
       component: AllNewsOthers
     },

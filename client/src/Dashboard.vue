@@ -77,7 +77,8 @@ export default {
     isAdmin: false,
     isEditor: false,
     isWriter: false,
-    user: {}
+    user: {},
+    id: ''
   }),
   methods: {
     newsModeration() {
@@ -93,7 +94,7 @@ export default {
       if (isAdmin) {
         window.location.href = `${window.location.origin}/dashboard#/allnewsadmin`;
       } else
-        window.location.href = `${window.location.origin}/dashboard#/allnewsothers`;
+        window.location.href = `${window.location.origin}/dashboard#/allnewsothers/${this.id}`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/dashboard#/adduser`;
@@ -119,6 +120,7 @@ export default {
         this.isAdmin = response.data.user.roles.includes("admin");
         this.isEditor = response.data.user.roles.includes("editor");
         this.isWriter = response.data.user.roles.includes("writer");
+        this.id = response.data.user._id;
       }
     });
   }
