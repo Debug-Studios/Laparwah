@@ -22,7 +22,7 @@ const accountSchema = new Schema(
     },
     location: String,
     designation: String,
-    spectrum: String,
+    spectrum: { type: String, default: '-' },
     special_role: String,
     oauth: {
       google: {
