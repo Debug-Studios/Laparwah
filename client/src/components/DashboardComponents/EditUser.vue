@@ -44,7 +44,6 @@ export default {
           this.isAdmin = this.acc.roles.includes('admin') ;
           this.isWriter = this.acc.roles.includes('writer') ;
           this.isEditor = this.acc.roles.includes('editor');
-          this.isUser = this.acc.roles.includes('user');
       })
   },
 
