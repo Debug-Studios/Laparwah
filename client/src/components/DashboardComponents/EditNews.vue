@@ -16,7 +16,10 @@
                     v-flex(xs12)
                         v-text-field(name='add_content' v-model='content' label='Content' textarea dark)
                     v-flex(xs5)
-                        v-text-field(label='Applied Tags' v-model='tags' name='add_tags')
+                        template
+                            v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='')
+                                template(slot='selection' slot-scope='data')
+                                    v-chip(close @input='remove(data.item)' :selected='data.selected') {{data.item}}
                     v-spacer
                     v-flex(xs3 align-center justify-space-between)
                         v-text-field(label="Applied Category" name='added_category' v-model='applied_category')
@@ -41,7 +44,7 @@ export default {
         main_tag:[],
         applied_tag: '',
         applied_category: '',
-        tags:'',
+        tags:[],
         heroImage:'',
         loading: false,
         items: [
@@ -75,7 +78,7 @@ export default {
                 content: this.content,
                 category: this.category.text,
                 main_tag: this.main_tag.text,
-                tags: this.tags,
+                tags: this.tags.toString(),
                 heroImage: this.heroImage
                 }).then(response => {
                     this.$notify({
@@ -97,7 +100,11 @@ export default {
         },
         goBack(){
             window.location.href = `${window.location.origin}/dashboard#/`;
-        }
+        },
+        remove (item) {
+        this.tags.splice(this.tags.indexOf(item), 1);
+        this.tags = [...this.tags];
+      }
     }
 }
 </script>
