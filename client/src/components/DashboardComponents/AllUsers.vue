@@ -17,7 +17,7 @@
                         v-card-actions
                             v-spacer
                             v-btn(@click='editUser(user._id)' color='success' flat ) Edit
-                            v-btn(@click='deleteUser(user._id)' color='success' flat ) Remove User
+                            v-btn(@click='deleteUser(user._id)' color='error' flat ) Remove User
 
 </template>
 <script>

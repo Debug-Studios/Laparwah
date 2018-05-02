@@ -12,6 +12,7 @@ import AllUsers from './../components/DashboardComponents/AllUsers.vue';
 import AllNewsAdmin from './../components/DashboardComponents/AllNewsAdmin.vue';
 import EditUser from './../components/DashboardComponents/EditUser.vue';
 import Dashboard from '../Dashboard.vue';
+import EditNewsOthers from './../components/DashboardComponents/EditNewsOthers.vue';
 
 Vue.use(Router);
 
@@ -71,6 +72,11 @@ const router = new Router({
       path: '/newsmoderation',
       name: 'newsmoderation',
       component: NewsModeration
+    },
+    {
+      path: '/editnewsothers/:id',
+      name: 'editnewsothers',
+      component: EditNewsOthers
     }
   ]
 });

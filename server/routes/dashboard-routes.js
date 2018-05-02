@@ -133,7 +133,7 @@ router.post('/editNewsPost/:id', IsAdmin, (req, res) => {
       content: req.body.content,
       category: req.body.category,
       heroImage: req.body.heroImage,
-      main_tag: req.body.tag,
+      main_tag: req.body.main_tag,
       tags: req.body.tags.split(' ')
     },
     (err, news) => {
@@ -211,7 +211,6 @@ router.get('/editOwnNewsPost/:id', IsWriter, (req, res) => {
 });
 
 router.post('/editOwnNewsPost/:id', IsWriter, (req, res) => {
-  console.log(req.body.tags);
   News.findOneAndUpdate(
     {
       _id: req.params.id,
