@@ -126,7 +126,6 @@ router.get('/editNewsPost/:id', IsAdmin, (req, res) => {
 });
 
 router.post('/editNewsPost/:id', IsAdmin, (req, res) => {
-  console.log(req.body.main_tag);
   News.findByIdAndUpdate(
     req.params.id,
     {

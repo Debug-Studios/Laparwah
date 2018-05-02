@@ -13,12 +13,15 @@
                             v-flex(xs12)
                                 h3 Name:{{acc.name}}
                                 h4 Email: {{acc.email}}
-                            v-flex(xs12)
+                                h4 Current Roles:
+                            v-flex(xs3)
                                 v-switch(label='Admin' v-model='isAdmin')
-                                v-switch(label='Writer' v-model='isWriter')
+                            v-spacer
+                            v-flex(xs3)
                                 v-switch(label='Editor' v-model='isEditor')
-                                v-switch(label='User' v-model='isUser')
-
+                            v-spacer
+                            v-flex(xs3)
+                                v-switch(label='Writer' v-model='isWriter')
                         v-card-actions
                             v-spacer
                             v-btn(@click='saveProfile' color='success' flat ) Save
