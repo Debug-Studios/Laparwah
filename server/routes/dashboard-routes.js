@@ -277,6 +277,19 @@ router.delete('/deleteOwnNewsPost/:id', IsWriter, (req, res) => {
   );
 });
 
+router.post('/isNewsUrlUnique', IsWriter, (req, res) => {
+  News.count({ url: req.body.url }).exec((err, count) => {
+    if (err) res.json(err);
+    else {
+      if (count > 0) {
+        res.json(false);
+      } else {
+        res.json(true);
+      }
+    }
+  });
+});
+
 // Moderation Queue
 router.get('/moderationQueueAdmin/:page', IsAdmin, (req, res) => {
   News.find({})
