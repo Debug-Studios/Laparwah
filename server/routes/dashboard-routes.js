@@ -48,6 +48,15 @@ router.get('/allAccounts/:page', IsAdmin, (req, res) => {
     });
 });
 
+router.get('/allAccountsCount', IsAdmin, (req, res) => {
+  Account.count({}).exec((err, count) => {
+    if (err) res.json(err);
+    else {
+      res.json({ userCount: count });
+    }
+  });
+});
+
 router.post('/createAccount', IsAdmin, (req, res) => {
   Account.create(
     {
@@ -114,6 +123,15 @@ router.get('/allNewsPosts/:page', IsAdmin, (req, res) => {
         res.json(news);
       }
     });
+});
+
+router.get('/allNewsPostsCount', IsAdmin, (req, res) => {
+  News.count({}).exec((err, count) => {
+    if (err) res.json(err);
+    else {
+      res.json({ newsCount: count });
+    }
+  });
 });
 
 router.get('/editNewsPost/:id', IsAdmin, (req, res) => {
@@ -195,6 +213,15 @@ router.get('/ownNewsPosts/:page', IsWriter, (req, res) => {
     });
 });
 
+router.get('/ownNewsPostsCount', IsWriter, (req, res) => {
+  News.count({ creator: req.user._id }).exec((err, count) => {
+    if (err) res.json(err);
+    else {
+      res.json({ newsCount: count });
+    }
+  });
+});
+
 router.get('/editOwnNewsPost/:id', IsWriter, (req, res) => {
   News.findOne(
     {
@@ -253,8 +280,16 @@ router.delete('/deleteOwnNewsPost/:id', IsWriter, (req, res) => {
 // Moderation Queue
 router.get('/moderationQueueAdmin/:page', IsAdmin, (req, res) => {
   News.find({})
-    .and([{ 'approval.done.mod1': true }, { 'approval.done.mod2': true }])
-    .and([{ 'approval.mod1': false }, { 'approval.mod2': false }])
+    .and([
+      { 'approval.done.mod1': true },
+      { 'approval.done.mod2': true },
+      { 'approval.done.mod3': true }
+    ])
+    .and([
+      { 'approval.mod1': false },
+      { 'approval.mod2': false },
+      { 'approval.mod3': false }
+    ])
     .populate('creator', 'name _id')
     .skip((req.params.page - 1) * 10)
     .limit(10)
@@ -263,6 +298,26 @@ router.get('/moderationQueueAdmin/:page', IsAdmin, (req, res) => {
       if (err) res.json(err);
       else {
         res.json(news);
+      }
+    });
+});
+
+router.get('/moderationQueueAdminCount', IsAdmin, (req, res) => {
+  News.and([
+    { 'approval.done.mod1': true },
+    { 'approval.done.mod2': true },
+    { 'approval.done.mod3': true }
+  ])
+    .and([
+      { 'approval.mod1': false },
+      { 'approval.mod2': false },
+      { 'approval.mod3': false }
+    ])
+    .count()
+    .exec((err, count) => {
+      if (err) res.json(err);
+      else {
+        res.json({ newsCount: count });
       }
     });
 });
@@ -281,6 +336,22 @@ router.get(
         if (err) res.json(err);
         else {
           res.json(news);
+        }
+      });
+  }
+);
+
+router.get(
+  '/moderationQueueEditorCount/:special_role',
+  IsEditor,
+  (req, res) => {
+    News.where(`approval.done.${req.params.special_role}`)
+      .equals(false)
+      .count()
+      .exec((err, count) => {
+        if (err) res.json(err);
+        else {
+          res.json({ newsCount: count });
         }
       });
   }

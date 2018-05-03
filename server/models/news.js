@@ -15,10 +15,12 @@ const newsSchema = new Schema(
     approval: {
       done: {
         mod1: { type: Boolean, default: false },
-        mod2: { type: Boolean, default: false }
+        mod2: { type: Boolean, default: false },
+        mod3: { type: Boolean, default: false }
       },
       mod1: { type: Boolean, default: false },
       mod2: { type: Boolean, default: false },
+      mod3: { type: Boolean, default: false },
       admin: { type: Boolean }
     },
     url: { type: String, lowercase: true, required: true, unique: true },
