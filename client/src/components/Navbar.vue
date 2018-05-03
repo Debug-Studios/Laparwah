@@ -1,6 +1,6 @@
 <template lang="pug">
   v-toolbar(dark)
-    v-toolbar-title.ml-0.pl-3.hidden-sm-and-down Breaking News:
+    v-toolbar-title.subheading.ml-0.pl-3.hidden-sm-and-down Breaking News:
     transition(name="slide-fade" mode="out-in")
       router-link(:to="'/news/' + breakingNews[breakingNewsIndex].url" :key="breakingNewsIndex" v-if="breakingNews.length").breaking-news-link.subheading.ml-0.pl-3 {{breakingNews[breakingNewsIndex].title}}
 
@@ -9,7 +9,7 @@
     v-toolbar-items.hidden-sm-and-down
       .d-flex.pr-4.flex-weather
         v-icon.pr-2 cloud
-        .headline.pr-2 {{temp}}&deg;C
+        .subheading.pr-2 {{temp}}&deg;C
         .subheading (Dehradun)
         .subheading.pl-1 by
         img.pl-1(src="https://icons.wxug.com/logos/PNG/wundergroundLogo_4c_rev_horz.png" height="24px")
@@ -52,7 +52,7 @@
             v-list-tile-title Sign out
 
     v-menu(offset-y v-else dark)
-      v-btn(flat slot='activator') SIGN IN
+      v-btn.pa-0.ma-0(flat slot='activator') SIGN IN
       v-card
         v-flex.text-xs-center(xs12).pt-2
           span SIGN IN USING
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import truncate from "lodash.truncate";
 export default {
   name: "navbar",
   data: () => ({
@@ -117,6 +118,9 @@ export default {
     getBreakingNews: function() {
       this.axios.get("/news/getBreaking/3").then(response => {
         this.breakingNews = response.data;
+        this.breakingNews.forEach(news => {
+          news.title = truncate(news.title, { length: 100 });
+        });
       });
     },
 

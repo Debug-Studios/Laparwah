@@ -1,6 +1,6 @@
 <template lang="pug">
   v-app
-    
+
 
     v-jumbotron(src="https://images.pexels.com/photos/314860/pexels-photo-314860.jpeg?cs=srgb&dl=clouds-cold-evening-314860.jpg&fm=jpg" dark)#laparwah-header
       v-container(fill-height)
