@@ -86,7 +86,7 @@ module.exports = {
       filename: 'client/dashboard.html',
       template: 'client/dashboard.html',
       chunks: ['dashboard'],
-      inject: true
+      inject: false
     }),
     new CopyWebpackPlugin([{ from: 'client/src/icons', to: 'icons' }]),
     new CopyWebpackPlugin([{ from: 'client/src/fonts', to: 'fonts' }])

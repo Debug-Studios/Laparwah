@@ -83,7 +83,7 @@ module.exports = {
       filename: 'client/dashboard.html',
       template: 'client/dashboard.html',
       chunks: ['dashboard'],
-      inject: true
+      inject: false
     }),
     new UglifyJSPlugin(),
     new CopyWebpackPlugin([{ from: 'client/src/icons', to: 'icons' }]),
