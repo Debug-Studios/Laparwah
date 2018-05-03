@@ -35,10 +35,12 @@ app.use(
     index: '/',
     rewrites: [
       { from: '/dashboard', to: '/dashboard' },
-      { from: '/auth/google', to: '/auth/google' },
-      { from: '/auth/facebook', to: '/auth/facebook' },
-      { from: '/auth/twitter', to: '/auth/twitter' },
-      { from: '/auth/microsoft', to: '/auth/microsoft' }
+      {
+        from: /^\/auth\/.*$/,
+        to: function (context) {
+          return context.parsedUrl.pathname;
+        }
+      }
     ],
     verbose: true
   })
