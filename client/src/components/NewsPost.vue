@@ -40,7 +40,7 @@
                 v-avatar(size='36')
                   img(src='/icons/twitter.svg')
 
-      v-flex.comments
+      v-flex.comments(v-if="disqus_url")
         vue-disqus(shortname="laparwah" :identifier="disqus_id" :url="disqus_url" :title="news.title")
 
 </template>
@@ -51,8 +51,8 @@ export default {
   data() {
     return {
       news: {},
-      disqus_url: "",
-      disqus_id: ""
+      disqus_url: null,
+      disqus_id: null
     };
   },
   created() {

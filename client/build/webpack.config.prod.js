@@ -1,18 +1,15 @@
 'use strict';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     app: './client/src/app.js',
     dashboard: './client/src/dashboard.js'
   },
-  devServer: {
-    hot: true
-  },
-  watch: true,
   module: {
     rules: [
       {
@@ -88,6 +85,7 @@ module.exports = {
       chunks: ['dashboard'],
       inject: true
     }),
+    new UglifyJSPlugin(),
     new CopyWebpackPlugin([{ from: 'client/src/icons', to: 'icons' }]),
     new CopyWebpackPlugin([{ from: 'client/src/fonts', to: 'fonts' }])
   ]
