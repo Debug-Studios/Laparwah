@@ -78,7 +78,7 @@ module.exports = {
       filename: 'client/index.html',
       template: 'client/index.html',
       chunks: ['app'],
-      inject: true
+      inject: false
     }),
 
     new HtmlWebpackPlugin({
