@@ -152,7 +152,7 @@ router.post('/editNewsPost/:id', IsAdmin, (req, res) => {
       category: req.body.category,
       heroImage: req.body.heroImage,
       main_tag: req.body.main_tag,
-      tags: req.body.tags.split(' ')
+      tags: req.body.tags.split(',')
     },
     (err, news) => {
       if (err) res.json(err);
@@ -188,7 +188,7 @@ router.post('/createNewsPost', IsWriter, (req, res) => {
       locale: req.body.locale,
       heroImage: req.body.heroImage,
       main_tag: req.body.main_tag,
-      tags: req.body.tags.split(' '),
+      tags: req.body.tags.split(','),
       url: req.body.url
     },
     (err, news) => {
