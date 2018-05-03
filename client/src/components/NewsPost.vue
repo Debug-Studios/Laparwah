@@ -41,7 +41,7 @@
                   img(src='/icons/twitter.svg')
 
       v-flex.comments
-        vue-disqus(shortname="laparwah" :identifier="disqus_id" :url="disqus_url")
+        vue-disqus(shortname="laparwah" :identifier="disqus_id" :url="disqus_url" :title="news.title")
 
 </template>
 
