@@ -34,7 +34,12 @@ app.use(
   history({
     index: '/',
     rewrites: [
-      { from: '/dashboard', to: '/dashboard' },
+      {
+        from: /^\/dashboard\/.*$/,
+        to: function (context) {
+          return context.parsedUrl.pathname;
+        }
+      },
       {
         from: /^\/auth\/.*$/,
         to: function (context) {
