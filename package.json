@@ -9,14 +9,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --watch --config client/build/webpack.config.dev.js",
-    "start":
-      "webpack -p --config client/build/webpack.config.prod.js && node server/server.js"
+    "start": "webpack -p --config client/build/webpack.config.prod.js && node server/server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Debug-Studios/Laparwah.git"
   },
-  "keywords": ["News"],
+  "keywords": [
+    "News"
+  ],
   "author": "Prajjwal",
   "license": "Apache-2.0",
   "bugs": {
@@ -47,6 +48,7 @@
     "passport-twitter": "^1.0.4",
     "showdown": "^1.8.6",
     "stocks.js": "0.0.17",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "vee-validate": "^2.0.8",
     "vue": "^2.5.16",
     "vue-axios": "^2.1.1",

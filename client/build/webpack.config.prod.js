@@ -1,6 +1,7 @@
 'use strict';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -82,6 +83,7 @@ module.exports = {
       template: 'client/dashboard.html',
       chunks: ['dashboard'],
       inject: true
-    })
+    }),
+    new UglifyJSPlugin()
   ]
 };
