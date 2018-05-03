@@ -30,7 +30,19 @@ app.set('views', path.join(__dirname, '../client'));
 app.use(morgan('tiny'));
 
 // Connect History
-app.use(history({ index: '/' }));
+app.use(
+  history({
+    index: '/',
+    rewrites: [
+      { from: '/dashboard', to: '/dashboard' },
+      { from: '/auth/google', to: '/auth/google' },
+      { from: '/auth/facebook', to: '/auth/facebook' },
+      { from: '/auth/twitter', to: '/auth/twitter' },
+      { from: '/auth/microsoft', to: '/auth/microsoft' }
+    ],
+    verbose: true
+  })
+);
 
 // Use Body-Parser
 app.use(bodyParser.json());
