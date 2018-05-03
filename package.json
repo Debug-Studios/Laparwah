@@ -9,15 +9,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --watch --config client/build/webpack.config.dev.js",
-    "start": "webpack -p --config client/build/webpack.config.prod.js && node server/server.js"
+    "start": " node server/server.js",
+    "heroku-postbuild":
+      "webpack -p --config client/build/webpack.config.prod.js --progress"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Debug-Studios/Laparwah.git"
   },
-  "keywords": [
-    "News"
-  ],
+  "keywords": ["News"],
   "author": "Prajjwal",
   "license": "Apache-2.0",
   "bugs": {
