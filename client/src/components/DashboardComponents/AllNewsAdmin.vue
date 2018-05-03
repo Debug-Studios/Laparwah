@@ -16,7 +16,7 @@
                         v-flex(xs12)
                             p(name='show_content' label='Content') {{news.content}}
                         v-flex(xs6)
-                            h3(label='Applied Tags' name='applied_tags') Applied Tags: {{news.tags}}
+                            h3(label='Applied Tags' name='applied_tags') Applied Tags: {{news.tags.toString()}}
                     v-card-actions
                         v-spacer
                         v-btn( color='success' @click.native='editNews(news._id)' ) Edit

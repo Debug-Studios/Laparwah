@@ -22,6 +22,13 @@
                     v-select(required :items='items' label='Select Category' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')")
                 v-flex(xs12)
                     v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image' v-validate="'required'" :error-messages="errors.collect('heroImage')")
+                v-flex(xs8)
+                  v-tooltip(bottom)
+                    v-text-field(required slot='activator' label='Add Url' v-model='url' name='add_url' v-validate="'required'" :error-messages="errors.collect('url')")
+                    span Url should be in English only!
+                v-spacer
+                v-flex(xs3)
+                  v-btn(flat @click='checkAvailability') Check Availability
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click='sendPost' :loading="loading" :disabled="loading" ) Add
@@ -41,6 +48,7 @@ export default {
     tags: [],
     heroImage: "",
     url: "",
+    generated_url: '',
     loading: false,
     items: [
       { text: "Politics" },
@@ -55,6 +63,7 @@ export default {
     ],
     tag: [{ text: "Breaking News" }, { text: "Spotlight" }, { text: "Live" }]
   }),
+
 
   methods: {
     sendPost() {
@@ -93,14 +102,10 @@ export default {
     },
 
     createUrl() {
-      let urltitle = this.title;
-      urltitle = urltitle
-        .toLowerCase()
-        .split(" ")
-        .join("-");
+       this.url = this.url.toLowerCase().split(" ").join("-");
       let date = new Date();
       this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear() +
-        1}-${this.category.text.toLowerCase()}-${urltitle}`;
+        1}-${this.category.text.toLowerCase()}-${this.url}`;
     },
 
     clear(){
@@ -110,11 +115,15 @@ export default {
       this.main_tag= '';
       this.tags= '';
       this.heroImage= '';
+      this.url= '';
       this.$validator.reset();
       },
       remove (item) {
         this.tags.splice(this.tags.indexOf(item), 1);
         this.tags = [...this.tags];
+      },
+      checkAvailability(){
+        this.axios.post('/dashboard/')
       }
   }
 };

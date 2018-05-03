@@ -8,24 +8,25 @@
                     v-flex(xs5 align-center justify-space-between)
                         v-text-field(label="Title" name='add_title' v-model='title')
                     v-spacer
-                    v-flex(xs3 align-center justify-space-between)
-                        v-text-field(label="Applied Tag" name='added_tag' v-model='applied_tag')
-                    v-spacer
                     v-flex(xs3)
-                        v-select(:items='tag' label='Apply Tag' v-model='main_tag' name='add_tag' input-type='text')
+                        v-select(required :items='tag' label='Apply Tag' v-model='main_tag' name='add_tag' input-type='text')
+                    v-spacer
+                    v-flex(xs3 align-center justify-space-between)
+                        span
+                            h3 Applied Tag: {{applied_tag}}
                     v-flex(xs12)
                         v-text-field(name='add_content' v-model='content' label='Content' textarea dark)
                     v-flex(xs5)
                         template
-                            v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='')
+                            v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags'  input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='')
                                 template(slot='selection' slot-scope='data')
                                     v-chip(close @input='remove(data.item)' :selected='data.selected') {{data.item}}
                     v-spacer
-                    v-flex(xs3 align-center justify-space-between)
-                        v-text-field(label="Applied Category" name='added_category' v-model='applied_category')
-                    v-spacer
                     v-flex(xs3)
-                        v-select(:items='items' label='Select Category' v-model='category' name='add_category' input-type='text')
+                        v-select(required :items='items' label='Select Category' v-model='category' name='add_category' input-type='text')
+                    v-spacer
+                    v-flex(xs3 align-center justify-space-between)
+                        h3 Applied Category: {{applied_category}}
                     v-flex(xs12)
                         v-text-field(label='Added Image Link' v-model='heroImage' name='add_image')
                 v-card-actions
