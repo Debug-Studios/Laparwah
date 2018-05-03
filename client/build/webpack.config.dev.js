@@ -1,6 +1,7 @@
 'use strict';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -86,6 +87,8 @@ module.exports = {
       template: 'client/dashboard.html',
       chunks: ['dashboard'],
       inject: true
-    })
+    }),
+    new CopyWebpackPlugin([{ from: 'client/src/icons', to: 'icons' }]),
+    new CopyWebpackPlugin([{ from: 'client/src/fonts', to: 'fonts' }])
   ]
 };
