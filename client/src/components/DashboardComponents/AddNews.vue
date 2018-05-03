@@ -24,11 +24,14 @@
                     v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image' v-validate="'required'" :error-messages="errors.collect('heroImage')")
                 v-flex(xs8)
                   v-tooltip(bottom)
-                    v-text-field(required slot='activator' label='Add Url' v-model='url' name='add_url' v-validate="'required'" :error-messages="errors.collect('url')")
+                    v-text-field(required slot='activator' label='Add Url' v-model='url' name='add_url' v-validate="'required'" :error-messages="errors.collect('url')" :append-icon='icon')
                     span Url should be in English only!
                 v-spacer
                 v-flex(xs3)
-                  v-btn(flat @click='checkAvailability') Check Availability
+                  v-btn(flat :loading='checkLoading' @click='checkAvailability') Check Availability
+                v-flex(xs8)
+                  v-alert(type='success' :value='available' transition="scale-transition") Url is Available
+                    v-alert(type='error' :value='notAvailable' transition="scale-transition") Url is not Available
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click='sendPost' :loading="loading" :disabled="loading" ) Add
@@ -41,6 +44,7 @@ export default {
   },
   data: () => ({
     _id: "",
+    icon: "",
     title: "",
     category: [],
     content: "",
@@ -50,6 +54,10 @@ export default {
     url: "",
     generated_url: '',
     loading: false,
+    checkLoading: false,
+    isUrlUnique: false,
+    available:false,
+    notAvailable:false,
     items: [
       { text: "Politics" },
       { text: "Money" },
@@ -68,9 +76,10 @@ export default {
   methods: {
     sendPost() {
       this.loading = true;
+      this.checkAvailability();
       this.$validator.validateAll();
-      this.createUrl();
-      this.axios.post("/dashboard/createNewsPost", {
+      if(this.isUrlUnique){
+        this.axios.post("/dashboard/createNewsPost", {
           _id: this._id,
           title: this.title,
           content: this.content,
@@ -99,13 +108,18 @@ export default {
           });
           this.loading = false;
         });
+      }
+      else{
+        this.notAvailable = true;
+      }
     },
 
     createUrl() {
-       this.url = this.url.toLowerCase().split(" ").join("-");
+      this.url = this.url.toLowerCase().split(" ").join("-");
       let date = new Date();
       this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear() +
         1}-${this.category.text.toLowerCase()}-${this.url}`;
+      this.checkAvailability();
     },
 
     clear(){
@@ -123,7 +137,25 @@ export default {
         this.tags = [...this.tags];
       },
       checkAvailability(){
-        this.axios.post('/dashboard/')
+        this.createUrl();
+        this.checkLoading = true;
+        this.axios.post('/dashboard/isNewsUrlUnique',{
+          url: this.url
+        }).then(response => {
+          console.log(response);
+          this.isUrlUnique = response.data;
+          if(this.isUrlUnique){
+            this.icon= "check_circle";
+            this.available = true;
+          }
+          else{
+            this.icon= "do_not_disturb";
+            this.notAvailable= true;
+          }
+          this.checkLoading =false;
+        }).catch(error => {
+          this.checkLoading = false;
+        })
       }
   }
 };
