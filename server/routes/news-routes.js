@@ -38,6 +38,7 @@ router.get('/getBreaking/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -58,6 +59,7 @@ router.get('/getSpotlights/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -78,6 +80,7 @@ router.get('/getPolitics/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -97,6 +100,7 @@ router.get('/getMoney/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -116,6 +120,7 @@ router.get('/getEntertainment/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -135,6 +140,7 @@ router.get('/getTech/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -154,6 +160,7 @@ router.get('/getSports/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -173,6 +180,7 @@ router.get('/getTravel/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -192,6 +200,7 @@ router.get('/getHealth/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
@@ -211,6 +220,7 @@ router.get('/getCulture/:count', (req, res) => {
     .or([
       { 'approval.mod1': true },
       { 'approval.mod2': true },
+      { 'approval.mod3': true },
       { 'approval.admin': true }
     ])
     .limit(parseInt(req.params.count))
