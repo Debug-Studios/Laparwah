@@ -119,7 +119,7 @@ export default {
       this.axios.get("/news/getBreaking/3").then(response => {
         this.breakingNews = response.data;
         this.breakingNews.forEach(news => {
-          news.title = truncate(news.title, { length: 100 });
+          news.title = truncate(news.title, { length: 80 });
         });
       });
     },
