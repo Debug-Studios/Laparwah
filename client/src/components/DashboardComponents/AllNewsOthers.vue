@@ -1,5 +1,7 @@
 <template lang="pug">
   #allnewsothers
+    .text-xs-center.pageNumber
+        v-pagination(:length='length' v-model='page' circle)
     transition-group(name="fade" tag="div")
         v-card(v-for='(news, index) in allnewsothers' :key='news._id')
             v-card-title.blue-grey.darken-2.py-4.title
@@ -19,17 +21,20 @@
                     v-spacer
                     v-btn( color='success' @click.native='editNews(news._id)' ) Edit
                     v-btn( @click='deletePost(news._id)' ) Delete
+    .text-xs-center.pageNumber
+        v-pagination(:length='length' v-model='page' circle)
 </template>
 <script>
 export default {
     data: ()=>({
         allnewsothers: [],
+        page:1,
+        length:1
 
     }),
-    mounted(){
-        this.axios.get(`/dashboard/ownNewsPosts/1`).then(response =>{
-            this.allnewsothers = response.data;
-        });
+   async mounted(){
+        this.allnewsothers = (await this.axios.get(`/dashboard/ownNewsPosts/1`)).data;
+        this.length = Math.ceil(parseInt((await this.axios.get('/dashboard/ownNewsPostsCount')).data.newsCount)/10);
     },
     methods: {
         editNews(id){
@@ -63,9 +68,12 @@ export default {
 }
 </script>
 <style scoped>
-p {
-    text-align: justify;
-}
+    #allnewsothers  p {
+        text-align: justify;
+    }
+    .pageNumber{
+        padding: 1rem;
+    }
 </style>
 
 
