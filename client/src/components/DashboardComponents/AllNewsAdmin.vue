@@ -1,35 +1,40 @@
 <template lang="pug">
-  #allnews
-    transition-group(name="fade" tag="div")
-        v-card(v-for='(news, index) in allnews' :key='news._id')
-            v-card-title.blue-grey.darken-2.py-4.title
-                | {{news.title}}
-            v-container.pa-4(grid-list-sm )
-                v-layout(row wrap)
-                    v-flex(xs6)
-                    h3( label='Category' name='category' ) Category: {{news.category}}
-                    v-spacer
-                    v-flex(xs3)
-                        h3(name='tag') Tag: {{news.main_tag}}
-                    v-flex(xs12)
-                        p(name='show_content' label='Content') {{news.content}}
-                    v-flex(xs6)
-                        h3(label='Applied Tags' name='applied_tags') Applied Tags: {{news.tags}}
-                v-card-actions
-                    v-spacer
-                    v-btn( color='success' @click.native='editNews(news._id)' ) Edit
-                    v-btn( @click='deletePost(news._id)' ) Delete
+    #allnews
+        .text-xs-center.pageNumber
+            v-pagination(:length='length' v-model='page' circle)
+        transition-group(name="fade" tag="div")
+            v-card(v-for='(news, index) in allnews' :key='news._id')
+                v-card-title.blue-grey.darken-2.py-4.title
+                    | {{news.title}}
+                v-container.pa-4(grid-list-sm )
+                    v-layout(row wrap)
+                        v-flex(xs6)
+                        h3( label='Category' name='category' ) Category: {{news.category}}
+                        v-spacer
+                        v-flex(xs3)
+                            h3(name='tag') Tag: {{news.main_tag}}
+                        v-flex(xs12)
+                            p(name='show_content' label='Content') {{news.content}}
+                        v-flex(xs6)
+                            h3(label='Applied Tags' name='applied_tags') Applied Tags: {{news.tags}}
+                    v-card-actions
+                        v-spacer
+                        v-btn( color='success' @click.native='editNews(news._id)' ) Edit
+                        v-btn( @click='deletePost(news._id)' ) Delete
+        .text-xs-center.pageNumber
+            v-pagination(:length='length' v-model='page' circle)
 </template>
 <script>
 export default {
     data: ()=>({
         allnews: [],
+        page: 1,
+        length:1
 
     }),
-    mounted(){
-        this.axios.get(`/dashboard/allNewsPosts/1`).then(response =>{
-            this.allnews = response.data;
-        });
+  async  mounted(){
+        this.allnews = (await this.axios.get(`/dashboard/allNewsPosts/${this.page}`)).data;
+        this.length = Math.ceil(parseInt((await this.axios.get('/dashboard/allNewsPostsCount')).data.newsCount)/10);
     },
     methods: {
         editNews(id){
@@ -63,9 +68,12 @@ export default {
 }
 </script>
 <style scoped>
-p {
-    text-align: justify;
-}
+    #allnews p {
+        text-align: justify;
+    }
+    .pageNumber{
+        padding: 1rem;
+    }
 </style>
 
 

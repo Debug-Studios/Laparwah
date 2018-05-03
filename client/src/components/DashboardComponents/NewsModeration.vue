@@ -1,5 +1,7 @@
 <template lang="pug">
   v-container(grid.list-md)
+    .text-xs-center.pageNumber
+      v-pagination(:length='length' v-model='page' circle)
     v-layout(row wrap)
       v-flex(xs6)
         transition-group(name="fade" tag="div" v-if="allNews")
@@ -24,6 +26,8 @@
                   v-btn(:loading="loadingReject"  :disabled="loadingReject" @click.native='updateNewsStatus(news._id, false)' color='error' )
                     v-icon.mr-2 remove_circle
                     | Reject
+    .text-xs-center.pageNumber
+      v-pagination(:length='length' v-model='page' circle)
 
 </template>
 
@@ -34,7 +38,9 @@ export default {
       user: {},
       allNews: [],
       loadingApproved: false,
-      loadingReject: false
+      loadingReject: false,
+      page:1,
+      length: 1
     };
   },
   methods: {
@@ -87,6 +93,7 @@ export default {
       type: "info",
       duration: 30000
     });
+    this.length = Math.ceil(parseInt((await this.axios.get('/dashboard/moderationQueueAdminCount')).data.newsCount)/10);
     this.user = (await this.axios.get("/accounts/getCurrentUser")).data.user;
     if (this.user.roles.includes("admin")) {
       this.allNews = (await this.axios.get(
@@ -100,4 +107,11 @@ export default {
   }
 };
 </script>
+<style scoped> 
+    .pageNumber{
+      padding: 1rem;
+    }
+</style>
+
+
 

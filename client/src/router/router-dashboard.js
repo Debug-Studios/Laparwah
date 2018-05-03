@@ -4,7 +4,6 @@ import Router from 'vue-router';
 import AddNews from './../components/DashboardComponents/AddNews.vue';
 import AllNewsOthers from './../components/DashboardComponents/AllNewsOthers.vue';
 import AddUser from './../components/DashboardComponents/AddUser.vue';
-import DeleteUser from './../components/DashboardComponents/DeleteUser.vue';
 import UserProfile from './../components/DashboardComponents/UserProfile.vue';
 import EditNews from './../components/DashboardComponents/EditNews.vue';
 import NewsModeration from './../components/DashboardComponents/NewsModeration.vue';
@@ -47,11 +46,6 @@ const router = new Router({
       path: '/allusers',
       name: 'allusers',
       component: AllUsers
-    },
-    {
-      path: '/deleteusers',
-      name: 'deleteusers',
-      component: DeleteUser
     },
     {
       path: '/edituser/:id',

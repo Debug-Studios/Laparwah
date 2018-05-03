@@ -1,5 +1,7 @@
 <template lang="pug">
     #allusers
+        .text-xs-center.pageNumber
+            v-pagination(:length='length' v-model='page' circle)
         v-container(fluid grid-list-sm)
             v-layout(row wrap)
                 v-flex(xs4 v-for='(user, index) in allusers' :key='user._id')
@@ -18,18 +20,20 @@
                             v-spacer
                             v-btn(@click='editUser(user._id)' color='success' flat ) Edit
                             v-btn(@click='deleteUser(user._id)' color='error' flat ) Remove User
+        .text-xs-center.pageNumber
+            v-pagination(:length='length' v-model='page' circle)
 
 </template>
 <script>
 export default {
     data: () => ({
-        allusers: []
+        allusers: [],
+        page: 1,
+        length:1
     }),
-    mounted(){
-        this.axios.get(`/dashboard/allAccounts/1`).then(response => {
-            this.allusers = response.data;
-
-        });
+   async mounted(){
+        this.allusers = (await this.axios.get(`/dashboard/allAccounts/${this.page}`)).data;
+        this.length = Math.ceil(parseInt((await this.axios.get('/dashboard/allAccountsCount')).data.userCount)/10);
     },
     methods:{
         deleteUser(id){
@@ -64,6 +68,9 @@ export default {
 <style scoped>
     #media{
         padding: 15px;
+    }
+    .pageNumber{
+        padding: 1rem;
     }
 </style>
 

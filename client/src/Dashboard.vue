@@ -78,7 +78,7 @@
 
     v-content
       v-container(fluid)
-        router-view
+        router-view.pa-2
 </template>
 
 <script>
