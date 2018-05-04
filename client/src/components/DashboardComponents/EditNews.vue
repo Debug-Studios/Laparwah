@@ -29,6 +29,8 @@
                         h3 Applied Category: {{applied_category}}
                     v-flex(xs12)
                         v-text-field(label='Added Image Link' v-model='heroImage' name='add_image')
+                    v-flex(xs12)
+                        v-text-field(label='News Url' v-model='url' name='add_image' disabled)
                 v-card-actions
                     v-spacer
                     v-btn( color='success' @click='savePost'  :loading="loading" :disabled="loading" ) Save
@@ -48,6 +50,7 @@ export default {
         tags:[],
         heroImage:'',
         loading: false,
+        url:'',
         items: [
             { text: "Politics" },
             { text: "Money" },
@@ -70,6 +73,7 @@ export default {
              this.applied_tag = this.news.main_tag;
              this.tags = this.news.tags;
              this.heroImage = this.news.heroImage;
+             this.url = this.news.url;
     },
     methods: {
         savePost(){
@@ -88,6 +92,7 @@ export default {
                     type: "success",
                     duration: 30000
                     });
+                    this.clear();
                     this.loading = false;
                 }).catch(error => {
                     this.$notify({
@@ -105,6 +110,14 @@ export default {
         remove (item) {
         this.tags.splice(this.tags.indexOf(item), 1);
         this.tags = [...this.tags];
+      },
+      clear(){
+      this.title = '';
+      this.category= [];
+      this.content= '';
+      this.main_tag= [];
+      this.tags= [];
+      this.heroImage= '';
       }
     }
 }
