@@ -5,7 +5,7 @@
         v-snackbar(:timeout="10000" :color="props.item.type" :value="true" bottom left) {{props.item.title}}
 
     v-navigation-drawer(app v-model='drawer')
-      v-toolbar(flat :color="roleColor")
+      v-toolbar(flat :style="{'background-image': roleColor}")
         v-list
           v-list-tile
             v-list-tile-title.title.text-xs-center {{role}}
@@ -93,7 +93,7 @@ export default {
     isEditor: false,
     isWriter: false,
     user: {},
-    id: '',
+    id: "",
     role: "USER",
     roleColor: "black"
   }),
@@ -109,11 +109,15 @@ export default {
     addNewsCard() {
       window.location.href = `${window.location.origin}/dashboard#/addnews`;
     },
-    allNews(){
-        window.location.href = `${window.location.origin}/dashboard#/allnewsadmin`;
+    allNews() {
+      window.location.href = `${
+        window.location.origin
+      }/dashboard#/allnewsadmin`;
     },
-    ownNews(){
-        window.location.href = `${window.location.origin}/dashboard#/allnewsothers`;
+    ownNews() {
+      window.location.href = `${
+        window.location.origin
+      }/dashboard#/allnewsothers`;
     },
     addUser() {
       window.location.href = `${window.location.origin}/dashboard#/adduser`;
@@ -142,13 +146,16 @@ export default {
         this.id = response.data.user.id;
         if (this.isAdmin) {
           this.role = "ADMIN  (★★★)";
-          this.roleColor = "red lighten-2";
+          this.roleColor =
+            "linear-gradient( 135deg, #F05F57 10%, #360940 100%)";
         } else if (this.isEditor) {
           this.role = "EDITOR  (★★)";
-          this.roleColor = "blue lighten-2";
+          this.roleColor =
+            "linear-gradient( 135deg, #97ABFF 10%, #123597 100%)";
         } else if (this.isWriter) {
           this.role = "WRITER  (★)";
-          this.roleColor = "green lighten-2";
+          this.roleColor =
+            "linear-gradient( 135deg, #81FBB8 10%, #28C76F 100%)";
         }
       }
     });
