@@ -60,15 +60,13 @@
           a(href='/auth/google')
             v-avatar(size='32')
               img(src='/icons/google.svg')
-          a(href='/auth/facebook')
-            v-avatar(size='32')
-              img(src='/icons/facebook.svg')
+          v-avatar(size='32' disabled)
+            img(src='/icons/facebook.svg')
           a(href='/auth/twitter')
             v-avatar(size='32')
               img(src='/icons/twitter.svg')
-          a(href='/auth/microsoft')
-            v-avatar(size='32')
-              img(src='/icons/windows.svg')
+          v-avatar(size='32' disabled)
+            img(src='/icons/windows.svg')
 
 
 </template>
