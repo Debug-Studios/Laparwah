@@ -71,7 +71,7 @@ require('./models/news');
 require('./config/passport-setup');
 
 // Serve static files from dist
-app.use(express.static('dist'));
+app.use(express.static('dist', { etag: true }));
 
 app.use(
   cookieSession({
