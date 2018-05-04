@@ -39,7 +39,7 @@ export default {
       allNews: [],
       loadingApproved: false,
       loadingReject: false,
-      page:1,
+      page: 1,
       length: 1
     };
   },
@@ -93,24 +93,36 @@ export default {
       type: "info",
       duration: 30000
     });
-    this.length = Math.ceil(parseInt((await this.axios.get('/dashboard/moderationQueueAdminCount')).data.newsCount)/10);
+
     this.user = (await this.axios.get("/accounts/getCurrentUser")).data.user;
     if (this.user.roles.includes("admin")) {
       this.allNews = (await this.axios.get(
         `/dashboard/moderationQueueAdmin/1/`
       )).data;
+      this.length = Math.ceil(
+        parseInt(
+          (await this.axios.get("/dashboard/moderationQueueAdminCount")).data
+            .newsCount
+        ) / 10
+      );
     } else if (this.user.roles.includes("editor")) {
       this.allNews = (await this.axios.get(
         `/dashboard/moderationQueueEditor/1/${this.user.special_role}`
       )).data;
+      this.length = Math.ceil(
+        parseInt(
+          (await this.axios.get("/dashboard/moderationQueueEditorCount")).data
+            .newsCount
+        ) / 10
+      );
     }
   }
 };
 </script>
-<style scoped> 
-    .pageNumber{
-      padding: 1rem;
-    }
+<style scoped>
+.pageNumber {
+  padding: 1rem;
+}
 </style>
 
 

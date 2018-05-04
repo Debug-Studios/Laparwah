@@ -318,11 +318,12 @@ router.get('/moderationQueueAdmin/:page', IsAdmin, (req, res) => {
 });
 
 router.get('/moderationQueueAdminCount', IsAdmin, (req, res) => {
-  News.and([
-    { 'approval.done.mod1': true },
-    { 'approval.done.mod2': true },
-    { 'approval.done.mod3': true }
-  ])
+  News.find({})
+    .and([
+      { 'approval.done.mod1': true },
+      { 'approval.done.mod2': true },
+      { 'approval.done.mod3': true }
+    ])
     .and([
       { 'approval.mod1': false },
       { 'approval.mod2': false },
