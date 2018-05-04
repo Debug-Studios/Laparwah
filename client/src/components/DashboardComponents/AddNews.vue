@@ -1,43 +1,51 @@
 <template lang="pug">
   #addnews
     v-card
-        v-card-title.blue-grey.darken-2.py-4.title
+        v-card-title.grey.darken-4.py-4.title
             | Add News
-        v-container.pa-4(grid-list-sm )
-            v-layout(row wrap)
-                v-flex(xs6 align-center justify-space-between)
-                     v-text-field(required label="Add Title" name='add_title' v-model='title' v-validate="'required'" :error-messages="errors.collect('title')" data-vv-name="title")
-                v-spacer
-                v-flex(xs3)
-                    v-select(required :items='tag' label='Select Main Tag' v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')" data-vv-name="main_tag")
-                v-flex(xs12)
-                    v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')" data-vv-name="content")
-                v-flex(xs8)
-                  template
-                    v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='' data-vv-name="tags")
-                      template(slot='selection' slot-scope='data')
-                        v-chip(close @input='remove(data.item)' :selected='data.selected') {{data.item}}
-                v-spacer
-                v-flex(xs3)
-                    v-select(required :items='items' label='Select Category' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" data-vv-name="category")
-                v-flex(xs12)
-                    v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image' v-validate="'required'" :error-messages="errors.collect('heroImage')" data-vv-name="heroImage")
-                v-flex(xs8)
-                  v-tooltip(bottom)
-                    v-text-field(required slot='activator' label='Add Url' v-model='url' name='add_url' v-validate="'required'" :error-messages="errors.collect('url')" :append-icon='icon' data-vv-name="url")
-                    span Url should be in English only!
-                  v-flex(xs4)
-                    v-alert(type='success' v-show='isUrlUnique == true' transition='scale-transition') Url is Available!
-                    v-alert(type='error' v-show='isUrlUnique == false' transition='scale-transition') Url is not Available!
-                    v-alert(type='error' v-show='selectCategory == true' transition='scale-transition') Please Select a Category!
+        v-tabs(v-model="active" color="grey darken-4" dark slider-color="yellow")
+          v-tab(ripple) Write News
+          v-tab-item
+            v-container.pa-4(grid-list-sm )
+                v-layout(row wrap)
+                    v-flex(xs6 align-center justify-space-between)
+                        v-text-field(required label="Add Title" name='add_title' v-model='title' v-validate="'required'" :error-messages="errors.collect('title')" data-vv-name="title")
+                    v-spacer
+                    v-flex(xs3)
+                        v-select(required :items='tag'  v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')" data-vv-name="main_tag")
+                    v-flex(xs12)
+                        v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')" data-vv-name="content")
+                    v-flex(xs8)
+                      template
+                        v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='' data-vv-name="tags")
+                          template(slot='selection' slot-scope='data')
+                            v-chip(close @input='remove(data.item)' :selected='data.selected') {{data.item}}
+                    v-spacer
+                    v-flex(xs3)
+                        v-select(required :items='items' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" data-vv-name="category")
+                    v-flex(xs12)
+                        v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image' v-validate="'required'" :error-messages="errors.collect('heroImage')" data-vv-name="heroImage")
+                    v-flex(xs8)
+                      v-tooltip(bottom)
+                        v-text-field(required slot='activator' label='Add Url' v-model='url' name='add_url' v-validate="'required'" :error-messages="errors.collect('url')" :append-icon='icon' data-vv-name="url")
+                        span Url should be in English only!
+                      v-flex(xs4)
+                        v-alert(type='success' v-show='isUrlUnique == true' transition='scale-transition') Url is Available!
+                        v-alert(type='error' v-show='isUrlUnique == false' transition='scale-transition') Url is not Available!
+                        v-alert(type='error' v-show='selectCategory == true' transition='scale-transition') Please Select a Category!
 
-                v-spacer
-                v-flex(xs3)
-                  v-btn(:loading='checkLoading' @click='checkAvailability') Check Availability
-            v-card-actions
-                v-spacer
-                v-btn( color='success' @click='sendPost' :loading="loading" :disabled="loading" ) Add
-                v-btn( @click='clear') Reset
+                    v-spacer
+                    v-flex(xs3)
+                      v-btn(:loading='checkLoading' @click='checkAvailability') Check Availability
+                v-card-actions
+                    v-spacer
+                    v-btn( color='success' @click='sendPost' :loading="loading" :disabled="loading" ) Add
+                    v-btn( @click='clear') Reset
+
+          v-tab(ripple) Preview
+          v-tab-item
+            v-container
+              p Hi!!
 </template>
 <script>
 export default {
@@ -48,9 +56,9 @@ export default {
     _id: "",
     icon: "",
     title: "",
-    category: [],
+    category: "Politics",
     content: "",
-    main_tag: [],
+    main_tag: 'Spotlight',
     tags: [],
     heroImage: "",
     url: "",
@@ -59,6 +67,7 @@ export default {
     checkLoading: false,
     isUrlUnique: false,
     selectCategory: false,
+    active: null,
     items: [
       { text: "Politics" },
       { text: "Money" },
@@ -70,7 +79,7 @@ export default {
       { text: "Health" },
       { text: "Video" }
     ],
-    tag: [{ text: "Breaking News" }, { text: "Spotlight" }, { text: "Live" }]
+    tag: [{ text: "Spotlight" }, { text: "Breaking News" }, { text: "Live" }, {text: "Others"}]
   }),
 
 
