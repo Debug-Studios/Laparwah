@@ -28,10 +28,7 @@
                     span Url should be in English only!
                 v-spacer
                 v-flex(xs3)
-                  v-btn(flat :loading='checkLoading' @click='checkAvailability') Check Availability
-                v-flex(xs8)
-                  v-alert(type='success' :value='available' transition="scale-transition") Url is Available
-                    v-alert(type='error' :value='notAvailable' transition="scale-transition") Url is not Available
+                  v-btn(:loading='checkLoading' @click='checkAvailability') Check Availability
             v-card-actions
                 v-spacer
                 v-btn( color='success' @click='sendPost' :loading="loading" :disabled="loading" ) Add
@@ -56,8 +53,6 @@ export default {
     loading: false,
     checkLoading: false,
     isUrlUnique: false,
-    available:false,
-    notAvailable:false,
     items: [
       { text: "Politics" },
       { text: "Money" },
@@ -110,7 +105,7 @@ export default {
         });
       }
       else{
-        this.notAvailable = true;
+        console.log("Cannot Add");
       }
     },
 
@@ -119,7 +114,6 @@ export default {
       let date = new Date();
       this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear() +
         1}-${this.category.text.toLowerCase()}-${this.url}`;
-      this.checkAvailability();
     },
 
     clear(){
@@ -146,11 +140,9 @@ export default {
           this.isUrlUnique = response.data;
           if(this.isUrlUnique){
             this.icon= "check_circle";
-            this.available = true;
           }
           else{
             this.icon= "do_not_disturb";
-            this.notAvailable= true;
           }
           this.checkLoading =false;
         }).catch(error => {

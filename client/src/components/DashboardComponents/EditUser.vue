@@ -51,22 +51,22 @@ export default {
       saveProfile(){
             if(this.isAdmin){
                 this.modifiedRoles = "user editor writer admin";
-            };
-
-            if(this.isEditor){
+            }
+            else if(this.isEditor){
                 this.modifiedRoles = "user editor writer";
-            };
-
-            if(this.isWriter){
+            }
+            else if(this.isWriter){
                 this.modifiedRoles = "user writer";
-            };
+            }
+            else{
+                this.modifiedRoles = "user";
+            }
 
             this.axios.post(`/dashboard/editAccount/${this.$route.params.id}`,{
 
                 roles: this.modifiedRoles
 
             }).then(response => {
-                console.log(response);
                 this.$notify({
                 group: "dashboard",
                 title: "Roles Updated!",
@@ -74,7 +74,6 @@ export default {
                 duration: 30000
                 });
             }).catch(error => {
-                console.log(error);
                 this.$notify({
                 group: "dashboard",
                 title: "Failed to Update!",
