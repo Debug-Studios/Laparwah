@@ -26,6 +26,11 @@
                   v-tooltip(bottom)
                     v-text-field(required slot='activator' label='Add Url' v-model='url' name='add_url' v-validate="'required'" :error-messages="errors.collect('url')" :append-icon='icon' data-vv-name="url")
                     span Url should be in English only!
+                  v-flex(xs4)
+                    v-alert(type='success' v-show='isUrlUnique == true' transition='scale-transition') Url is Available!
+                    v-alert(type='error' v-show='isUrlUnique == false' transition='scale-transition') Url is not Available!
+                    v-alert(type='error' v-show='selectCategory == true' transition='scale-transition') Please Select a Category!
+
                 v-spacer
                 v-flex(xs3)
                   v-btn(:loading='checkLoading' @click='checkAvailability') Check Availability
@@ -53,6 +58,7 @@ export default {
     loading: false,
     checkLoading: false,
     isUrlUnique: false,
+    selectCategory: false,
     items: [
       { text: "Politics" },
       { text: "Money" },
@@ -114,8 +120,13 @@ export default {
     createUrl() {
       this.url = this.url.toLowerCase().split(" ").join("-");
       let date = new Date();
-      this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear() +
+      if (this.category.text != null){
+        this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear() +
         1}-${this.category.text.toLowerCase()}-${this.url}`;
+      }else{
+        this.selectCategory = true;
+        this.checkLoading = false;
+      }
     },
 
     clear(){
@@ -135,21 +146,28 @@ export default {
       checkAvailability(){
         this.createUrl();
         this.checkLoading = true;
-        this.axios.post('/dashboard/isNewsUrlUnique',{
+        if (this.category.text != null){
+          this.axios.post('/dashboard/isNewsUrlUnique',{
           url: this.url
-        }).then(response => {
-          this.isUrlUnique = response.data;
-          if(this.isUrlUnique){
-            this.icon= "check_circle";
-          }
-          else{
-            this.icon= "do_not_disturb";
-          }
-          this.checkLoading =false;
-        }).catch(error => {
-          alert("Cannot Check at this time!");
+          }).then(response => {
+            console.log(response);
+            this.isUrlUnique = response.data;
+            if(this.isUrlUnique){
+              this.icon= "check_circle";
+            }
+            else{
+              this.icon= "do_not_disturb";
+            }
+            this.checkLoading =false;
+          }).catch(error => {
+            alert("Cannot Check at this time!");
+            this.checkLoading = false;
+          })
+        }
+        else{
+          this.selectCategory = true;
           this.checkLoading = false;
-        })
+        }
       }
   }
 };
