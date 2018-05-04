@@ -14,7 +14,7 @@
                     v-flex(xs3)
                         v-select(required :items='tag'  v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')" data-vv-name="main_tag")
                     v-flex(xs12)
-                        v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')" data-vv-name="content")
+                        v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')" data-vv-name="content" v-on:keyup="parseMarkdown")
                     v-flex(xs8)
                       template
                         v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='' data-vv-name="tags")
@@ -44,12 +44,14 @@
 
           v-tab(ripple) Preview
           v-tab-item
-            v-container
-              p Hi!!
+            v-container(v-html="htmlContent")
+
 </template>
 <script>
+import showdown from "showdown";
+
 export default {
-   $_veeValidate: {
+  $_veeValidate: {
     validator: "new"
   },
   data: () => ({
@@ -58,11 +60,12 @@ export default {
     title: "",
     category: "Politics",
     content: "",
-    main_tag: 'Spotlight',
+    htmlContent: "",
+    main_tag: "Spotlight",
     tags: [],
     heroImage: "",
     url: "",
-    generated_url: '',
+    generated_url: "",
     loading: false,
     checkLoading: false,
     isUrlUnique: false,
@@ -79,47 +82,51 @@ export default {
       { text: "Health" },
       { text: "Video" }
     ],
-    tag: [{ text: "Spotlight" }, { text: "Breaking News" }, { text: "Live" }, {text: "Others"}]
+    tag: [
+      { text: "Spotlight" },
+      { text: "Breaking News" },
+      { text: "Live" },
+      { text: "Others" }
+    ]
   }),
-
 
   methods: {
     sendPost() {
       this.loading = true;
       this.checkAvailability();
       this.$validator.validateAll();
-      if(this.isUrlUnique){
-        this.axios.post("/dashboard/createNewsPost", {
-          _id: this._id,
-          title: this.title,
-          content: this.content,
-          category: this.category.text,
-          tags: this.tags.toString(),
-          main_tag: this.main_tag.text,
-          heroImage: this.heroImage,
-          url: this.url
-        })
-        .then(response => {
-          this.$notify({
-            group: "dashboard",
-            title: "Your News is added Successfully!",
-            type: "success",
-            duration: 30000
+      if (this.isUrlUnique) {
+        this.axios
+          .post("/dashboard/createNewsPost", {
+            _id: this._id,
+            title: this.title,
+            content: this.content,
+            category: this.category.text,
+            tags: this.tags.toString(),
+            main_tag: this.main_tag.text,
+            heroImage: this.heroImage,
+            url: this.url
+          })
+          .then(response => {
+            this.$notify({
+              group: "dashboard",
+              title: "Your News is added Successfully!",
+              type: "success",
+              duration: 30000
+            });
+            this.clear();
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$notify({
+              group: "dashboard",
+              title: "Unable to add news",
+              type: "error",
+              duration: 30000
+            });
+            this.loading = false;
           });
-          this.clear();
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$notify({
-            group: "dashboard",
-            title: "Unable to add news",
-            type: "error",
-            duration: 30000
-          });
-          this.loading = false;
-        });
-      }
-      else{
+      } else {
         console.log("Cannot Add");
         this.loading = false;
         this.$validator.validateAll();
@@ -127,57 +134,65 @@ export default {
     },
 
     createUrl() {
-      this.url = this.url.toLowerCase().split(" ").join("-");
+      this.url = this.url
+        .toLowerCase()
+        .split(" ")
+        .join("-");
       let date = new Date();
-      if (this.category.text != null){
+      if (this.category.text != null) {
         this.url = `${date.getDate()}-${date.getMonth()}-${date.getFullYear() +
-        1}-${this.category.text.toLowerCase()}-${this.url}`;
-      }else{
+          1}-${this.category.text.toLowerCase()}-${this.url}`;
+      } else {
         this.selectCategory = true;
         this.checkLoading = false;
       }
     },
 
-    clear(){
-      this.title = '';
-      this.category= [];
-      this.content= '';
-      this.main_tag= [];
-      this.tags= [];
-      this.heroImage= '';
-      this.url= '';
+    clear() {
+      this.title = "";
+      this.category = [];
+      this.content = "";
+      this.main_tag = [];
+      this.tags = [];
+      this.heroImage = "";
+      this.url = "";
       this.$validator.reset();
-      },
-      remove (item) {
-        this.tags.splice(this.tags.indexOf(item), 1);
-        this.tags = [...this.tags];
-      },
-      checkAvailability(){
-        this.createUrl();
-        this.checkLoading = true;
-        if (this.category.text != null){
-          this.axios.post('/dashboard/isNewsUrlUnique',{
-          url: this.url
-          }).then(response => {
+    },
+    remove(item) {
+      this.tags.splice(this.tags.indexOf(item), 1);
+      this.tags = [...this.tags];
+    },
+    parseMarkdown() {
+      let converter = new showdown.Converter();
+      this.htmlContent = converter.makeHtml(this.content);
+    },
+    checkAvailability() {
+      this.createUrl();
+      this.checkLoading = true;
+      if (this.category.text != null) {
+        this.axios
+          .post("/dashboard/isNewsUrlUnique", {
+            url: this.url
+          })
+          .then(response => {
             console.log(response);
             this.isUrlUnique = response.data;
-            if(this.isUrlUnique){
-              this.icon= "check_circle";
+            if (this.isUrlUnique) {
+              this.icon = "check_circle";
+            } else {
+              this.icon = "do_not_disturb";
             }
-            else{
-              this.icon= "do_not_disturb";
-            }
-            this.checkLoading =false;
-          }).catch(error => {
-            alert("Cannot Check at this time!");
             this.checkLoading = false;
           })
-        }
-        else{
-          this.selectCategory = true;
-          this.checkLoading = false;
-        }
+          .catch(error => {
+            alert("Cannot Check at this time!");
+            this.checkLoading = false;
+          });
+      } else {
+        this.selectCategory = true;
+        this.checkLoading = false;
       }
+    }
   }
 };
 </script>
