@@ -8,9 +8,11 @@ if (
     path: path.join(__dirname, '/config/credentials/envVariables.env')
   });
 }
-
+const compression = require('compression');
 const express = require('express');
 const app = express();
+app.use(compression());
+const mcache = require('memory-cache');
 const history = require('connect-history-api-fallback');
 
 const bodyParser = require('body-parser');
@@ -69,7 +71,7 @@ require('./models/news');
 require('./config/passport-setup');
 
 // Serve static files from dist
-app.use(express.static('dist'));
+app.use(express.static('dist', { etag: true }));
 
 app.use(
   cookieSession({
@@ -77,6 +79,24 @@ app.use(
     keys: [process.env.CookieKey]
   })
 );
+
+// Memory Caching
+let cache = duration => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url;
+    let cachedBody = mcache.get(key);
+    if (cachedBody) {
+      res.send(cachedBody);
+    } else {
+      res.sendResponse = res.send;
+      res.send = body => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body);
+      };
+      next();
+    }
+  };
+};
 
 // PassportJS Config
 app.use(passport.initialize());
@@ -98,11 +118,11 @@ app.use('/weather', weatherRoutes);
 const dashboardRoutes = require('./routes/dashboard-routes');
 app.use('/dashboard', dashboardRoutes);
 
-app.get('/', (req, res) => {
+app.get('/', cache(10), (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/index.html'));
 });
 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', cache(10), (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/client/dashboard.html'));
 });
 
