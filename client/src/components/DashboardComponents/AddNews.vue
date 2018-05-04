@@ -6,25 +6,25 @@
         v-container.pa-4(grid-list-sm )
             v-layout(row wrap)
                 v-flex(xs6 align-center justify-space-between)
-                     v-text-field(required label="Add Title" name='add_title' v-model='title' v-validate="'required'" :error-messages="errors.collect('title')")
+                     v-text-field(required label="Add Title" name='add_title' v-model='title' v-validate="'required'" :error-messages="errors.collect('title')" data-vv-name="title")
                 v-spacer
                 v-flex(xs3)
-                    v-select(required :items='tag' label='Select Main Tag' v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')")
+                    v-select(required :items='tag' label='Select Main Tag' v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')" data-vv-name="main_tag")
                 v-flex(xs12)
-                    v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')")
+                    v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')" data-vv-name="content")
                 v-flex(xs8)
                   template
-                    v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='')
+                    v-select(required flat chips tags solo clearable prepend-icon='filter_list' append-icon='' label='Add Tags' v-model='tags' name='add_tags' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" apend-icon='' data-vv-name="tags")
                       template(slot='selection' slot-scope='data')
                         v-chip(close @input='remove(data.item)' :selected='data.selected') {{data.item}}
                 v-spacer
                 v-flex(xs3)
-                    v-select(required :items='items' label='Select Category' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')")
+                    v-select(required :items='items' label='Select Category' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" data-vv-name="category")
                 v-flex(xs12)
-                    v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image' v-validate="'required'" :error-messages="errors.collect('heroImage')")
+                    v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image' v-validate="'required'" :error-messages="errors.collect('heroImage')" data-vv-name="heroImage")
                 v-flex(xs8)
                   v-tooltip(bottom)
-                    v-text-field(required slot='activator' label='Add Url' v-model='url' name='add_url' v-validate="'required'" :error-messages="errors.collect('url')" :append-icon='icon')
+                    v-text-field(required slot='activator' label='Add Url' v-model='url' name='add_url' v-validate="'required'" :error-messages="errors.collect('url')" :append-icon='icon' data-vv-name="url")
                     span Url should be in English only!
                 v-spacer
                 v-flex(xs3)
@@ -106,6 +106,8 @@ export default {
       }
       else{
         console.log("Cannot Add");
+        this.loading = false;
+        this.$validator.validateAll();
       }
     },
 
@@ -118,10 +120,10 @@ export default {
 
     clear(){
       this.title = '';
-      this.category= '';
+      this.category= [];
       this.content= '';
-      this.main_tag= '';
-      this.tags= '';
+      this.main_tag= [];
+      this.tags= [];
       this.heroImage= '';
       this.url= '';
       this.$validator.reset();
@@ -136,7 +138,6 @@ export default {
         this.axios.post('/dashboard/isNewsUrlUnique',{
           url: this.url
         }).then(response => {
-          console.log(response);
           this.isUrlUnique = response.data;
           if(this.isUrlUnique){
             this.icon= "check_circle";
@@ -146,6 +147,7 @@ export default {
           }
           this.checkLoading =false;
         }).catch(error => {
+          alert("Cannot Check at this time!");
           this.checkLoading = false;
         })
       }
