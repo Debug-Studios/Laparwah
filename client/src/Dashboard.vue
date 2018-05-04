@@ -53,6 +53,8 @@
         v-toolbar-side-icon(@click.stop='drawer = !drawer').hidden-md-and-up
         span(style="text-transform: capitalize") {{user.name}}'s Dashboard
       v-spacer
+      v-btn(fab dark flat)
+        v-icon help
       v-menu(offset-y v-if='isLogged && user' dark)
         v-btn(icon slot='activator')
           v-avatar(size='32')
