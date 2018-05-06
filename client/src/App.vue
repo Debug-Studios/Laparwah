@@ -5,10 +5,19 @@
       template(slot="body" slot-scope="props")
         v-snackbar(:timeout="10000" :color="props.item.type" :value="true") {{props.item.title}}
 
-    navbar
+    navbar#navbar
 
     transition(name="fade" mode="out-in")
       router-view(:key="$route.fullPath")
+
+    v-speed-dial(v-model="fab" dark fixed bottom right transition="slide-y-transition" direction="top")
+      v-btn(color="grey darken-4" slot="activator" v-model="fab" hover dark fab)
+        v-icon keyboard_arrow_up
+        v-icon close
+      v-btn(fab dark small color="blue" @click="$vuetify.goTo('#navbar')")
+        v-icon keyboard_arrow_up
+      v-btn(fab dark small color="deep-orange" href="/")
+        v-icon home
 
     footer_custom
 

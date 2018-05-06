@@ -166,6 +166,11 @@ passport.use(
   )
 );
 
+/**
+ * Creates a new user in the mongo db and returns it.
+ * @function CreateNewUser
+ * @return {account} {Newly created account}
+ */
 function CreateNewUser (
   email,
   idKey,
