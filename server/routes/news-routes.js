@@ -7,6 +7,14 @@ const converter = new showdown.Converter({
 });
 const crypto = require('crypto');
 
+function IsLoggedIn (req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+}
+
 router.get('/getNewsPost/:url', (req, res) => {
   News.findOne({ url: req.params.url })
     .populate('creator', 'name _id email')
@@ -51,7 +59,7 @@ router.get('/getBreaking/:count', (req, res) => {
     });
 });
 
-// Get Today's Spotlights News
+// #region Types of News
 router.get('/getSpotlights/:count', (req, res) => {
   News.find({
     main_tag: 'Spotlight'
@@ -231,5 +239,17 @@ router.get('/getCulture/:count', (req, res) => {
       else res.json(news);
     });
 });
+
+// #endregion
+
+// #region Likes
+
+router.get('/currentLikeStatus/:newsId', IsLoggedIn, (req, res) => {});
+
+router.get('/like/:newsId', IsLoggedIn, (req, res) => {});
+
+router.get('/unlike/:newsId', IsLoggedIn, (req, res) => {});
+
+// #endregion
 
 module.exports = router;

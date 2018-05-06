@@ -28,8 +28,8 @@
               img(:src="news.heroImage", style="width:100%")
             v-flex(row v-html="news.content").mt-4
 
-          v-flex(md4 sm12 v-show="show_social_links")
-            .text-xs-center.sticky-top
+          v-flex(md4 sm12)
+            .text-xs-center#social-links
               a(:href="'https://plus.google.com/share?url='+ disqus_url + '&text=' + news.title" target="_blank").mr-4
                 v-avatar(size='32')
                   img(src='/icons/google.svg')
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import stickybits from "stickybits";
 export default {
   name: "newspost",
   data() {
@@ -68,6 +69,7 @@ export default {
     this.disqus_id = this.$route.params.id;
   },
   async mounted() {
+    stickybits("#social-links", { stickyBitStickyOffset: 20 });
     this.news = (await this.axios.get(
       `/news/getNewsPost/${this.$route.params.id}`
     )).data;
@@ -83,11 +85,6 @@ a.no-underline {
 
 p {
   font-size: 1.2rem;
-}
-
-.sticky-top {
-  position: sticky;
-  top: 5%;
 }
 </style>
 

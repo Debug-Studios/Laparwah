@@ -8,7 +8,7 @@
           v-flex
             h3.display-3.laparwah-font लापरवाह
 
-    v-toolbar(flat style="position: sticky; top: 0; z-index: 1000").hidden-sm-and-down
+    v-toolbar(flat style="z-index: 100").hidden-sm-and-down#news-toolbar
       v-toolbar-items
         v-btn(flat @click="$vuetify.goTo('#today', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Today
         v-btn(flat @click="$vuetify.goTo('#Politics', {duration: 500, offset: 200, easing: 'easeInOutQuad'})") Politics
@@ -114,6 +114,7 @@
 
 <script>
 import { newExpression } from "babel-types";
+import stickybits from "stickybits";
 export default {
   name: "home",
 
@@ -148,6 +149,7 @@ export default {
     document.title = "Home";
   },
   async mounted() {
+    stickybits("#news-toolbar");
     this.breakingNews = (await this.axios.get("/news/getBreaking/3")).data;
     this.spotlights = (await this.axios.get("/news/getSpotlights/8")).data;
     this.newsCategoriesData.push(
