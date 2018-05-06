@@ -11,12 +11,12 @@
       router-view(:key="$route.fullPath")
 
     v-speed-dial(v-model="fab" dark fixed bottom right transition="slide-y-transition" direction="top")
-      v-btn(color="grey darken-4" slot="activator" v-model="fab" hover dark fab)
-        v-icon keyboard_arrow_up
+      v-btn(color="deep-orange accent-2" slot="activator" v-model="fab" hover dark fab)
+        v-icon view_list
         v-icon close
-      v-btn(fab dark small color="blue" @click="$vuetify.goTo('#navbar')")
+      v-btn(fab dark small color="blue accent-2" @click="$vuetify.goTo('#navbar')")
         v-icon keyboard_arrow_up
-      v-btn(fab dark small color="deep-orange" href="/")
+      v-btn(fab dark small color="amber darken-2" href="/")
         v-icon home
 
     footer_custom

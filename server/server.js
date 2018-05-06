@@ -48,18 +48,6 @@ app.use(
         }
       },
       {
-        from: /^\/news\/.*$/,
-        to: function (context) {
-          return context.parsedUrl.pathname;
-        }
-      },
-      {
-        from: /^\/author\/.*$/,
-        to: function (context) {
-          return context.parsedUrl.pathname;
-        }
-      },
-      {
         from: /^\/stocks\/.*$/,
         to: function (context) {
           return context.parsedUrl.pathname;

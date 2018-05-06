@@ -44,7 +44,7 @@
         v-list
           v-list-tile(@click="toDashboard")
             v-list-tile-action
-              v-icon account_box
+              v-icon dashboard
             v-list-tile-title My Dashboard
           v-list-tile(@click="logout")
             v-list-tile-action
