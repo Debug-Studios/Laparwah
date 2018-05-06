@@ -10,8 +10,8 @@ const newsSchema = new Schema(
     heroImage: String,
     locale: String,
     category: { type: String, required: true },
-    main_tag: {type: String, required: true},
-    tags: {type: [String], required: true},
+    main_tag: { type: String, required: true },
+    tags: { type: [String], required: true },
     approval: {
       done: {
         mod1: { type: Boolean, default: false },
@@ -25,7 +25,7 @@ const newsSchema = new Schema(
     },
     url: { type: String, lowercase: true, required: true, unique: true },
     stats: {
-      likes: Number
+      likes: { type: Number, default: 0 }
     }
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
