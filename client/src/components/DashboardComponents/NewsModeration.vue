@@ -94,27 +94,35 @@ export default {
       duration: 30000
     });
 
-    this.user = (await this.axios.get("/accounts/getCurrentUser")).data.user;
-    if (this.user.roles.includes("admin")) {
-      this.allNews = (await this.axios.get(
-        `/dashboard/moderationQueueAdmin/1/`
-      )).data;
-      this.length = Math.ceil(
-        parseInt(
-          (await this.axios.get("/dashboard/moderationQueueAdminCount")).data
-            .newsCount
-        ) / 10
-      );
-    } else if (this.user.roles.includes("editor")) {
-      this.allNews = (await this.axios.get(
-        `/dashboard/moderationQueueEditor/1/${this.user.special_role}`
-      )).data;
-      this.length = Math.ceil(
-        parseInt(
-          (await this.axios.get("/dashboard/moderationQueueEditorCount")).data
-            .newsCount
-        ) / 10
-      );
+    try {
+      this.user = (await this.axios.get("/accounts/getCurrentUser")).data.user;
+      if (this.user.roles.includes("admin")) {
+        this.allNews = (await this.axios.get(
+          `/dashboard/moderationQueueAdmin/1/`
+        )).data;
+        this.length = Math.ceil(
+          parseInt(
+            (await this.axios.get("/dashboard/moderationQueueAdminCount")).data
+              .newsCount
+          ) / 10
+        );
+      } else if (this.user.roles.includes("editor")) {
+        this.allNews = (await this.axios.get(
+          `/dashboard/moderationQueueEditor/1/${this.user.special_role}`
+        )).data;
+        this.length = Math.ceil(
+          parseInt(
+            (await this.axios.get("/dashboard/moderationQueueEditorCount")).data
+              .newsCount
+          ) / 10
+        );
+      }
+    } catch (e) {
+      this.$notify({
+        group: "dashboard",
+        title: e,
+        type: "error"
+      });
     }
   }
 };

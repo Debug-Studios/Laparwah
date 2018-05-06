@@ -3,14 +3,7 @@ const Schema = mongoose.Schema;
 
 const accountSchema = new Schema(
   {
-    username: {
-      type: String,
-      unique: true,
-      sparse: true,
-      trim: true,
-      index: true
-    },
-    name: String,
+    name: { type: String, default: 'Unknown Name' },
     email: { type: String, required: true, unique: true, lowercase: true },
     age: Number,
     gender: String,
