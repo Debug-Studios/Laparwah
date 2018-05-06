@@ -40,9 +40,12 @@
                 v-avatar(size='36')
                   img(src='/icons/twitter.svg')
 
-              v-flex(row).pt-3
-                v-btn(flat icon :color="like_color" @click="like_color = 'red darken-4'").mr-2
-                  v-icon thumb_up
+              v-flex(row v-if="isLiked != null").pt-3
+                v-tooltip(bottom)
+                  v-btn(flat slot="activator" icon :color="like_color" @click="likeUnlike").mr-2
+                    v-icon thumb_up
+                  span(v-if="isLiked") Click to Unlike
+                  span(v-else) Click to Like
                 v-btn(flat icon @click="$vuetify.goTo('#comments')")
                   v-icon comment
 
@@ -60,6 +63,7 @@ export default {
       news: {},
       disqus_url: null,
       disqus_id: null,
+      isLiked: null,
       like_color: "grey",
       show_social_links: true
     };
@@ -74,6 +78,42 @@ export default {
       `/news/getNewsPost/${this.$route.params.id}`
     )).data;
     document.title = `${this.news.title}`;
+
+    await this.likeChecker();
+  },
+  methods: {
+    likeUnlike: async function() {
+      if (this.isLiked) {
+        // Unlike the post
+        await this.axios.get(`/news/unlike/${this.news._id}`);
+        await this.likeChecker();
+        this.$notify({
+          group: "main",
+          title: "Removed from liked posts",
+          type: "dark"
+        });
+      } else {
+        // Like the post
+        await this.axios.get(`/news/like/${this.news._id}`);
+        await this.likeChecker();
+        this.$notify({
+          group: "main",
+          title: "Added to liked posts",
+          type: "success"
+        });
+      }
+    },
+
+    likeChecker: async function() {
+      this.isLiked = (await this.axios.get(
+        `/news/currentLikeStatus/${this.news._id}`
+      )).data;
+      if (this.isLiked) {
+        this.like_color = "red";
+      } else {
+        this.like_color = "grey";
+      }
+    }
   }
 };
 </script>

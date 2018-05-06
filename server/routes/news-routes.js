@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const News = require('../models/news');
+const Account = require('../models/account');
 const showdown = require('showdown');
 const converter = new showdown.Converter({
   simplifiedAutoLink: true,
@@ -244,11 +245,50 @@ router.get('/getCulture/:count', (req, res) => {
 
 // #region Likes
 
-router.get('/currentLikeStatus/:newsId', IsLoggedIn, (req, res) => {});
+router.get('/currentLikeStatus/:newsId', IsLoggedIn, (req, res) => {
+  Account.find({ likes: req.params.newsId })
+    .count()
+    .exec((err, count) => {
+      if (err) res.json(false);
+      else {
+        if (count > 0) {
+          res.json(true);
+        } else {
+          res.json(false);
+        }
+      }
+    });
+});
 
-router.get('/like/:newsId', IsLoggedIn, (req, res) => {});
+router.get('/like/:newsId', IsLoggedIn, (req, res) => {
+  Account.findByIdAndUpdate(
+    req.user._id,
+    {
+      $push: { likes: req.params.newsId }
+    },
+    (err, acc) => {
+      if (err) res.json(err);
+      else {
+        res.json(true);
+      }
+    }
+  );
+});
 
-router.get('/unlike/:newsId', IsLoggedIn, (req, res) => {});
+router.get('/unlike/:newsId', IsLoggedIn, (req, res) => {
+  Account.findByIdAndUpdate(
+    req.user._id,
+    {
+      $pull: { likes: req.params.newsId }
+    },
+    (err, acc) => {
+      if (err) res.json(err);
+      else {
+        res.json(true);
+      }
+    }
+  );
+});
 
 // #endregion
 
