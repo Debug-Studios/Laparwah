@@ -150,6 +150,20 @@ export default {
   },
   async mounted() {
     stickybits("#news-toolbar");
+
+    // Apply responsive padding
+    if (screen.width < 800) {
+      document.getElementById("other-news-layout").classList.remove("px-5");
+      document.getElementById("spotlight-layout").classList.remove("px-5");
+      document.getElementById("other-news-layout").classList.add("px-2");
+      document.getElementById("spotlight-layout").classList.add("px-2");
+    } else {
+      document.getElementById("other-news-layout").classList.remove("px-2");
+      document.getElementById("spotlight-layout").classList.remove("px-2");
+      document.getElementById("other-news-layout").classList.add("px-5");
+      document.getElementById("spotlight-layout").classList.add("px-5");
+    }
+
     this.breakingNews = (await this.axios.get("/news/getBreaking/3")).data;
     this.spotlights = (await this.axios.get("/news/getSpotlights/8")).data;
     this.newsCategoriesData.push(
@@ -179,19 +193,6 @@ export default {
     this.newsCategoriesData.push(
       (await this.axios.get("/news/getCulture/6")).data
     );
-
-    // Apply responsive padding
-    if (screen.width < 800) {
-      document.getElementById("other-news-layout").classList.remove("px-5");
-      document.getElementById("spotlight-layout").classList.remove("px-5");
-      document.getElementById("other-news-layout").classList.add("px-2");
-      document.getElementById("spotlight-layout").classList.add("px-2");
-    } else {
-      document.getElementById("other-news-layout").classList.remove("px-2");
-      document.getElementById("spotlight-layout").classList.remove("px-2");
-      document.getElementById("other-news-layout").classList.add("px-5");
-      document.getElementById("spotlight-layout").classList.add("px-5");
-    }
   }
 };
 </script>
