@@ -29,7 +29,7 @@
             v-flex(row v-html="news.content").mt-4
 
           v-flex(md4 sm12 v-show="show_social_links")
-            .text-xs-center#social-links
+            .text-xs-center.sticky-top
               a(:href="'https://plus.google.com/share?url='+ disqus_url + '&text=' + news.title" target="_blank").mr-4
                 v-avatar(size='32')
                   img(src='/icons/google.svg')
@@ -68,20 +68,6 @@ export default {
     this.disqus_id = this.$route.params.id;
   },
   async mounted() {
-    window.onscroll = () => {
-      if (
-        document.body.scrollTop > 200 ||
-        document.documentElement.scrollTop > 200
-      ) {
-        document
-          .getElementById("social-links")
-          .classList.add("fixed-right-middle");
-      } else {
-        document
-          .getElementById("social-links")
-          .classList.remove("fixed-right-middle");
-      }
-    };
     this.news = (await this.axios.get(
       `/news/getNewsPost/${this.$route.params.id}`
     )).data;
@@ -99,7 +85,7 @@ p {
   font-size: 1.2rem;
 }
 
-.fixed-right-middle {
+.sticky-top {
   position: sticky;
   top: 5%;
 }
