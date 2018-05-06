@@ -28,8 +28,8 @@
               img(:src="news.heroImage", style="width:100%")
             v-flex(row v-html="news.content").mt-4
 
-          v-flex(md4 sm12)
-            .text-xs-center
+          v-flex(md4 sm12 v-show="show_social_links")
+            .text-xs-center#social-links
               a(:href="'https://plus.google.com/share?url='+ disqus_url + '&text=' + news.title" target="_blank").mr-4
                 v-avatar(size='32')
                   img(src='/icons/google.svg')
@@ -40,7 +40,13 @@
                 v-avatar(size='36')
                   img(src='/icons/twitter.svg')
 
-      v-flex.comments(v-if="disqus_url")
+              v-flex(row).pt-3
+                v-btn(flat icon :color="like_color" @click="like_color = 'red darken-4'").mr-2
+                  v-icon thumb_up
+                v-btn(flat icon @click="$vuetify.goTo('#comments')")
+                  v-icon comment
+
+      v-flex.comments(v-if="disqus_url")#comments
         vue-disqus(shortname="laparwah" :identifier="disqus_id" :url="disqus_url" :title="news.title")
 
 </template>
@@ -52,20 +58,34 @@ export default {
     return {
       news: {},
       disqus_url: null,
-      disqus_id: null
+      disqus_id: null,
+      like_color: "grey",
+      show_social_links: true
     };
   },
   created() {
     this.disqus_url = window.location.href;
     this.disqus_id = this.$route.params.id;
   },
-  mounted() {
-    this.axios
-      .get(`/news/getNewsPost/${this.$route.params.id}`)
-      .then(response => {
-        this.news = response.data;
-        document.title = `${this.news.title}`;
-      });
+  async mounted() {
+    window.onscroll = () => {
+      if (
+        document.body.scrollTop > 200 ||
+        document.documentElement.scrollTop > 200
+      ) {
+        document
+          .getElementById("social-links")
+          .classList.add("fixed-right-middle");
+      } else {
+        document
+          .getElementById("social-links")
+          .classList.remove("fixed-right-middle");
+      }
+    };
+    this.news = (await this.axios.get(
+      `/news/getNewsPost/${this.$route.params.id}`
+    )).data;
+    document.title = `${this.news.title}`;
   }
 };
 </script>
@@ -77,6 +97,11 @@ a.no-underline {
 
 p {
   font-size: 1.2rem;
+}
+
+.fixed-right-middle {
+  position: sticky;
+  top: 5%;
 }
 </style>
 

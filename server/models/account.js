@@ -17,6 +17,7 @@ const accountSchema = new Schema(
     designation: String,
     spectrum: { type: String, default: '-' },
     special_role: String,
+    likes: [Schema.Types.ObjectId],
     oauth: {
       google: {
         type: String,
