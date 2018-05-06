@@ -31,7 +31,7 @@
           v-container(fluid grid-list-md)
             v-layout(row wrap).mt-1
               v-flex(xs12 md8 style="display: flex;" v-if="breakingNews[0]")
-                router-link(:to="'/news/' + breakingNews[0].url").plain
+                router-link(:to="'/news/' + breakingNews[0].url" style="width=100%").plain.full-width
                   v-jumbotron(:src="breakingNews[0].heroImage" dark :gradient="gradients[0]" height="100%")
                     v-container(fill-height)
                         v-layout(fill-height)
@@ -236,6 +236,10 @@ a.plain.title {
 <style lang="scss">
 .jumbotron__image {
   min-height: 100%;
+}
+
+.full-width {
+  width: 100%;
 }
 </style>
 
