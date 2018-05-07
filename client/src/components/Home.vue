@@ -40,9 +40,11 @@
                             v-flex.breaking-flex--text
                               .display-2(style="font-weight: 800") {{breakingNews[0].title}}
                               span.subheading.mt-2.grey--text.text--lighten-1.ml-1
-                                span by {{breakingNews[0].creator.name}}
+                                span.span-bottom by {{breakingNews[0].creator.name}}
                                 v-icon(left color="grey").mr-1.ml-2 schedule
-                                span {{breakingNews[0].created_at | moment("dddd, MMMM Do YYYY")}}
+                                span.span-bottom {{breakingNews[0].created_at | moment("dddd, MMMM Do YYYY")}}
+                                v-icon(left color="grey").mr-2.ml-4 thumb_up
+                                span.span-bottom {{breakingNews[0].stats.likes}}
               v-flex(xs12 md4)
                 v-flex(xs12 style="display: flex;" v-if="breakingNews[1]").pt-0.px-0
                   router-link(:to="'/news/' + breakingNews[1].url").plain
@@ -54,9 +56,11 @@
                               v-flex.breaking-flex--text
                                 .headline(style="font-weight: 800") {{breakingNews[1].title}}
                                 span.body-2.mt-2.grey--text.text--lighten-1.ml-1
-                                  span by {{breakingNews[1].creator.name}}
+                                  span.span-bottom by {{breakingNews[1].creator.name}}
                                   v-icon(left color="grey").mr-1.ml-2 schedule
-                                  span {{breakingNews[1].created_at | moment("dddd, MMMM Do YYYY")}}
+                                  span.span-bottom {{breakingNews[1].created_at | moment("dddd, MMMM Do YYYY")}}
+                                  v-icon(left color="grey").mr-2.ml-3 thumb_up
+                                  span.span-bottom {{breakingNews[1].stats.likes}}
                 v-flex(xs12 style="display: flex;" v-if="breakingNews[2]").pb-0.px-0
                   router-link(:to="'/news/' + breakingNews[2].url").plain
                     v-jumbotron(:src="breakingNews[2].heroImage" dark :gradient="gradients[1]"  style="height:20rem")
@@ -67,9 +71,11 @@
                               v-flex.breaking-flex--text
                                 .headline(style="font-weight: 800") {{breakingNews[2].title}}
                                 span.body-2.mt-2.grey--text.text--lighten-1.ml-1
-                                  span by {{breakingNews[2].creator.name}}
+                                  span.span-bottom by {{breakingNews[2].creator.name}}
                                   v-icon(left color="grey").mr-1.ml-2 schedule
-                                  span {{breakingNews[2].created_at | moment("dddd, MMMM Do YYYY")}}
+                                  span.span-bottom {{breakingNews[2].created_at | moment("dddd, MMMM Do YYYY")}}
+                                  v-icon(left color="grey").mr-2.ml-3 thumb_up
+                                  span.span-bottom {{breakingNews[2].stats.likes}}
 
           v-container(fluid grid-list-xl).pa-0#today
             v-layout(row).px-5#spotlight-layout
@@ -85,9 +91,10 @@
                             div
                               h3.title.ml-1.mb-2 {{news.title}}
                               span.body-2.mt-2.grey--text.text--lighten-1.ml-1
-                                span by {{news.creator.name}}
+                                span.span-bottom by {{news.creator.name}}
                                 v-icon(left color="grey").mr-1.ml-2 schedule
-                                span {{news.created_at | moment("from", "now")}}
+                                span.span-bottom {{news.created_at | moment("from", "now")}}
+
 
             v-layout(row wrap grid-list-xl).px-5#other-news-layout
               v-flex(md4 sm12 v-for="(category, index1) in newsCategories" :key="index1")
@@ -233,6 +240,10 @@ a.plain.title {
 
 #laparwah-header {
   height: 20vh !important;
+}
+
+.span-bottom {
+  vertical-align: bottom;
 }
 </style>
 
