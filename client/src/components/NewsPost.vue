@@ -44,7 +44,7 @@
                 v-tooltip(bottom)
                   v-btn(flat slot="activator" icon :color="like_color" @click="likeUnlike").mr-3
                     v-icon thumb_up
-                    v-subheading.ml-2 {{like_count}}
+                    span.subheading.ml-2 {{like_count}}
                   span(v-if="isLiked") Click to Unlike
                   span(v-else) Click to Like
                 v-tooltip(bottom)

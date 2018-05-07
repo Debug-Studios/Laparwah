@@ -10,8 +10,8 @@
     transition(name="fade" mode="out-in")
       router-view(:key="$route.fullPath")
 
-    v-speed-dial(v-model="fab" dark fixed bottom right transition="slide-y-transition" direction="top")
-      v-btn(color="deep-orange accent-2" slot="activator" v-model="fab" hover dark fab)
+    v-speed-dial(dark fixed bottom right transition="slide-y-transition" direction="top")
+      v-btn(color="deep-orange accent-2" slot="activator" hover dark fab)
         v-icon view_list
         v-icon close
       v-btn(fab dark small color="blue accent-2" @click="$vuetify.goTo('#navbar')")
