@@ -42,12 +42,15 @@
 
               v-flex(row v-if="isLiked != null").pt-3
                 v-tooltip(bottom)
-                  v-btn(flat slot="activator" icon :color="like_color" @click="likeUnlike").mr-2
+                  v-btn(flat slot="activator" icon :color="like_color" @click="likeUnlike").mr-3
                     v-icon thumb_up
+                    v-subheading.ml-2 {{like_count}}
                   span(v-if="isLiked") Click to Unlike
                   span(v-else) Click to Like
-                v-btn(flat icon @click="$vuetify.goTo('#comments')")
-                  v-icon comment
+                v-tooltip(bottom)
+                  v-btn(flat slot="activator" icon @click="$vuetify.goTo('#comments')")
+                    v-icon comment
+                  span Click to go to comments
 
       v-flex.comments(v-if="disqus_url")#comments
         vue-disqus(shortname="laparwah" :identifier="disqus_id" :url="disqus_url" :title="news.title")
@@ -65,6 +68,7 @@ export default {
       disqus_id: null,
       isLiked: null,
       like_color: "grey",
+      like_count: 0,
       show_social_links: true
     };
   },
@@ -108,8 +112,11 @@ export default {
       this.isLiked = (await this.axios.get(
         `/news/currentLikeStatus/${this.news._id}`
       )).data;
+      this.like_count = (await this.axios.get(
+        `/news/likeCount/${this.news._id}`
+      )).data.stats.likes;
       if (this.isLiked) {
-        this.like_color = "red";
+        this.like_color = "blue accent-2";
       } else {
         this.like_color = "grey";
       }

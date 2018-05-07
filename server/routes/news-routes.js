@@ -245,6 +245,17 @@ router.get('/getCulture/:count', (req, res) => {
 
 // #region Likes
 
+router.get('/likeCount/:newsId', (req, res) => {
+  News.findById(req.params.newsId)
+    .select('stats.likes')
+    .exec((err, likeCount) => {
+      if (err) res.json(err);
+      else {
+        res.json(likeCount);
+      }
+    });
+});
+
 router.get('/currentLikeStatus/:newsId', IsLoggedIn, (req, res) => {
   Account.find({ likes: req.params.newsId })
     .count()
