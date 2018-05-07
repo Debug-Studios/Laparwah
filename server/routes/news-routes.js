@@ -269,7 +269,16 @@ router.get('/like/:newsId', IsLoggedIn, (req, res) => {
     (err, acc) => {
       if (err) res.json(err);
       else {
-        res.json(true);
+        News.findByIdAndUpdate(
+          req.params.newsId,
+          { $inc: { 'stats.likes': 1 } },
+          (err, acc) => {
+            if (err) res.json(err);
+            else {
+              res.json(true);
+            }
+          }
+        );
       }
     }
   );
@@ -284,7 +293,16 @@ router.get('/unlike/:newsId', IsLoggedIn, (req, res) => {
     (err, acc) => {
       if (err) res.json(err);
       else {
-        res.json(true);
+        News.findByIdAndUpdate(
+          req.params.newsId,
+          { $inc: { 'stats.likes': -1 } },
+          (err, acc) => {
+            if (err) res.json(err);
+            else {
+              res.json(true);
+            }
+          }
+        );
       }
     }
   );
