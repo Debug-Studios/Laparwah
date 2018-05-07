@@ -20,9 +20,9 @@
                   p.subheading.grey--text
                     v-icon(right color="grey").mr-1 schedule
                     span.span-bottom Updated&nbsp;
-                    span.span-bottom {{news.updated_at | moment('timezone', 'Asia/Kolkata', 'HH:mm z')}}&nbsp;
-                    span.span-bottom ({{news.updated_at | moment('timezone', 'Atlantic/Reykjavik', 'HH:mm z')}})&nbsp;
-                    span.span-bottom {{news.updated_at | moment('dddd, MMMM Do YYYY')}}
+                    span.span-bottom {{news.created_at | moment('timezone', 'Asia/Kolkata', 'HH:mm z')}}&nbsp;
+                    span.span-bottom ({{news.created_at | moment('timezone', 'Atlantic/Reykjavik', 'HH:mm z')}})&nbsp;
+                    span.span-bottom {{news.created_at | moment('dddd, MMMM Do YYYY')}}
 
             v-layout(row)
               img(:src="news.heroImage", style="width:100%")
