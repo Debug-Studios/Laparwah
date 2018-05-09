@@ -93,7 +93,6 @@ export default {
   methods: {
     sendPost() {
       this.loading = true;
-      this.checkAvailability();
       this.$validator.validateAll();
       if (this.isUrlUnique) {
         this.axios
@@ -127,7 +126,12 @@ export default {
             this.loading = false;
           });
       } else {
-        console.log("Cannot Add");
+        this.$notify({
+              group: "dashboard",
+              title: "Please check url availability!",
+              type: "error",
+              duration: 30000
+            });
         this.loading = false;
         this.$validator.validateAll();
       }

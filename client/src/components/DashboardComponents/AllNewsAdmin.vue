@@ -20,7 +20,7 @@
                     v-card-actions
                         v-spacer
                         v-btn( color='success' @click.native='editNews(news._id)' ) Edit
-                        v-btn(color='error' @click='deletePost(news._id)' ) Delete
+                        v-btn(color='error' @click.native='deletePost(news._id)' ) Delete
         .text-xs-center.pageNumber
             v-pagination(:length='length' v-model='page' circle)
 </template>
@@ -30,7 +30,7 @@ export default {
         allnews: [],
         page: 1,
         length:1,
-        user: []
+        user: [],
 
     }),
   async  mounted(){
