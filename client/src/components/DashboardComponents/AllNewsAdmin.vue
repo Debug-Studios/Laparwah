@@ -3,9 +3,9 @@
         .text-xs-center.pageNumber
             v-pagination(:length='length' v-model='page' circle)
         transition-group(name="fade" tag="div")
-            v-card(v-for='(news, index) in allnews' :key='news._id')
-                v-card-title.blue-grey.darken-2.py-4.title
-                    | {{news.title}}
+            v-card.mt-4(v-for='(news, index) in allnews' :key='news._id')
+                v-card-title.grey.darken-4.py-4.title
+                    h3 {{news.title}}
                 v-container.pa-4(grid-list-sm )
                     v-layout(row wrap)
                         v-flex(xs6)
@@ -20,7 +20,7 @@
                     v-card-actions
                         v-spacer
                         v-btn( color='success' @click.native='editNews(news._id)' ) Edit
-                        v-btn( @click='deletePost(news._id)' ) Delete
+                        v-btn(color='error' @click='deletePost(news._id)' ) Delete
         .text-xs-center.pageNumber
             v-pagination(:length='length' v-model='page' circle)
 </template>
@@ -29,11 +29,13 @@ export default {
     data: ()=>({
         allnews: [],
         page: 1,
-        length:1
+        length:1,
+        user: []
 
     }),
   async  mounted(){
         this.allnews = (await this.axios.get(`/dashboard/allNewsPosts/${this.page}`)).data;
+        this.user = (await this.axios.get("/accounts/getCurrentUserDetails")).data.user;
         this.length = Math.ceil(parseInt((await this.axios.get('/dashboard/allNewsPostsCount')).data.newsCount)/10);
     },
     methods: {

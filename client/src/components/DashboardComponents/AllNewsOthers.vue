@@ -3,7 +3,7 @@
     .text-xs-center.pageNumber
         v-pagination(:length='length' v-model='page' circle)
     transition-group(name="fade" tag="div")
-        v-card(v-for='(news, index) in allnewsothers' :key='news._id')
+        v-card.mt-4(v-for='(news, index) in allnewsothers' :key='news._id')
             v-card-title.blue-grey.darken-2.py-4.title
                 | {{news.title}}
             v-container.pa-4(grid-list-sm )
@@ -20,7 +20,7 @@
                 v-card-actions
                     v-spacer
                     v-btn( color='success' @click.native='editNews(news._id)' ) Edit
-                    v-btn( @click='deletePost(news._id)' ) Delete
+                    v-btn(color='error' @click='deletePost(news._id)' ) Delete
     .text-xs-center.pageNumber
         v-pagination(:length='length' v-model='page' circle)
 </template>
