@@ -22,7 +22,7 @@
                 v-card-actions
                     v-spacer
                     v-btn( color='success' @click='savePost'  :loading="loading" :disabled="loading" ) Save
-                    v-btn( @click='goBack') Cancel
+                    v-btn(color='error' @click='goBack') Cancel
 </template>
 <script>
 export default {
@@ -88,7 +88,7 @@ export default {
                 })
         },
         goBack(){
-            window.location.href = `${window.location.origin}/dashboard#/`;
+            window.location.href = `${window.location.origin}/dashboard/#/allnewsothers`;
         }
     }
 }
