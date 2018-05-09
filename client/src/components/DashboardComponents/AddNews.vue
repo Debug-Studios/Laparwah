@@ -12,7 +12,7 @@
                         v-text-field(required label="Add Title" name='add_title' v-model='title' v-validate="'required'" :error-messages="errors.collect('title')" data-vv-name="title")
                     v-spacer
                     v-flex(xs3)
-                        v-select(required :items='tag'  v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')" data-vv-name="main_tag")
+                        v-select(required label='Select Main tag' :items='tag'  v-model='main_tag' name='add_tag' input-type='text' v-validate="'required'" :error-messages="errors.collect('main_tag')" data-vv-name="main_tag")
                     v-flex(xs12)
                         v-text-field(required name='add_content' v-model='content' label='Add Content' textarea dark v-validate="'required'" :error-messages="errors.collect('content')" data-vv-name="content" v-on:keyup="parseMarkdown")
                     v-flex(xs8)
@@ -22,7 +22,7 @@
                             v-chip(close @input='remove(data.item)' :selected='data.selected') {{data.item}}
                     v-spacer
                     v-flex(xs3)
-                        v-select(required :items='items' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" data-vv-name="category")
+                        v-select(required label='Select Category' :items='items' v-model='category' name='add_category' input-type='text'  v-validate="'required'" :error-messages="errors.collect('category')" data-vv-name="category")
                     v-flex(xs12)
                         v-text-field(required label='Add Image Link' v-model='heroImage' name='add_image' v-validate="'required'" :error-messages="errors.collect('heroImage')" data-vv-name="heroImage")
                     v-flex(xs8)
@@ -58,10 +58,10 @@ export default {
     _id: "",
     icon: "",
     title: "",
-    category: "Politics",
+    category: [],
     content: "",
     htmlContent: "",
-    main_tag: "Spotlight",
+    main_tag: [],
     tags: [],
     heroImage: "",
     url: "",
