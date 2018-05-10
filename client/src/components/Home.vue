@@ -230,6 +230,7 @@ a.plain.title {
   flex-direction: column;
   align-items: left;
   justify-content: space-between;
+  width: 100%;
 
   &--text {
     display: flex;
