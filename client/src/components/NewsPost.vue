@@ -42,7 +42,7 @@
 
               v-flex(row v-if="isLiked != null").pt-3
                 v-tooltip(bottom)
-                  v-btn(flat slot="activator" icon :color="like_color" @click="likeUnlike").mr-3
+                  v-btn(flat slot="activator" icon :color="like_color" @click="likeUnlike" :disabled="likeDisabled" :loading="likeDisabled").mr-3
                     v-icon thumb_up
                     span.subheading.ml-2 {{like_count}}
                   span(v-if="isLiked") Click to Unlike
@@ -69,7 +69,8 @@ export default {
       isLiked: null,
       like_color: "grey",
       like_count: 0,
-      show_social_links: true
+      show_social_links: true,
+      likeDisabled: false
     };
   },
   created() {
@@ -87,6 +88,7 @@ export default {
   },
   methods: {
     likeUnlike: async function() {
+      this.likeDisabled = true;
       if (this.isLiked) {
         // Unlike the post
         await this.axios.get(`/news/unlike/${this.news._id}`);
@@ -106,9 +108,11 @@ export default {
           type: "success"
         });
       }
+      this.likeDisabled = false;
     },
 
     likeChecker: async function() {
+      this.likeDisabled = true;
       this.isLiked = (await this.axios.get(
         `/news/currentLikeStatus/${this.news._id}`
       )).data;
@@ -120,6 +124,7 @@ export default {
       } else {
         this.like_color = "grey";
       }
+      this.likeDisabled = false;
     }
   }
 };
