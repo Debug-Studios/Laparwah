@@ -59,6 +59,7 @@
 
 <script>
 import stickybits from "stickybits";
+import { EventBus } from "../eventbus.js";
 export default {
   name: "newspost",
   data() {
@@ -78,11 +79,13 @@ export default {
     this.disqus_id = this.$route.params.id;
   },
   async mounted() {
+    EventBus.$emit("show-loading");
     stickybits("#social-links", { stickyBitStickyOffset: 20 });
     this.news = (await this.axios.get(
       `/news/getNewsPost/${this.$route.params.id}`
     )).data;
     document.title = `${this.news.title}`;
+    EventBus.$emit("hide-loading");
 
     await this.likeChecker();
   },

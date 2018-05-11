@@ -122,6 +122,7 @@
 <script>
 import { newExpression } from "babel-types";
 import stickybits from "stickybits";
+import { EventBus } from "../eventbus.js";
 export default {
   name: "home",
 
@@ -158,6 +159,8 @@ export default {
   async mounted() {
     stickybits("#news-toolbar");
 
+    EventBus.$emit("show-loading");
+
     // Apply responsive padding
     if (screen.width < 800) {
       document.getElementById("other-news-layout").classList.remove("px-5");
@@ -172,6 +175,7 @@ export default {
     }
 
     this.breakingNews = (await this.axios.get("/news/getBreaking/3")).data;
+    EventBus.$emit("hide-loading");
     this.spotlights = (await this.axios.get("/news/getSpotlights/8")).data;
     this.newsCategoriesData.push(
       (await this.axios.get("/news/getPolitics/6")).data
